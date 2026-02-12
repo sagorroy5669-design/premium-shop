@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PremiumShop - বাংলাদেশের সেরা অনলাইন শপিং</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CUSTOM CSS ===== */
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #ffffff;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* ===== CONTAINER ===== */
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* ===== HEADER ===== */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .cart-badge {
+            background: #ef4444;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+        
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        /* ===== CATEGORIES ===== */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--dark);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-image {
+            height: 180px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: var(--primary);
+        }
+        
+        .category-info {
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .category-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        /* ===== PRODUCTS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-details {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .price-current {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .price-old {
+            font-size: 16px;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+        
+        .btn-add-cart {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-add-cart:hover {
+            background: #1d4ed8;
+        }
+        
+        /* ===== FEATURES ===== */
+        .features-section {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 60px;
+            margin-top: 80px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .features-section {
+                padding: 40px 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 70px 0;
+            }
+            
+            .categories-grid,
+            .products-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container-custom">
+            <div class="top-bar-content">
+                <div class="bangla">
+                    <i class="fas fa-shipping-fast"></i> ১০০০+ টাকার অর্ডারে নিখরচায় ডেলিভারি
+                </div>
+                <div class="bangla">
+                    <i class="fas fa-phone-alt"></i> হেল্পলাইন: ০৯৬৩৮-১১১-১১১
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container-custom">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-crown"></i> Premium<span>Shop</span>
+                </a>
+                
+                <!-- Navigation -->
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html" class="nav-link active">হোম</a></li>
+                        <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                        <li><a href="product-details.html" class="nav-link">প্রোডাক্ট ডিটেইল</a></li>
+                        <li><a href="cart.html" class="nav-link">কার্ট <span class="cart-badge">0</span></a></li>
+                        <li><a href="checkout-simple.html" class="nav-link">চেকআউট</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container-custom">
+            <div class="hero-content">
+                <h1 class="hero-title bangla">বাংলাদেশের সেরা অনলাইন শপিং</h1>
+                <p class="hero-subtitle bangla">১০০% অথেনটিক প্রোডাক্ট, নিখরচায় ডেলিভারি এবং ৭ দিনের রিটার্ন পলিসি</p>
+                <a href="products.html" class="btn-primary-custom bangla">
+                    <i class="fas fa-shopping-bag me-2"></i> শপিং শুরু করুন
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section">
+        <div class="container-custom">
+            <h2 class="section-title bangla">জনপ্রিয় ক্যাটাগরি</h2>
+            
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <a href="products.html" class="category-card">
+                    <div class="category-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name bangla">স্মার্টফোন</h3>
+                        <p class="bangla text-muted">৫০+ ব্র্যান্ড</p>
+                    </div>
+                </a>
+                
+                <!-- Category 2 -->
+                <a href="products.html" class="category-card">
+                    <div class="category-image">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name bangla">ফ্যাশন</h3>
+                        <p class="bangla text-muted">পুরুষ ও মহিলা</p>
+                    </div>
+                </a>
+                
+                <!-- Category 3 -->
+                <a href="products.html" class="category-card">
+                    <div class="category-image">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name bangla">হোম অ্যান্ড গার্ডেন</h3>
+                        <p class="bangla text-muted">আধুনিক ফার্নিচার</p>
+                    </div>
+                </a>
+                
+                <!-- Category 4 -->
+                <a href="products.html" class="category-card">
+                    <div class="category-image">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name bangla">ল্যাপটপ</h3>
+                        <p class="bangla text-muted">৩০+ মডেল</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section" style="background: var(--light);">
+        <div class="container-custom">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <h2 class="section-title bangla mb-0">বিশেষ অফার</h2>
+                <a href="products.html" class="btn-primary-custom bangla" style="padding: 10px 25px;">
+                    সব দেখুন <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                             alt="Samsung Galaxy S23 Ultra">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title bangla">স্যামসাং গ্যালাক্সি S23 আল্ট্রা</h3>
+                        <div class="product-price">
+                            <span class="price-current bangla">৳ ১,১৫,৯৯৯</span>
+                            <span class="price-old bangla">৳ ১,৬৫,০০০</span>
+                        </div>
+                        <button class="btn-add-cart bangla" onclick="addToCart(1)">
+                            <i class="fas fa-cart-plus me-2"></i> কার্টে যোগ করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                             alt="Nike Air Jordan">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title bangla">নাইক এয়ার জর্ডান 1</h3>
+                        <div class="product-price">
+                            <span class="price-current bangla">৳ ১৫,৯৯৯</span>
+                            <span class="price-old bangla">৳ ১৮,৫০০</span>
+                        </div>
+                        <button class="btn-add-cart bangla" onclick="addToCart(2)">
+                            <i class="fas fa-cart-plus me-2"></i> কার্টে যোগ করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                             alt="MacBook Pro">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title bangla">এপেল ম্যাকবুক প্রো M2</h3>
+                        <div class="product-price">
+                            <span class="price-current bangla">৳ ২,৪৫,০০০</span>
+                        </div>
+                        <button class="btn-add-cart bangla" onclick="addToCart(3)">
+                            <i class="fas fa-cart-plus me-2"></i> কার্টে যোগ করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1571175443880-49e1d1b5d16b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                             alt="Walton Refrigerator">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title bangla">ওয়ালটন ফ্রিজ ৩২৫L</h3>
+                        <div class="product-price">
+                            <span class="price-current bangla">৳ ৪৫,০০০</span>
+                            <span class="price-old bangla">৳ ৫২,০০০</span>
+                        </div>
+                        <button class="btn-add-cart bangla" onclick="addToCart(4)">
+                            <i class="fas fa-cart-plus me-2"></i> কার্টে যোগ করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container-custom">
+            <div class="features-section">
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3 class="feature-title bangla">নিখরচায় ডেলিভারি</h3>
+                        <p class="bangla text-muted">১০০০+ টাকার অর্ডারে</p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title bangla">১০০% নিরাপদ</h3>
+                        <p class="bangla text-muted">সিকিউর পেমেন্ট</p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-undo-alt"></i>
+                        </div>
+                        <h3 class="feature-title bangla">৭ দিন ফেরত</h3>
+                        <p class="bangla text-muted">কোনো ঝামেলা ছাড়াই</p>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title bangla">২৪/৭ সাপোর্ট</h3>
+                        <p class="bangla text-muted">আমরা আছি আপনার পাশে</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container-custom">
+            <div class="footer-content">
+                <!-- Company Info -->
+                <div class="footer-column">
+                    <h3 class="bangla">PremiumShop</h3>
+                    <p class="bangla" style="color: #cbd5e1; margin-top: 15px;">
+                        বাংলাদেশের সেরা অনলাইন শপিং প্ল্যাটফর্ম। ১০০% অথেনটিক পণ্য, নিরাপদ শপিং এবং সেরা কাস্টমার সার্ভিস।
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="bangla">কুইক লিংক</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html" class="bangla">হোম</a></li>
+                        <li><a href="products.html" class="bangla">পণ্য</a></li>
+                        <li><a href="product-details.html" class="bangla">প্রোডাক্ট ডিটেইল</a></li>
+                        <li><a href="cart.html" class="bangla">কার্ট</a></li>
+                        <li><a href="checkout-simple.html" class="bangla">চেকআউট</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Help -->
+                <div class="footer-column">
+                    <h3 class="bangla">সাহায্য</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="bangla">সাপোর্ট</a></li>
+                        <li><a href="#" class="bangla">FAQ</a></li>
+                        <li><a href="#" class="bangla">রিটার্ন পলিসি</a></li>
+                        <li><a href="#" class="bangla">প্রাইভেসি পলিসি</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div class="footer-column">
+                    <h3 class="bangla">যোগাযোগ</h3>
+                    <ul class="footer-links" style="list-style: none; padding: 0;">
+                        <li class="bangla mb-3">
+                            <i class="fas fa-map-marker-alt me-2"></i> গুলশান ১, ঢাকা
+                        </li>
+                        <li class="bangla mb-3">
+                            <i class="fas fa-phone me-2"></i> ০৯৬৩৮-১১১-১১১
+                        </li>
+                        <li class="bangla">
+                            <i class="fas fa-envelope me-2"></i> support@premiumshop.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p class="bangla">&copy; ২০২৩ PremiumShop. সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart System
+        function addToCart(productId) {
+            // Get or create cart
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Product data
+            const products = {
+                1: { name: "স্যামসাং গ্যালাক্সি S23 আল্ট্রা", price: 115999 },
+                2: { name: "নাইক এয়ার জর্ডান 1", price: 15999 },
+                3: { name: "এপেল ম্যাকবুক প্রো M2", price: 245000 },
+                4: { name: "ওয়ালটন ফ্রিজ ৩২৫L", price: 45000 }
+            };
+            
+            const product = products[productId];
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show success message
+            showNotification(`${product.name} কার্টে যোগ করা হয়েছে!`);
+        }
+        
+        // Update cart count in header
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-badge').textContent = totalItems;
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart count
+            updateCartCount();
+            
+            // Add active class to current page
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

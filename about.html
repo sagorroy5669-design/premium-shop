@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের সম্পর্কে - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #ffffff;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* About Page Styles */
+        .about-hero {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9));
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .mission-box, .vision-box {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: white;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-img {
+            height: 200px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: var(--primary);
+        }
+        
+        .team-info {
+            padding: 25px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .stat-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            color: var(--dark);
+            font-size: 18px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .about-hero h1 {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">হোম</a></li>
+                <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                <li><a href="about.html" class="nav-link active">আমাদের সম্পর্কে</a></li>
+                <li><a href="contact.html" class="nav-link">যোগাযোগ</a></li>
+                <li><a href="login.html" class="nav-link">লগইন</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="nav-container">
+            <h1 class="bangla">আমাদের সম্পর্কে</h1>
+            <p class="bangla" style="font-size: 18px; max-width: 800px; margin: 0 auto;">
+                বাংলাদেশের সবচেয়ে নির্ভরযোগ্য অনলাইন শপিং প্ল্যাটফর্ম - PremiumShop
+            </p>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="section">
+        <div class="about-content">
+            <h2 class="section-title bangla">আমাদের গল্প</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <p class="bangla" style="font-size: 18px; line-height: 1.8; text-align: center;">
+                        PremiumShop শুরু হয়েছিল ২০২০ সালে একটি সহজ ধারণা নিয়ে - বাংলাদেশের মানুষদের 
+                        জন্য একটি বিশ্বস্ত, সহজ এবং নিরাপদ অনলাইন শপিং অভিজ্ঞতা তৈরি করা। 
+                        আজ আমরা গর্বিতভাবে বাংলাদেশের অন্যতম বৃহত্তম ই-কমার্স প্ল্যাটফর্ম।
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="section" style="background: var(--light);">
+        <div class="about-content">
+            <h2 class="section-title bangla">আমাদের মিশন ও ভিশন</h2>
+            
+            <div class="mission-vision">
+                <!-- Mission -->
+                <div class="mission-box">
+                    <div class="icon-box">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="bangla" style="margin-bottom: 15px;">আমাদের মিশন</h3>
+                    <p class="bangla">
+                        বাংলাদেশের প্রতিটি মানুষকে সহজ, সাশ্রয়ী এবং নিরাপদ অনলাইন শপিং 
+                        অভিজ্ঞতা প্রদান করা। আমরা চাই প্রতিটি গ্রাহক ১০০% সন্তুষ্টি নিয়ে 
+                        আমাদের কাছ থেকে শপিং করুক।
+                    </p>
+                </div>
+                
+                <!-- Vision -->
+                <div class="vision-box">
+                    <div class="icon-box">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="bangla" style="margin-bottom: 15px;">আমাদের ভিশন</h3>
+                    <p class="bangla">
+                        ২০২৫ সালের মধ্যে বাংলাদেশের নং ১ অনলাইন শপিং ডেস্টিনেশন হওয়া। 
+                        আমরা চাই PremiumShop হয়ে উঠুক প্রতিটি বাংলাদেশীর প্রথম পছন্দ যখন 
+                        অনলাইনে শপিং করার কথা আসে।
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="section">
+        <div class="about-content">
+            <h2 class="section-title bangla">আমাদের মূল্যবোধ</h2>
+            
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-md-4 mb-4">
+                    <div class="text-center p-4">
+                        <div class="icon-box" style="width: 60px; height: 60px; margin-bottom: 20px;">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="bangla mb-3">নির্ভরযোগ্যতা</h4>
+                        <p class="bangla">১০০% অথেনটিক পণ্য এবং নির্ভরযোগ্য সার্ভিস</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="text-center p-4">
+                        <div class="icon-box" style="width: 60px; height: 60px; margin-bottom: 20px;">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4 class="bangla mb-3">সততা</h4>
+                        <p class="bangla">সর্বোচ্চ স্বচ্ছতা এবং সৎ ব্যবসায়িক অনুশীলন</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="text-center p-4">
+                        <div class="icon-box" style="width: 60px; height: 60px; margin-bottom: 20px;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4 class="bangla mb-3">গ্রাহক সেবা</h4>
+                        <p class="bangla">২৪/৭ সমর্থন এবং গ্রাহক সন্তুষ্টি আমাদের অগ্রাধিকার</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;">
+        <div class="about-content">
+            <h2 class="section-title bangla" style="color: white;">আমরা সংখ্যায়</h2>
+            
+            <div class="stats-container">
+                <div class="stat-box" style="background: rgba(255,255,255,0.1); color: white;">
+                    <div class="stat-number">৫০,০০০+</div>
+                    <div class="stat-text bangla">সন্তুষ্ট গ্রাহক</div>
+                </div>
+                
+                <div class="stat-box" style="background: rgba(255,255,255,0.1); color: white;">
+                    <div class="stat-number">১০,০০০+</div>
+                    <div class="stat-text bangla">পণ্যের সংগ্রহ</div>
+                </div>
+                
+                <div class="stat-box" style="background: rgba(255,255,255,0.1); color: white;">
+                    <div class="stat-number">১০০+</div>
+                    <div class="stat-text bangla">ব্র্যান্ড পার্টনার</div>
+                </div>
+                
+                <div class="stat-box" style="background: rgba(255,255,255,0.1); color: white;">
+                    <div class="stat-number">৩ বছর</div>
+                    <div class="stat-text bangla">বিশ্বস্ত সেবা</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team -->
+    <section class="section">
+        <div class="about-content">
+            <h2 class="section-title bangla">আমাদের টিম</h2>
+            
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-card">
+                    <div class="team-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="team-info">
+                        <h4 class="bangla mb-2">আরিফ হাসান</h4>
+                        <p class="text-muted bangla">CEO & Founder</p>
+                        <p class="bangla small">১০+ years experience in eCommerce</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="team-card">
+                    <div class="team-img">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="team-info">
+                        <h4 class="bangla mb-2">সুমাইয়া আক্তার</h4>
+                        <p class="text-muted bangla">Head of Operations</p>
+                        <p class="bangla small">Supply chain management expert</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="team-card">
+                    <div class="team-img">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <div class="team-info">
+                        <h4 class="bangla mb-2">রহিম মিয়া</h4>
+                        <p class="text-muted bangla">Tech Lead</p>
+                        <p class="bangla small">Full stack developer</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="team-card">
+                    <div class="team-img">
+                        <i class="fas fa-user-headset"></i>
+                    </div>
+                    <div class="team-info">
+                        <h4 class="bangla mb-2">ফারহানা ইসলাম</h4>
+                        <p class="text-muted bangla">Customer Support Head</p>
+                        <p class="bangla small">Customer relationship specialist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1;">
+                    বাংলাদেশের সেরা অনলাইন শপিং অভিজ্ঞতা
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">কুইক লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="bangla">হোম</a></li>
+                    <li><a href="products.html" class="bangla">পণ্য</a></li>
+                    <li><a href="about.html" class="bangla">আমাদের সম্পর্কে</a></li>
+                    <li><a href="contact.html" class="bangla">যোগাযোগ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li class="bangla">
+                        <i class="fas fa-map-marker-alt"></i> গুলশান ১, ঢাকা
+                    </li>
+                    <li class="bangla">
+                        <i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১
+                    </li>
+                    <li class="bangla">
+                        <i class="fas fa-envelope"></i> info@premiumshop.com
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla">
+            <p>&copy; ২০২৩ PremiumShop. সকল স্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

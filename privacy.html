@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গোপনীয়তা নীতি - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #ffffff;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Navigation - Same as before */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Privacy Content */
+        .privacy-section {
+            padding: 80px 0;
+        }
+        
+        .privacy-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .privacy-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .privacy-date {
+            background: var(--light);
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .privacy-date span {
+            color: var(--gray);
+            font-size: 16px;
+        }
+        
+        .privacy-date strong {
+            color: var(--primary);
+        }
+        
+        .privacy-section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 40px 0 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .privacy-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .privacy-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 30px 0 15px;
+        }
+        
+        .privacy-text {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .privacy-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .privacy-list li {
+            color: var(--gray);
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        .privacy-list li:before {
+            content: '\f023';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        .privacy-bullet {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .privacy-bullet li {
+            color: var(--gray);
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .privacy-bullet li:before {
+            content: '\f111';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            font-size: 8px;
+            top: 8px;
+            color: var(--primary);
+        }
+        
+        .privacy-note {
+            background: #e0f2fe;
+            border-left: 4px solid #0284c7;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .privacy-note p {
+            margin: 0;
+            color: #075985;
+        }
+        
+        .privacy-highlight {
+            background: #fef9c3;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 1px solid #fde047;
+        }
+        
+        .privacy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+        
+        .privacy-table th,
+        .privacy-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        
+        .privacy-table th {
+            background: var(--light);
+            font-weight: 600;
+        }
+        
+        .badge-privacy {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 9999;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cookie-banner.show {
+            display: block;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .privacy-card {
+                padding: 30px 20px;
+            }
+            
+            .privacy-section-title {
+                font-size: 22px;
+            }
+            
+            .cookie-banner {
+                left: 20px;
+                right: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">হোম</a></li>
+                <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                <li><a href="about.html" class="nav-link">আমাদের সম্পর্কে</a></li>
+                <li><a href="contact.html" class="nav-link">যোগাযোগ</a></li>
+                <li><a href="privacy.html" class="nav-link active">গোপনীয়তা</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="nav-container">
+            <h1 class="bangla">গোপনীয়তা নীতি</h1>
+            <p class="bangla">আপনার তথ্যের সুরক্ষা আমাদের অগ্রাধিকার</p>
+        </div>
+    </section>
+
+    <!-- Privacy Content -->
+    <section class="privacy-section">
+        <div class="privacy-container">
+            <div class="privacy-card">
+                <!-- Last Updated -->
+                <div class="privacy-date">
+                    <span class="bangla"><i class="fas fa-calendar-alt me-2"></i> সর্বশেষ হালনাগাদ:</span>
+                    <strong class="bangla">১৫ নভেম্বর, ২০২৩</strong>
+                </div>
+
+                <!-- Introduction -->
+                <div id="introduction">
+                    <h2 class="privacy-section-title bangla">১. আপনার গোপনীয়তা আমাদের কাছে গুরুত্বপূর্ণ</h2>
+                    <p class="privacy-text bangla">
+                        PremiumShop-এ, আমরা আপনার গোপনীয়তাকে সম্মান করি এবং আপনার ব্যক্তিগত তথ্য সুরক্ষিত রাখতে 
+                        প্রতিশ্রুতিবদ্ধ। এই গোপনীয়তা নীতিটি ব্যাখ্যা করে যে আমরা কীভাবে আপনার তথ্য সংগ্রহ, ব্যবহার, 
+                        এবং সুরক্ষিত রাখি যখন আপনি আমাদের ওয়েবসাইট এবং সেবাসমূহ ব্যবহার করেন।
+                    </p>
+                    <p class="privacy-text bangla">
+                        আমাদের ওয়েবসাইট ব্যবহারের মাধ্যমে, আপনি এই গোপনীয়তা নীতির শর্তাবলী মেনে চলতে সম্মতি দিচ্ছেন।
+                    </p>
+                </div>
+
+                <!-- Quick Summary -->
+                <div class="privacy-highlight">
+                    <h4 class="bangla" style="color: #854d0e; margin-bottom: 15px;">
+                        <i class="fas fa-bolt me-2"></i> এক নজরে আমাদের প্রতিশ্রুতি:
+                    </h4>
+                    <ul class="privacy-bullet">
+                        <li class="bangla">আমরা কখনো আপনার তথ্য তৃতীয় পক্ষের কাছে বিক্রি করি না</li>
+                        <li class="bangla">আপনার পেমেন্ট তথ্য ১০০% এনক্রিপ্টেড</li>
+                        <li class="bangla">আপনার সম্মতি ছাড়া কোনো মার্কেটিং ইমেইল না</li>
+                        <li class="bangla">যেকোনো সময় আপনার তথ্য মুছে ফেলার অধিকার</li>
+                    </ul>
+                </div>
+
+                <!-- Information We Collect -->
+                <div id="collect">
+                    <h2 class="privacy-section-title bangla">২. আমরা কী তথ্য সংগ্রহ করি</h2>
+                    
+                    <h3 class="privacy-subtitle bangla">২.১ আপনি যে তথ্য সরাসরি দেন</h3>
+                    <ul class="privacy-list">
+                        <li class="bangla"><span class="fw-bold">অ্যাকাউন্ট তথ্য:</span> নাম, ইমেইল ঠিকানা, মোবাইল নম্বর, ঠিকানা</li>
+                        <li class="bangla"><span class="fw-bold">প্রোফাইল তথ্য:</span> লগইন তথ্য, পাসওয়ার্ড, প্রোফাইল ছবি</li>
+                        <li class="bangla"><span class="fw-bold">অর্ডার তথ্য:</span> ক্রয় ইতিহাস, পেমেন্ট তথ্য, ডেলিভারি ঠিকানা</li>
+                        <li class="bangla"><span class="fw-bold">যোগাযোগ:</span> কাস্টমার সাপোর্ট, ইমেইল, চ্যাটের রেকর্ড</li>
+                    </ul>
+                    
+                    <h3 class="privacy-subtitle bangla">২.২ স্বয়ংক্রিয়ভাবে সংগ্রহ করা তথ্য</h3>
+                    <ul class="privacy-list">
+                        <li class="bangla"><span class="fw-bold">ডিভাইস তথ্য:</span> IP ঠিকানা, ব্রাউজার টাইপ, অপারেটিং সিস্টেম</li>
+                        <li class="bangla"><span class="fw-bold">ব্যবহারের তথ্য:</span> কোন পেজ দেখেন, কতক্ষণ থাকেন, ক্লিক প্যাটার্ন</li>
+                        <li class="bangla"><span class="fw-bold">কুকি:</span> আপনার অভিজ্ঞতা উন্নত করতে কুকি ব্যবহার করি</li>
+                    </ul>
+                    
+                    <table class="privacy-table">
+                        <tr>
+                            <th class="bangla">তথ্যের ধরন</th>
+                            <th class="bangla">কেন সংগ্রহ করি</th>
+                            <th class="bangla">কতদিন রাখি</th>
+                        </tr>
+                        <tr>
+                            <td>অ্যাকাউন্ট তথ্য</td>
+                            <td>সেবা প্রদানের জন্য</td>
+                            <td>অ্যাকাউন্ট সক্রিয় থাকা পর্যন্ত</td>
+                        </tr>
+                        <tr>
+                            <td>অর্ডার তথ্য</td>
+                            <td>অর্ডার প্রক্রিয়াকরণ</td>
+                            <td>৫ বছর (আইনি বাধ্যবাধকতা)</td>
+                        </tr>
+                        <tr>
+                            <td>পেমেন্ট তথ্য</td>
+                            <td>পেমেন্ট প্রক্রিয়াকরণ</td>
+                            <td>লেনদেন সম্পন্ন হওয়া পর্যন্ত</td>
+                        </tr>
+                        <tr>
+                            <td>কুকি ডাটা</td>
+                            <td>ওয়েবসাইট অপটিমাইজেশন</td>
+                            <td>৩০ দিন</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- How We Use Information -->
+                <div id="use">
+                    <h2 class="privacy-section-title bangla">৩. আমরা কীভাবে তথ্য ব্যবহার করি</h2>
+                    <ul class="privacy-bullet">
+                        <li class="bangla">আপনার অ্যাকাউন্ট পরিচালনা এবং সেবা প্রদান করতে</li>
+                        <li class="bangla">আপনার অর্ডার প্রক্রিয়াকরণ এবং ডেলিভারি নিশ্চিত করতে</li>
+                        <li class="bangla">পেমেন্ট প্রক্রিয়াকরণ এবং জালিয়াতি প্রতিরোধ করতে</li>
+                        <li class="bangla">কাস্টমার সাপোর্ট এবং সমস্যার সমাধান করতে</li>
+                        <li class="bangla">ওয়েবসাইটের মান উন্নয়ন এবং পারফরম্যান্স মনিটর করতে</li>
+                        <li class="bangla">আইনি বাধ্যবাধকতা মেনে চলতে</li>
+                    </ul>
+                </div>
+
+                <!-- Information Sharing -->
+                <div id="sharing">
+                    <h2 class="privacy-section-title bangla">৪. আমরা কার সাথে তথ্য শেয়ার করি</h2>
+                    <p class="privacy-text bangla">
+                        আমরা আপনার ব্যক্তিগত তথ্য শুধুমাত্র নিম্নলিখিত ক্ষেত্রে শেয়ার করি:
+                    </p>
+                    <ul class="privacy-list">
+                        <li class="bangla"><span class="fw-bold">ডেলিভারি পার্টনার:</span> অর্ডার ডেলিভারির জন্য প্রয়োজনীয় তথ্য</li>
+                        <li class="bangla"><span class="fw-bold">পেমেন্ট প্রসেসর:</span> পেমেন্ট প্রক্রিয়াকরণের জন্য এনক্রিপ্টেড তথ্য</li>
+                        <li class="bangla"><span class="fw-bold">আইন প্রয়োগকারী সংস্থা:</span> আইনি বাধ্যবাধকতা থাকলে</li>
+                        <li class="bangla"><span class="fw-bold">আপনার সম্মতি সাপেক্ষে:</span> অন্যান্য ক্ষেত্রে আপনার অনুমতি নিয়ে</li>
+                    </ul>
+                    <div class="privacy-note">
+                        <p class="bangla">
+                            <i class="fas fa-shield-alt me-2"></i>
+                            আমরা কখনোই আপনার ব্যক্তিগত তথ্য বিজ্ঞাপনী কোম্পানির কাছে বিক্রি করি না।
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Data Security -->
+                <div id="security">
+                    <h2 class="privacy-section-title bangla">৫. তথ্য সুরক্ষা</h2>
+                    <p class="privacy-text bangla">
+                        আমরা আপনার তথ্য সুরক্ষিত রাখতে আধুনিক প্রযুক্তি ব্যবহার করি:
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-lock text-primary fa-2x mb-2"></i>
+                                <h6 class="bangla">SSL এনক্রিপশন</h6>
+                                <p class="small bangla">২৫৬-বিট SSL সার্টিফিকেট</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-shield-virus text-primary fa-2x mb-2"></i>
+                                <h6 class="bangla">ফায়ারওয়াল</h6>
+                                <p class="small bangla">অননুমোদিত অ্যাক্সেস প্রতিরোধ</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-user-secret text-primary fa-2x mb-2"></i>
+                                <h6 class="bangla">প্রাইভেসি এনহান্সমেন্ট</h6>
+                                <p class="small bangla">নিয়মিত সিকিউরিটি অডিট</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-database text-primary fa-2x mb-2"></i>
+                                <h6 class="bangla">এনক্রিপ্টেড ডাটাবেস</h6>
+                                <p class="small bangla">সকল তথ্য এনক্রিপ্টেড</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cookies -->
+                <div id="cookies">
+                    <h2 class="privacy-section-title bangla">৬. কুকি নীতি</h2>
+                    <p class="privacy-text bangla">
+                        কুকি হল ছোট টেক্সট ফাইল যা আপনার ব্রাউজারে সংরক্ষণ করা হয়। আমরা কুকি ব্যবহার করি:
+                    </p>
+                    <ul class="privacy-bullet">
+                        <li class="bangla">আপনার লগইন তথ্য মনে রাখতে</li>
+                        <li class="bangla">আপনার কার্টের আইটেম সংরক্ষণ করতে</li>
+                        <li class="bangla">আপনার পছন্দ অনুযায়ী কন্টেন্ট দেখাতে</li>
+                        <li class="bangla">ওয়েবসাইটের ব্যবহার বিশ্লেষণ করতে</li>
+                    </ul>
+                    <p class="privacy-text bangla">
+                        আপনি আপনার ব্রাউজার সেটিংস থেকে কুকি নিষ্ক্রিয় করতে পারেন। তবে কিছু ফিচার সঠিকভাবে কাজ নাও করতে পারে।
+                    </p>
+                </div>
+
+                <!-- Your Rights -->
+                <div id="rights">
+                    <h2 class="privacy-section-title bangla">৭. আপনার অধিকার</h2>
+                    <p class="privacy-text bangla">
+                        আপনার ব্যক্তিগত তথ্য সম্পর্কে আপনার নিম্নলিখিত অধিকার রয়েছে:
+                    </p>
+                    <ul class="privacy-list">
+                        <li class="bangla"><span class="fw-bold">তথ্য দেখার অধিকার:</span> আমরা আপনার কী কী তথ্য রাখি তা জানতে পারবেন</li>
+                        <li class="bangla"><span class="fw-bold">তথ্য সংশোধনের অধিকার:</span> ভুল তথ্য সংশোধন করতে পারবেন</li>
+                        <li class="bangla"><span class="fw-bold">তথ্য মুছে ফেলার অধিকার:</span> আপনার তথ্য মুছে ফেলার অনুরোধ করতে পারবেন</li>
+                        <li class="bangla"><span class="fw-bold">অপ্ট-আউট:</span> মার্কেটিং ইমেইল থেকে নিবন্ধন মুক্ত হতে পারবেন</li>
+                    </ul>
+                    <p class="privacy-text bangla">
+                        আপনার অধিকার প্রয়োগ করতে <a href="contact.html" class="text-primary">যোগাযোগ</a> করুন।
+                    </p>
+                </div>
+
+                <!-- Children Privacy -->
+                <div id="children">
+                    <h2 class="privacy-section-title bangla">৮. শিশুদের গোপনীয়তা</h2>
+                    <p class="privacy-text bangla">
+                        আমাদের ওয়েবসাইট ১৮ বছরের নিচে শিশুদের জন্য নয়। আমরা সচেতনভাবে ১৮ বছরের নিচে 
+                        কারো কাছ থেকে ব্যক্তিগত তথ্য সংগ্রহ করি না। অভিভাবকদের তত্ত্বাবধানে ওয়েবসাইট ব্যবহার করতে হবে।
+                    </p>
+                </div>
+
+                <!-- Third Party Links -->
+                <div id="thirdparty">
+                    <h2 class="privacy-section-title bangla">৯. তৃতীয় পক্ষের লিংক</h2>
+                    <p class="privacy-text bangla">
+                        আমাদের ওয়েবসাইটে তৃতীয় পক্ষের ওয়েবসাইটের লিংক থাকতে পারে। এই ওয়েবসাইটগুলোর 
+                        গোপনীয়তা নীতির জন্য আমরা দায়ী নই। আমরা আপনাকে তাদের গোপনীয়তা নীতি পড়তে উৎসাহিত করি।
+                    </p>
+                </div>
+
+                <!-- Changes to Policy -->
+                <div id="changes">
+                    <h2 class="privacy-section-title bangla">১০. নীতির পরিবর্তন</h2>
+                    <p class="privacy-text bangla">
+                        আমরা সময়ে সময়ে এই গোপনীয়তা নীতি হালনাগাদ করতে পারি। গুরুত্বপূর্ণ পরিবর্তন হলে 
+                        আমরা ওয়েবসাইটে নোটিশ দেব। নিয়মিত এই পৃষ্ঠা দেখার জন্য আমরা আপনাকে অনুরোধ করি।
+                    </p>
+                </div>
+
+                <!-- Contact -->
+                <div id="contact-privacy">
+                    <h2 class="privacy-section-title bangla">১১. যোগাযোগ</h2>
+                    <p class="privacy-text bangla">
+                        গোপনীয়তা নীতি সম্পর্কে আপনার কোনো প্রশ্ন বা অভিযোগ থাকলে আমাদের সাথে যোগাযোগ করুন:
+                    </p>
+                    <ul class="privacy-list" style="list-style: none; padding-left: 0;">
+                        <li class="bangla">
+                            <i class="fas fa-envelope me-2 text-primary"></i> privacy@premiumshop.com
+                        </li>
+                        <li class="bangla">
+                            <i class="fas fa-phone me-2 text-primary"></i> ০৯৬৩৮-১১১-১১১ (এক্সটেনশন: ৭৮৯)
+                        </li>
+                        <li class="bangla">
+                            <i class="fas fa-map-marker-alt me-2 text-primary"></i> গুলশান ১, ঢাকা - ১২১২, বাংলাদেশ
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Consent -->
+                <div class="privacy-note" style="margin-top: 50px; background: #dcfce7; border-left-color: #10b981;">
+                    <p class="bangla" style="color: #166534;">
+                        <i class="fas fa-check-circle me-2"></i>
+                        PremiumShop ব্যবহারের মাধ্যমে আপনি এই গোপনীয়তা নীতি পড়েছেন এবং মেনে চলতে সম্মতি দিয়েছেন।
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h5 class="bangla mb-3">🍪 কুকি সম্মতি</h5>
+                <p class="bangla mb-3 mb-md-0">
+                    আপনার অভিজ্ঞতা উন্নত করতে আমরা কুকি ব্যবহার করি। ওয়েবসাইট ব্যবহারের মাধ্যমে আপনি 
+                    আমাদের <a href="cookies.html" class="text-primary">কুকি নীতি</a> মেনে চলতে সম্মতি দিচ্ছেন।
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <button class="btn btn-primary bangla me-2" onclick="acceptCookies()">
+                    <i class="fas fa-check me-1"></i> গ্রহণ
+                </button>
+                <button class="btn btn-outline-secondary bangla" onclick="declineCookies()">
+                    প্রত্যাখ্যান
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1;">
+                    আপনার তথ্য, আপনার অধিকার, আমাদের দায়িত্ব
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">গোপনীয়তা</h3>
+                <ul class="footer-links">
+                    <li><a href="privacy.html" class="bangla">গোপনীয়তা নীতি</a></li>
+                    <li><a href="terms.html" class="bangla">শর্তাবলী</a></li>
+                    <li><a href="cookies.html" class="bangla">কুকি নীতি</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">আইনি</h3>
+                <ul class="footer-links">
+                    <li><a href="terms.html" class="bangla">সার্ভিস শর্তাবলী</a></li>
+                    <li><a href="privacy.html" class="bangla">গোপনীয়তা নীতি</a></li>
+                    <li><a href="faq.html" class="bangla">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li class="bangla"><i class="fas fa-envelope"></i> privacy@premiumshop.com</li>
+                    <li class="bangla"><i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla">
+            <p>&copy; ২০২৩ PremiumShop. আপনার গোপনীয়তা সুরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Show cookie banner
+            if (!localStorage.getItem('cookieConsent')) {
+                document.getElementById('cookieBanner').classList.add('show');
+            }
+        });
+        
+        // Cookie consent functions
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieBanner').classList.remove('show');
+            console.log('Cookies accepted');
+        }
+        
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieBanner').classList.remove('show');
+            console.log('Cookies declined');
+        }
+        
+        // Back to top button
+        const backToTop = document.createElement('a');
+        backToTop.href = '#';
+        backToTop.className = 'back-to-top';
+        backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        document.body.appendChild(backToTop);
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add back to top styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .back-to-top {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                background: var(--primary);
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                box-shadow: 0 5px 15px rgba(37,99,235,0.3);
+                transition: all 0.3s;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 999;
+            }
+            
+            .back-to-top.show {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .back-to-top:hover {
+                background: var(--secondary);
+                transform: translateY(-5px);
+                color: white;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>চেকআউট - PremiumShop</title>
+    
+    <!-- Local CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+        
+        .checkout-steps {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #e2e8f0;
+            color: #64748b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        
+        .step.active .step-number {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: #10b981;
+            color: white;
+        }
+        
+        .checkout-content {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .left-panel {
+            flex: 3;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .right-panel {
+            flex: 2;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .address-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .address-card.selected {
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
+        }
+        
+        .payment-method {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .payment-method.selected {
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: bold;
+            border-top: 2px solid #e2e8f0;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .btn-secondary {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-content {
+                flex-direction: column;
+            }
+            
+            .checkout-steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">PremiumShop</a>
+            <div>সেফ শপিং</div>
+        </div>
+    </div>
+
+    <!-- Checkout Container -->
+    <div class="container">
+        <!-- Steps -->
+        <div class="checkout-steps">
+            <div class="step active" id="step1">
+                <div class="step-number">১</div>
+                <div>ঠিকানা</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">২</div>
+                <div>পেমেন্ট</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">৩</div>
+                <div>কনফার্ম</div>
+            </div>
+        </div>
+
+        <!-- Checkout Content -->
+        <div class="checkout-content">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <!-- Step 1: Address -->
+                <div id="addressSection">
+                    <div class="section-title">
+                        📍 ডেলিভারি ঠিকানা
+                    </div>
+                    
+                    <div class="address-card selected" onclick="selectAddress(1)">
+                        <h4>বাসা</h4>
+                        <p>রহিম মিয়া</p>
+                        <p>হাউস #১২৩, রোড #৮, গুলশান ১</p>
+                        <p>ঢাকা, বাংলাদেশ</p>
+                        <p>📞 ০১৭১২-৩৪৫৬৭৮</p>
+                    </div>
+                    
+                    <div class="address-card" onclick="selectAddress(2)">
+                        <h4>অফিস</h4>
+                        <p>রহিম মিয়া</p>
+                        <p>তেজগাঁও শিল্প এলাকা</p>
+                        <p>তেজগাঁও, ঢাকা</p>
+                        <p>📞 ০১৭১২-৩৪৫৬৭৮</p>
+                    </div>
+                    
+                    <button class="btn-secondary" onclick="showNewAddress()">+ নতুন ঠিকানা</button>
+                    
+                    <!-- New Address Form -->
+                    <div id="newAddressForm" class="hidden" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label>নাম</label>
+                            <input type="text" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label>মোবাইল</label>
+                            <input type="text" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label>ঠিকানা</label>
+                            <textarea id="fullAddress" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>জেলা</label>
+                            <select id="district">
+                                <option>ঢাকা</option>
+                                <option>চট্টগ্রাম</option>
+                                <option>খুলনা</option>
+                                <option>রাজশাহী</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="saveAddress()">ঠিকানা সেভ করুন</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div id="paymentSection" class="hidden">
+                    <div class="section-title">
+                        💳 পেমেন্ট পদ্ধতি
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectPayment('bkash')">
+                        <h4>bKash</h4>
+                        <p>তাত্ক্ষণিক পেমেন্ট</p>
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectPayment('nagad')">
+                        <h4>Nagad</h4>
+                        <p>তাত্ক্ষণিক পেমেন্ট</p>
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectPayment('card')">
+                        <h4>কার্ড/ব্যাংক</h4>
+                        <p>Visa, MasterCard, Rocket</p>
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectPayment('cod')">
+                        <h4>ক্যাশ অন ডেলিভারি</h4>
+                        <p>ডেলিভারির সময় পেমেন্ট</p>
+                    </div>
+                    
+                    <!-- Payment Details -->
+                    <div id="paymentDetails" class="hidden" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label id="paymentLabel">বিকাশ নম্বর</label>
+                            <input type="text" id="paymentNumber">
+                        </div>
+                        <div class="form-group">
+                            <label>Transaction ID</label>
+                            <input type="text" id="trxId">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div id="confirmationSection" class="hidden">
+                    <div class="success-message">
+                        <div class="success-icon">✓</div>
+                        <h2>অর্ডার সফল!</h2>
+                        <p style="margin: 20px 0;">আপনার অর্ডার আইডি: <strong id="orderId">PS2024001</strong></p>
+                        <p>আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
+                        <button class="btn-primary" onclick="goToHome()">হোমপেজে যান</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Order Summary -->
+            <div class="right-panel">
+                <div class="section-title">
+                    🛒 অর্ডার সারাংশ
+                </div>
+                
+                <div class="order-item">
+                    <span>স্যামসাং গ্যালাক্সি S23</span>
+                    <span>৳ ১,১৫,৯৯৯</span>
+                </div>
+                
+                <div class="order-item">
+                    <span>নাইক জুতা (২ পিস)</span>
+                    <span>৳ ৩১,৯৯৮</span>
+                </div>
+                
+                <div class="order-item">
+                    <span>ডেলিভারি চার্জ</span>
+                    <span>৳ ০</span>
+                </div>
+                
+                <div class="order-item">
+                    <span>ডিসকাউন্ট</span>
+                    <span style="color: #10b981;">-৳ ১৪,৮০০</span>
+                </div>
+                
+                <div class="order-total">
+                    <span>মোট</span>
+                    <span>৳ ১,৩৩,১৯৭</span>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div id="actionButtons">
+                    <button class="btn-primary" onclick="nextStep()" id="nextBtn">পরবর্তী ধাপ</button>
+                    <button class="btn-secondary hidden" onclick="previousStep()" id="prevBtn">পেছনে যান</button>
+                </div>
+                
+                <!-- Security Note -->
+                <div style="margin-top: 20px; padding: 15px; background: #f1f5f9; border-radius: 8px;">
+                    <p style="font-size: 14px; color: #475569;">
+                        🔒 ১০০% সুরক্ষিত পেমেন্ট<br>
+                        📞 সাহায্য: ০৯৬৩৮-১১১-১১১
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let currentStep = 1;
+        let selectedAddress = 1;
+        let selectedPayment = '';
+        
+        function selectAddress(id) {
+            selectedAddress = id;
+            document.querySelectorAll('.address-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+        
+        function showNewAddress() {
+            document.getElementById('newAddressForm').classList.remove('hidden');
+        }
+        
+        function saveAddress() {
+            alert('নতুন ঠিকানা সেভ করা হয়েছে!');
+            document.getElementById('newAddressForm').classList.add('hidden');
+        }
+        
+        function selectPayment(method) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-method').forEach(pm => {
+                pm.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Show payment details
+            const details = document.getElementById('paymentDetails');
+            const label = document.getElementById('paymentLabel');
+            const number = document.getElementById('paymentNumber');
+            
+            details.classList.remove('hidden');
+            
+            switch(method) {
+                case 'bkash':
+                    label.textContent = 'bKash নম্বর';
+                    number.placeholder = '০১৭XXXXXXXX';
+                    break;
+                case 'nagad':
+                    label.textContent = 'Nagad নম্বর';
+                    number.placeholder = '০১৭XXXXXXXX';
+                    break;
+                case 'cod':
+                    details.classList.add('hidden');
+                    break;
+            }
+        }
+        
+        function nextStep() {
+            // Hide current section
+            document.getElementById('addressSection').classList.add('hidden');
+            document.getElementById('paymentSection').classList.add('hidden');
+            document.getElementById('confirmationSection').classList.add('hidden');
+            
+            // Hide current step
+            document.getElementById('step' + currentStep).classList.remove('active');
+            
+            // Move to next step
+            currentStep++;
+            
+            // Show next section
+            if (currentStep === 2) {
+                document.getElementById('paymentSection').classList.remove('hidden');
+                document.getElementById('nextBtn').textContent = 'অর্ডার কনফার্ম করুন';
+                document.getElementById('prevBtn').classList.remove('hidden');
+            } else if (currentStep === 3) {
+                document.getElementById('confirmationSection').classList.remove('hidden');
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('prevBtn').classList.add('hidden');
+                
+                // Generate order ID
+                const orderId = 'PS' + Date.now().toString().slice(-6);
+                document.getElementById('orderId').textContent = orderId;
+                
+                // Clear cart (simulate)
+                localStorage.removeItem('cart');
+            }
+            
+            // Update step indicator
+            document.getElementById('step' + currentStep).classList.add('active');
+            document.getElementById('step' + (currentStep - 1)).classList.add('completed');
+        }
+        
+        function previousStep() {
+            // Hide current section
+            document.getElementById('addressSection').classList.add('hidden');
+            document.getElementById('paymentSection').classList.add('hidden');
+            
+            // Hide current step
+            document.getElementById('step' + currentStep).classList.remove('active');
+            document.getElementById('step' + currentStep).classList.remove('completed');
+            
+            // Move back
+            currentStep--;
+            
+            // Show previous section
+            if (currentStep === 1) {
+                document.getElementById('addressSection').classList.remove('hidden');
+                document.getElementById('nextBtn').textContent = 'পরবর্তী ধাপ';
+                document.getElementById('prevBtn').classList.add('hidden');
+            } else if (currentStep === 2) {
+                document.getElementById('paymentSection').classList.remove('hidden');
+                document.getElementById('nextBtn').textContent = 'অর্ডার কনফার্ম করুন';
+            }
+            
+            // Update step indicator
+            document.getElementById('step' + currentStep).classList.add('active');
+        }
+        
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start with step 1
+            document.getElementById('step1').classList.add('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সব পণ্য - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .price {
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+        
+        .filter-sidebar {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .pagination .page-link {
+            color: #2563eb;
+        }
+        
+        .pagination .active .page-link {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">
+                <i class="fas fa-crown"></i> PremiumShop
+            </a>
+            
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">হোম</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="products.html">পণ্য</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html">ক্যাটাগরি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> কার্ট
+                            <span class="badge bg-danger cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="পণ্য খুঁজুন...">
+                    <button class="btn btn-outline-primary" type="submit">খুঁজুন</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3 mb-4">
+                <div class="filter-sidebar">
+                    <h5 class="mb-4">ফিল্টার করুন</h5>
+                    
+                    <!-- Price Range -->
+                    <div class="mb-4">
+                        <h6>দামের পরিসীমা</h6>
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="সর্বনিম্ন" id="minPrice">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="সর্বোচ্চ" id="maxPrice">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="mb-4">
+                        <h6>ক্যাটাগরি</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="electronics">
+                            <label class="form-check-label" for="electronics">ইলেকট্রনিক্স</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="fashion">
+                            <label class="form-check-label" for="fashion">ফ্যাশন</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="home">
+                            <label class="form-check-label" for="home">হোম অ্যান্ড গার্ডেন</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating -->
+                    <div class="mb-4">
+                        <h6>রেটিং</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rating" id="rating5">
+                            <label class="form-check-label" for="rating5">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i> ৫+
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rating" id="rating4">
+                            <label class="form-check-label" for="rating4">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i> ৪+
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary w-100" onclick="applyFilters()">ফিল্টার প্রয়োগ করুন</button>
+                </div>
+                
+                <!-- Special Offers -->
+                <div class="mt-4 p-3 bg-warning bg-opacity-10 rounded">
+                    <h6>বিশেষ অফার</h6>
+                    <p class="small mb-2">৫০০০+ টাকার অর্ডারে ১০% ডিসকাউন্ট</p>
+                    <p class="small">নিখরচায় ডেলিভারি</p>
+                </div>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">সব পণ্য</h2>
+                    <div>
+                        <select class="form-select w-auto d-inline-block" id="sortBy">
+                            <option value="newest">নতুনতম</option>
+                            <option value="price-low">দাম: কম থেকে বেশি</option>
+                            <option value="price-high">দাম: বেশি থেকে কম</option>
+                            <option value="popular">জনপ্রিয়</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Products Count -->
+                <p class="text-muted mb-4">মোট <span id="productCount">12</span>টি পণ্য পাওয়া গেছে</p>
+                
+                <!-- Products Row -->
+                <div class="row" id="productsContainer">
+                    <!-- Products will be loaded here -->
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">পূর্ববর্তী</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">১</a></li>
+                        <li class="page-item"><a class="page-link" href="#">২</a></li>
+                        <li class="page-item"><a class="page-link" href="#">৩</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">পরবর্তী</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>PremiumShop</h5>
+                    <p>বাংলাদেশের সেরা অনলাইন শপিং প্ল্যাটফর্ম</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>লিংক</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">হোম</a></li>
+                        <li><a href="products.html" class="text-white-50 text-decoration-none">পণ্য</a></li>
+                        <li><a href="contact.html" class="text-white-50 text-decoration-none">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>যোগাযোগ</h5>
+                    <p><i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১</p>
+                    <p><i class="fas fa-envelope"></i> support@premiumshop.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Sample Products Data
+        const products = [
+            {
+                id: 1,
+                name: "স্যামসাং গ্যালাক্সি S23",
+                price: 115999,
+                oldPrice: 165000,
+                image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                category: "electronics",
+                rating: 4.5,
+                discount: 30
+            },
+            {
+                id: 2,
+                name: "নাইক এয়ার জর্ডান",
+                price: 15999,
+                oldPrice: 18500,
+                image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                category: "fashion",
+                rating: 4.0,
+                discount: 15
+            },
+            {
+                id: 3,
+                name: "ফ্রিজ - ওয়ালটন",
+                price: 45000,
+                oldPrice: null,
+                image: "https://images.unsplash.com/photo-1571175443880-49e1d1b5d16b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                category: "home",
+                rating: 4.2,
+                discount: 0
+            }
+        ];
+
+        // Load products on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            updateCartCount();
+        });
+
+        function loadProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const productHTML = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            ${product.discount > 0 ? 
+                                `<span class="badge bg-danger position-absolute top-0 start-0 m-2">${product.discount}% ছাড়</span>` 
+                                : ''}
+                            
+                            <img src="${product.image}" class="card-img-top product-img" alt="${product.name}">
+                            
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">${product.name}</h5>
+                                
+                                <div class="mb-2">
+                                    ${getRatingStars(product.rating)}
+                                    <span class="small text-muted">(${product.rating})</span>
+                                </div>
+                                
+                                <div class="mt-auto">
+                                    <div class="mb-2">
+                                        <span class="price">৳${product.price.toLocaleString()}</span>
+                                        ${product.oldPrice ? 
+                                            `<span class="old-price ms-2">৳${product.oldPrice.toLocaleString()}</span>` 
+                                            : ''}
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" onclick="addToCart(${product.id})">
+                                            <i class="fas fa-cart-plus"></i> কার্টে যোগ করুন
+                                        </button>
+                                        <a href="product-details.html?id=${product.id}" class="btn btn-outline-secondary">
+                                            বিস্তারিত দেখুন
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += productHTML;
+            });
+            
+            document.getElementById('productCount').textContent = products.length;
+        }
+
+        function getRatingStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star text-warning"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt text-warning"></i>';
+            }
+            
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star text-warning"></i>';
+            }
+            
+            return stars;
+        }
+
+        function addToCart(productId) {
+            alert('পণ্যটি কার্টে যোগ করা হয়েছে!');
+            // In real app, save to localStorage and update count
+        }
+
+        function updateCartCount() {
+            // Load from localStorage
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = totalItems;
+            });
+        }
+
+        function applyFilters() {
+            alert('ফিল্টার প্রয়োগ করা হয়েছে!');
+            // In real app, filter products based on selected filters
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বিশেষ অফার - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #f1f5f9;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '%';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            font-size: 300px;
+            opacity: 0.1;
+            color: white;
+            transform: rotate(15deg);
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Offers Container */
+        .offers-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Flash Sale Banner */
+        .flash-sale-banner {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .flash-sale-banner::before {
+            content: '⚡';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            font-size: 200px;
+            opacity: 0.1;
+            color: white;
+        }
+        
+        .flash-sale-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .flash-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .flash-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .flash-subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+        
+        .flash-timer {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .timer-box {
+            background: rgba(0,0,0,0.3);
+            padding: 15px 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 90px;
+        }
+        
+        .timer-number {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .timer-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Offer Categories */
+        .offer-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .category-offer-tab {
+            padding: 12px 30px;
+            background: white;
+            border-radius: 50px;
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .category-offer-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .category-offer-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .category-offer-tab i {
+            margin-right: 8px;
+        }
+        
+        /* Mega Offers */
+        .mega-offers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .mega-offer-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 25px;
+            padding: 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .mega-offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .mega-offer-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .offer-discount {
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        
+        .offer-discount span {
+            font-size: 24px;
+            font-weight: 400;
+        }
+        
+        .offer-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .offer-description {
+            opacity: 0.95;
+            margin-bottom: 25px;
+            font-size: 16px;
+            max-width: 80%;
+        }
+        
+        .offer-code {
+            display: inline-block;
+            padding: 12px 25px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .offer-validity {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .btn-gradient {
+            padding: 14px 35px;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Offers Grid */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .view-all-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s;
+        }
+        
+        .view-all-link:hover {
+            gap: 10px;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .offer-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--danger);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(239,68,68,0.3);
+        }
+        
+        .offer-badge.percentage {
+            background: var(--success);
+        }
+        
+        .offer-badge.flash {
+            background: var(--warning);
+        }
+        
+        .offer-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .offer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .offer-card:hover .offer-image img {
+            transform: scale(1.05);
+        }
+        
+        .offer-content {
+            padding: 25px;
+        }
+        
+        .offer-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--light);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .offer-product-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            height: 50px;
+            overflow: hidden;
+        }
+        
+        .offer-price {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .old-price {
+            font-size: 16px;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+        
+        .discount-percent {
+            background: #fee2e2;
+            color: var(--danger);
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .offer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .offer-progress {
+            flex: 1;
+            margin-right: 15px;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--light);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--warning), var(--danger));
+            border-radius: 3px;
+            width: 70%;
+        }
+        
+        .stock-text {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .offer-code-mini {
+            padding: 6px 12px;
+            background: var(--light);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Limited Time Offers */
+        .limited-offers {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 50px;
+            color: white;
+        }
+        
+        .limited-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .limited-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .limited-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .limited-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .limited-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+        
+        .limited-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+        }
+        
+        .limited-discount {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .limited-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .limited-code {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        /* Coupon Section */
+        .coupon-section {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .coupon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .coupon-card {
+            display: flex;
+            background: linear-gradient(135deg, #f8fafc, #ffffff);
+            border-radius: 20px;
+            padding: 25px;
+            border: 2px dashed var(--primary);
+            position: relative;
+        }
+        
+        .coupon-left {
+            flex: 1;
+            border-right: 2px dashed var(--gray);
+            padding-right: 20px;
+        }
+        
+        .coupon-discount {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .coupon-discount small {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--gray);
+        }
+        
+        .coupon-minimum {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .coupon-right {
+            flex: 1;
+            padding-left: 20px;
+        }
+        
+        .coupon-code {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .coupon-validity {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .btn-copy {
+            padding: 8px 20px;
+            background: var(--light);
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            color: var(--dark);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-copy:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .flash-sale-banner {
+                padding: 30px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .flash-timer {
+                justify-content: center;
+            }
+            
+            .timer-box {
+                min-width: 70px;
+                padding: 10px;
+            }
+            
+            .timer-number {
+                font-size: 24px;
+            }
+            
+            .flash-title {
+                font-size: 32px;
+            }
+            
+            .mega-offers {
+                grid-template-columns: 1fr;
+            }
+            
+            .coupon-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .coupon-card {
+                flex-direction: column;
+            }
+            
+            .coupon-left {
+                border-right: none;
+                border-bottom: 2px dashed var(--gray);
+                padding-right: 0;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            
+            .coupon-right {
+                padding-left: 0;
+                text-align: center;
+            }
+            
+            .limited-offers {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">হোম</a></li>
+                <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                <li><a href="offers.html" class="nav-link active">অফার</a></li>
+                <li><a href="blog.html" class="nav-link">ব্লগ</a></li>
+                <li><a href="contact.html" class="nav-link">যোগাযোগ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="nav-container">
+            <h1 class="bangla">🎉 বিশেষ অফার ও ডিসকাউন্ট</h1>
+            <p class="bangla">সাপ্তাহিক মেগা সেল, ফ্ল্যাশ ডিল ও এক্সক্লুসিভ কুপন</p>
+        </div>
+    </section>
+
+    <!-- Offers Container -->
+    <div class="offers-container">
+        <!-- Flash Sale Banner -->
+        <div class="flash-sale-banner">
+            <div class="flash-sale-content">
+                <span class="flash-badge bangla">⚡ ফ্ল্যাশ সেল - ২৪ ঘন্টা মাত্র</span>
+                <h2 class="flash-title bangla">সপ্তাহের মেগা অফার!</h2>
+                <p class="flash-subtitle bangla">সব স্মার্টফোনে ৫০% পর্যন্ত ছাড় + অতিরিক্ত ৫% ক্যাশব্যাক</p>
+                
+                <div class="flash-timer" id="flashTimer">
+                    <div class="timer-box">
+                        <div class="timer-number" id="hours">১২</div>
+                        <div class="timer-label bangla">ঘণ্টা</div>
+                    </div>
+                    <div class="timer-box">
+                        <div class="timer-number" id="minutes">৪৫</div>
+                        <div class="timer-label bangla">মিনিট</div>
+                    </div>
+                    <div class="timer-box">
+                        <div class="timer-number" id="seconds">৩০</div>
+                        <div class="timer-label bangla">সেকেন্ড</div>
+                    </div>
+                </div>
+            </div>
+            <div style="position: relative; z-index: 2;">
+                <a href="#flash-deals" class="btn-gradient bangla">
+                    এখনই কেনাকাটা করুন <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Offer Categories -->
+        <div class="offer-categories">
+            <span class="category-offer-tab active bangla" onclick="filterOffers('all')">
+                <i class="fas fa-gift"></i> সব অফার
+            </span>
+            <span class="category-offer-tab bangla" onclick="filterOffers('flash')">
+                <i class="fas fa-bolt"></i> ফ্ল্যাশ ডিল
+            </span>
+            <span class="category-offer-tab bangla" onclick="filterOffers('new')">
+                <i class="fas fa-star"></i> নতুন অফার
+            </span>
+            <span class="category-offer-tab bangla" onclick="filterOffers('coupon')">
+                <i class="fas fa-ticket"></i> কুপন
+            </span>
+            <span class="category-offer-tab bangla" onclick="filterOffers('clearance')">
+                <i class="fas fa-tags"></i> ক্লিয়ারেন্স সেল
+            </span>
+        </div>
+
+        <!-- Mega Offers -->
+        <div class="mega-offers">
+            <div class="mega-offer-card" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                <div class="offer-discount">
+                    ৭০% <span>ছাড়</span>
+                </div>
+                <h3 class="offer-title bangla">ইলেকট্রনিক্স</h3>
+                <p class="offer-description bangla">
+                    স্মার্টফোন, ল্যাপটপ, ট্যাবলেট সহ সব ইলেকট্রনিক্স পণ্যে বিশেষ মূল্যছাড়
+                </p>
+                <div class="offer-code">
+                    PREM70
+                </div>
+                <div class="offer-validity bangla">
+                    🕐 অফার শেষ: ২৮ ফেব্রুয়ারি, ২০২৪
+                </div>
+                <a href="#" class="btn-gradient bangla">
+                    শপিং করুন
+                </a>
+            </div>
+            
+            <div class="mega-offer-card" style="background: linear-gradient(135deg, #10b981, #059669);">
+                <div class="offer-discount">
+                    ৪০% <span>ছাড়</span>
+                </div>
+                <h3 class="offer-title bangla">ফ্যাশন</h3>
+                <p class="offer-description bangla">
+                    পুরুষ ও মহিলাদের ফ্যাশন, জুতা, ব্যাগ ও এক্সেসরিজে বসন্তকালীন বিশেষ অফার
+                </p>
+                <div class="offer-code">
+                    FASH40
+                </div>
+                <div class="offer-validity bangla">
+                    🕐 অফার শেষ: ২৫ ফেব্রুয়ারি, ২০২৪
+                </div>
+                <a href="#" class="btn-gradient bangla">
+                    শপিং করুন
+                </a>
+            </div>
+        </div>
+
+        <!-- Flash Deals -->
+        <div id="flash-deals">
+            <div class="section-header">
+                <h2 class="bangla">
+                    <i class="fas fa-bolt text-warning"></i>
+                    ফ্ল্যাশ ডিল - ২৪ ঘন্টার জন্য
+                </h2>
+                <a href="#" class="view-all-link bangla">
+                    সব ফ্ল্যাশ ডিল <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <span class="offer-badge flash bangla">⚡ ফ্ল্যাশ সেল</span>
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Samsung Galaxy">
+                    </div>
+                    <div class="offer-content">
+                        <span class="offer-category bangla">স্মার্টফোন</span>
+                        <h3 class="offer-product-title bangla">স্যামসাং গ্যালাক্সি S23 আল্ট্রা</h3>
+                        <div class="offer-price">
+                            <span class="current-price bangla">৳ ১,১৫,৯৯৯</span>
+                            <span class="old-price bangla">৳ ১,৬৫,০০০</span>
+                            <span class="discount-percent bangla">-৩০%</span>
+                        </div>
+                        <div class="offer-footer">
+                            <div class="offer-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%;"></div>
+                                </div>
+                                <span class="stock-text bangla">স্টকে আছে মাত্র ১৫টি</span>
+                            </div>
+                            <span class="offer-code-mini">FLASH30</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <span class="offer-badge flash bangla">⚡ ফ্ল্যাশ সেল</span>
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="MacBook Pro">
+                    </div>
+                    <div class="offer-content">
+                        <span class="offer-category bangla">ল্যাপটপ</span>
+                        <h3 class="offer-product-title bangla">এপেল ম্যাকবুক প্রো ১৪" M2</h3>
+                        <div class="offer-price">
+                            <span class="current-price bangla">৳ ২,৪৫,০০০</span>
+                            <span class="old-price bangla">৳ ২,৭৯,০০০</span>
+                            <span class="discount-percent bangla">-১২%</span>
+                        </div>
+                        <div class="offer-footer">
+                            <div class="offer-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%;"></div>
+                                </div>
+                                <span class="stock-text bangla">স্টকে আছে মাত্র ৮টি</span>
+                            </div>
+                            <span class="offer-code-mini">MAC12</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <span class="offer-badge flash bangla">⚡ ফ্ল্যাশ সেল</span>
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Nike Shoes">
+                    </div>
+                    <div class="offer-content">
+                        <span class="offer-category bangla">ফ্যাশন</span>
+                        <h3 class="offer-product-title bangla">নাইক এয়ার জর্ডান 1 মিড</h3>
+                        <div class="offer-price">
+                            <span class="current-price bangla">৳ ১৫,৯৯৯</span>
+                            <span class="old-price bangla">৳ ১৮,৫০০</span>
+                            <span class="discount-percent bangla">-১৪%</span>
+                        </div>
+                        <div class="offer-footer">
+                            <div class="offer-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%;"></div>
+                                </div>
+                                <span class="stock-text bangla">স্টকে আছে মাত্র ১০টি</span>
+                            </div>
+                            <span class="offer-code-mini">NIKE14</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <span class="offer-badge flash bangla">⚡ ফ্ল্যাশ সেল</span>
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Headphones">
+                    </div>
+                    <div class="offer-content">
+                        <span class="offer-category bangla">অডিও</span>
+                        <h3 class="offer-product-title bangla">সনি WH-1000XM4</h3>
+                        <div class="offer-price">
+                            <span class="current-price bangla">৳ ২৯,৯৯৯</span>
+                            <span class="old-price bangla">৳ ৩৫,০০০</span>
+                            <span class="discount-percent bangla">-১৪%</span>
+                        </div>
+                        <div class="offer-footer">
+                            <div class="offer-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%;"></div>
+                                </div>
+                                <span class="stock-text bangla">স্টকে আছে মাত্র ২০টি</span>
+                            </div>
+                            <span class="offer-code-mini">SONY14</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Limited Time Offers -->
+        <div class="limited-offers">
+            <div class="limited-header">
+                <h2 class="bangla">⏳ লিমিটেড টাইম অফার</h2>
+                <p class="bangla" style="opacity: 0.9;">আজই অর্ডার করুন, আগামীকাল হাতে পাবেন!</p>
+            </div>
+            
+            <div class="limited-grid">
+                <div class="limited-card">
+                    <div class="limited-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="limited-discount">১৫% ছাড়</div>
+                    <div class="limited-title bangla">স্মার্টফোন</div>
+                    <p class="small bangla">মিনিমাম ২৫,০০০ টাকার অর্ডারে</p>
+                    <span class="limited-code">PHONE15</span>
+                </div>
+                
+                <div class="limited-card">
+                    <div class="limited-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="limited-discount">১০% ছাড়</div>
+                    <div class="limited-title bangla">ল্যাপটপ</div>
+                    <p class="small bangla">মিনিমাম ৫০,০০০ টাকার অর্ডারে</p>
+                    <span class="limited-code">LAPTOP10</span>
+                </div>
+                
+                <div class="limited-card">
+                    <div class="limited-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div class="limited-discount">২৫% ছাড়</div>
+                    <div class="limited-title bangla">ফ্যাশন</div>
+                    <p class="small bangla">মিনিমাম ৩,০০০ টাকার অর্ডারে</p>
+                    <span class="limited-code">FASH25</span>
+                </div>
+                
+                <div class="limited-card">
+                    <div class="limited-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="limited-discount">২০% ছাড়</div>
+                    <div class="limited-title bangla">হোম অ্যাপ্লায়েন্স</div>
+                    <p class="small bangla">মিনিমাম ১৫,০০০ টাকার অর্ডারে</p>
+                    <span class="limited-code">HOME20</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Coupons -->
+        <div class="coupon-section">
+            <div class="section-header">
+                <h2 class="bangla">
+                    <i class="fas fa-ticket-alt text-primary"></i>
+                    এক্সক্লুসিভ কুপন
+                </h2>
+                <a href="#" class="view-all-link bangla">
+                    সব কুপন <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="coupon-grid">
+                <div class="coupon-card">
+                    <div class="coupon-left">
+                        <div class="coupon-discount">
+                            ১০% <small>ছাড়</small>
+                        </div>
+                        <div class="coupon-minimum bangla">
+                            সর্বনিম্ন ক্রয় ৫,০০০ টাকা
+                        </div>
+                    </div>
+                    <div class="coupon-right">
+                        <div class="coupon-code">WELCOME10</div>
+                        <div class="coupon-validity bangla">
+                            🕐 বৈধতা: ২৮ ফেব্রুয়ারি, ২০২৪
+                        </div>
+                        <button class="btn-copy bangla" onclick="copyCoupon('WELCOME10')">
+                            <i class="fas fa-copy me-2"></i> কপি করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="coupon-card">
+                    <div class="coupon-left">
+                        <div class="coupon-discount">
+                            ১৫% <small>ছাড়</small>
+                        </div>
+                        <div class="coupon-minimum bangla">
+                            সর্বনিম্ন ক্রয় ১০,০০০ টাকা
+                        </div>
+                    </div>
+                    <div class="coupon-right">
+                        <div class="coupon-code">PREMIUM15</div>
+                        <div class="coupon-validity bangla">
+                            🕐 বৈধতা: ১৫ মার্চ, ২০২৪
+                        </div>
+                        <button class="btn-copy bangla" onclick="copyCoupon('PREMIUM15')">
+                            <i class="fas fa-copy me-2"></i> কপি করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="coupon-card">
+                    <div class="coupon-left">
+                        <div class="coupon-discount">
+                            ৫০০ <small>টাকা ছাড়</small>
+                        </div>
+                        <div class="coupon-minimum bangla">
+                            সর্বনিম্ন ক্রয় ১৫,০০০ টাকা
+                        </div>
+                    </div>
+                    <div class="coupon-right">
+                        <div class="coupon-code">FREESHIP</div>
+                        <div class="coupon-validity bangla">
+                            🕐 বৈধতা: ১০ মার্চ, ২০২৪
+                        </div>
+                        <button class="btn-copy bangla" onclick="copyCoupon('FREESHIP')">
+                            <i class="fas fa-copy me-2"></i> কপি করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clearance Sale -->
+        <div class="section-header">
+            <h2 class="bangla">
+                <i class="fas fa-tags text-danger"></i>
+                ক্লিয়ারেন্স সেল - ৭০% পর্যন্ত ছাড়
+            </h2>
+            <a href="#" class="view-all-link bangla">
+                সব দেখুন <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <div class="offers-grid">
+            <div class="offer-card">
+                <span class="offer-badge percentage bangla">৭০% ছাড়</span>
+                <div class="offer-image">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Smart Watch">
+                </div>
+                <div class="offer-content">
+                    <span class="offer-category bangla">ওয়্যারেবলস</span>
+                    <h3 class="offer-product-title bangla">স্মার্ট ওয়াচ প্রো</h3>
+                    <div class="offer-price">
+                        <span class="current-price bangla">৳ ২,৯৯৯</span>
+                        <span class="old-price bangla">৳ ৯,৯৯৯</span>
+                        <span class="discount-percent bangla">-৭০%</span>
+                    </div>
+                    <div class="offer-footer">
+                        <span class="stock-text bangla">সীমিত স্টক</span>
+                        <span class="offer-code-mini">CLEAR70</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="offer-card">
+                <span class="offer-badge percentage bangla">৫০% ছাড়</span>
+                <div class="offer-image">
+                    <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Bluetooth Speaker">
+                </div>
+                <div class="offer-content">
+                    <span class="offer-category bangla">অডিও</span>
+                    <h3 class="offer-product-title bangla">ব্লুটুথ স্পিকার</h3>
+                    <div class="offer-price">
+                        <span class="current-price bangla">৳ ১,৯৯৯</span>
+                        <span class="old-price bangla">৳ ৩,৯৯৯</span>
+                        <span class="discount-percent bangla">-৫০%</span>
+                    </div>
+                    <div class="offer-footer">
+                        <span class="stock-text bangla">সীমিত স্টক</span>
+                        <span class="offer-code-mini">CLEAR50</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="offer-card">
+                <span class="offer-badge percentage bangla">৬০% ছাড়</span>
+                <div class="offer-image">
+                    <img src="https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Power Bank">
+                </div>
+                <div class="offer-content">
+                    <span class="offer-category bangla">এক্সেসরিজ</span>
+                    <h3 class="offer-product-title bangla">২০০০০mAh পাওয়ার ব্যাংক</h3>
+                    <div class="offer-price">
+                        <span class="current-price bangla">৳ ১,৫৯৯</span>
+                        <span class="old-price bangla">৳ ৩,৯৯৯</span>
+                        <span class="discount-percent bangla">-৬০%</span>
+                    </div>
+                    <div class="offer-footer">
+                        <span class="stock-text bangla">সীমিত স্টক</span>
+                        <span class="offer-code-mini">CLEAR60</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1;">
+                    সেরা অফার, সেরা দাম, সেরা শপিং
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">অফারসমূহ</h3>
+                <ul class="footer-links">
+                    <li><a href="#" class="bangla">ফ্ল্যাশ ডিল</a></li>
+                    <li><a href="#" class="bangla">লিমিটেড অফার</a></li>
+                    <li><a href="#" class="bangla">কুপন</a></li>
+                    <li><a href="#" class="bangla">ক্লিয়ারেন্স সেল</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="bangla">হোম</a></li>
+                    <li><a href="products.html" class="bangla">পণ্য</a></li>
+                    <li><a href="blog.html" class="bangla">ব্লগ</a></li>
+                    <li><a href="contact.html" class="bangla">যোগাযোগ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li class="bangla"><i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১</li>
+                    <li class="bangla"><i class="fas fa-envelope"></i> offers@premiumshop.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla">
+            <p>&copy; ২০২৩ PremiumShop. সকল অফার সীমিত সময়ের জন্য।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Start flash sale timer
+            startFlashTimer();
+        });
+
+        // Flash Sale Timer
+        function startFlashTimer() {
+            let hours = 12;
+            let minutes = 45;
+            let seconds = 30;
+            
+            const timer = setInterval(() => {
+                if (seconds > 0) {
+                    seconds--;
+                } else {
+                    if (minutes > 0) {
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        if (hours > 0) {
+                            hours--;
+                            minutes = 59;
+                            seconds = 59;
+                        } else {
+                            clearInterval(timer);
+                            document.getElementById('flashTimer').innerHTML = '<div class="timer-box"><div class="timer-number">০০</div><div class="timer-label bangla">অফার শেষ</div></div>';
+                        }
+                    }
+                }
+                
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // Filter offers by category
+        function filterOffers(category) {
+            document.querySelectorAll('.category-offer-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            showNotification(`'${category}' ক্যাটাগরির অফার দেখানো হচ্ছে`, 'info');
+        }
+
+        // Copy coupon code
+        function copyCoupon(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification(`কুপন কোড ${code} কপি করা হয়েছে!`, 'success');
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `position-fixed top-0 end-0 m-3 p-3 rounded shadow text-white`;
+            notification.style.zIndex = '9999';
+            notification.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#f59e0b';
+            notification.style.animation = 'slideIn 0.3s ease';
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                    <span class="bangla">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

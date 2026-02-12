@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আপনার কার্ট - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .cart-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 35px;
+        }
+        
+        .summary-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 25px;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .empty-cart-icon {
+            font-size: 80px;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">
+                <i class="fas fa-crown"></i> PremiumShop
+            </a>
+            
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="products.html">
+                    <i class="fas fa-store"></i> শপিং চালিয়ে যান
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <h1 class="mb-4">আপনার শপিং কার্ট</h1>
+        
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+                <div id="cartItemsContainer">
+                    <!-- Cart items will be loaded here -->
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h4>আপনার কার্ট খালি</h4>
+                        <p class="text-muted mb-4">আপনার পছন্দের পণ্যগুলো কার্টে যোগ করুন</p>
+                        <a href="products.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-shopping-bag me-2"></i> শপিং শুরু করুন
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Continue Shopping -->
+                <div class="mt-4">
+                    <a href="products.html" class="text-decoration-none">
+                        <i class="fas fa-arrow-left me-2"></i> শপিং চালিয়ে যান
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="summary-card">
+                    <h5 class="mb-4">অর্ডার সারাংশ</h5>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>মোট পণ্য মূল্য</span>
+                            <span id="subtotal">৳ ০</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>ডেলিভারি চার্জ</span>
+                            <span id="delivery">৳ ০</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>ডিসকাউন্ট</span>
+                            <span class="text-success" id="discount">-৳ ০</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between fw-bold fs-5">
+                            <span>মোট</span>
+                            <span id="total">৳ ০</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="agreeTerms">
+                        <label class="form-check-label small" for="agreeTerms">
+                            আমি শর্তাবলী ও গোপনীয়তা নীতি পড়েছি এবং সম্মতি দিচ্ছি
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-lg w-100" id="checkoutBtn" disabled>
+                        চেকআউট করুন
+                    </button>
+                    
+                    <!-- Payment Methods -->
+                    <div class="mt-4 text-center">
+                        <p class="small text-muted mb-2">সুরক্ষিত পেমেন্ট</p>
+                        <div>
+                            <img src="https://i.ibb.co/Qfvn4z6/payment.png" alt="পেমেন্ট মেথড" height="30" class="opacity-75">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Help Box -->
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h6><i class="fas fa-question-circle text-primary me-2"></i> সাহায্য প্রয়োজন?</h6>
+                    <p class="small mb-2">কল করুন: ০৯৬৩৮-১১১-১১১</p>
+                    <p class="small mb-0">ইমেইল: support@premiumshop.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">&copy; ২০২৩ PremiumShop. সকল স্বত্ব সংরক্ষিত</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sample Cart Data
+        let cart = [
+            {
+                id: 1,
+                name: "স্যামসাং গ্যালাক্সি S23",
+                price: 115999,
+                quantity: 1,
+                image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 2,
+                name: "নাইক এয়ার জর্ডান",
+                price: 15999,
+                quantity: 2,
+                image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load cart from localStorage
+            const savedCart = JSON.parse(localStorage.getItem('cart'));
+            if (savedCart && savedCart.length > 0) {
+                cart = savedCart;
+            }
+            
+            loadCartItems();
+            setupEventListeners();
+        });
+
+        function loadCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const agreeTerms = document.getElementById('agreeTerms');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h4>আপনার কার্ট খালি</h4>
+                        <p class="text-muted mb-4">আপনার পছন্দের পণ্যগুলো কার্টে যোগ করুন</p>
+                        <a href="products.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-shopping-bag me-2"></i> শপিং শুরু করুন
+                        </a>
+                    </div>
+                `;
+                
+                checkoutBtn.disabled = true;
+                updateSummary(0, 0, 0);
+                return;
+            }
+            
+            let html = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                html += `
+                    <div class="cart-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 col-4">
+                                <img src="${item.image}" alt="${item.name}" class="img-fluid rounded">
+                            </div>
+                            <div class="col-md-5 col-8">
+                                <h5 class="mb-1">${item.name}</h5>
+                                <p class="text-muted mb-2">প্রতি: ৳${item.price.toLocaleString()}</p>
+                                <button class="btn btn-sm btn-outline-danger" onclick="removeItem(${item.id})">
+                                    <i class="fas fa-trash"></i> সরান
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="d-flex align-items-center">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-input mx-2" value="${item.quantity}" 
+                                           readonly id="qty-${item.id}">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-6 text-end">
+                                <h5 class="mb-0">৳${itemTotal.toLocaleString()}</h5>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // Calculate totals
+            const delivery = subtotal > 1000 ? 0 : 100;
+            const discount = subtotal > 5000 ? subtotal * 0.1 : 0;
+            const total = subtotal + delivery - discount;
+            
+            updateSummary(subtotal, delivery, discount, total);
+            
+            // Enable checkout if terms agreed
+            checkoutBtn.disabled = !agreeTerms.checked;
+        }
+
+        function updateSummary(subtotal, delivery, discount, total) {
+            document.getElementById('subtotal').textContent = `৳ ${subtotal.toLocaleString()}`;
+            document.getElementById('delivery').textContent = `৳ ${delivery.toLocaleString()}`;
+            document.getElementById('discount').textContent = `-৳ ${discount.toLocaleString()}`;
+            document.getElementById('total').textContent = `৳ ${total.toLocaleString()}`;
+        }
+
+        function updateQuantity(itemId, change) {
+            const item = cart.find(item => item.id === itemId);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== itemId);
+                }
+                
+                // Update localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update UI
+                loadCartItems();
+                
+                // Show notification
+                showNotification('কার্ট আপডেট করা হয়েছে!');
+            }
+        }
+
+        function removeItem(itemId) {
+            if (confirm('আপনি কি এই পণ্যটি কার্ট থেকে সরাতে চান?')) {
+                cart = cart.filter(item => item.id !== itemId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCartItems();
+                showNotification('পণ্যটি কার্ট থেকে সরানো হয়েছে!');
+            }
+        }
+
+        function setupEventListeners() {
+            // Terms checkbox
+            const agreeTerms = document.getElementById('agreeTerms');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            agreeTerms.addEventListener('change', function() {
+                checkoutBtn.disabled = !this.checked || cart.length === 0;
+            });
+            
+            // Checkout button
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('আপনার কার্ট খালি!');
+                    return;
+                }
+                
+                // Redirect to checkout page
+                window.location.href = 'checkout.html';
+            });
+        }
+
+        function showNotification(message) {
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'position-fixed bottom-0 end-0 m-3 p-3 bg-success text-white rounded shadow';
+            notification.style.zIndex = '9999';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

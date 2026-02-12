@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #ffffff;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Contact Page Styles */
+        .contact-hero {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .contact-hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        /* Contact Info Cards */
+        .contact-info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .contact-info-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: white;
+        }
+        
+        .info-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .info-text {
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .form-control-custom {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px 20px;
+            width: 100%;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .form-control-custom:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+        
+        .form-label-custom {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* Map */
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 40px;
+        }
+        
+        .map-placeholder {
+            background: var(--light);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .map-placeholder i {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .faq-answer {
+            margin-top: 15px;
+            color: #64748b;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .faq-item.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .contact-hero h1 {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .contact-form {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">হোম</a></li>
+                <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                <li><a href="about.html" class="nav-link">আমাদের সম্পর্কে</a></li>
+                <li><a href="contact.html" class="nav-link active">যোগাযোগ</a></li>
+                <li><a href="login.html" class="nav-link">লগইন</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="nav-container">
+            <h1 class="bangla">যোগাযোগ করুন</h1>
+            <p class="bangla" style="font-size: 18px; max-width: 700px; margin: 0 auto;">
+                আপনার প্রশ্ন, মতামত বা যেকোনো প্রয়োজনে আমাদের সাথে যোগাযোগ করুন
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Info Cards -->
+    <section class="section">
+        <div class="contact-container">
+            <div class="contact-grid">
+                <!-- Phone -->
+                <div class="contact-info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3 class="info-title bangla">ফোন</h3>
+                    <p class="info-text bangla">হেল্পলাইন: ০৯৬৩৮-১১১-১১১</p>
+                    <p class="info-text bangla">সেলস: ০১৭১২-৩৪৫-৬৭৮</p>
+                    <p class="info-text bangla">সাপোর্ট: ০১৯১২-৮৭৬-৫৪৩</p>
+                    <p class="bangla text-muted small mt-3">২৪/৭ সার্ভিস</p>
+                </div>
+                
+                <!-- Email -->
+                <div class="contact-info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="info-title bangla">ইমেইল</h3>
+                    <p class="info-text bangla">সাপোর্ট: support@premiumshop.com</p>
+                    <p class="info-text bangla">সেলস: sales@premiumshop.com</p>
+                    <p class="info-text bangla">ইনফো: info@premiumshop.com</p>
+                    <p class="bangla text-muted small mt-3">২৪ ঘন্টার মধ্যে রিপ্লাই</p>
+                </div>
+                
+                <!-- Address -->
+                <div class="contact-info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="info-title bangla">ঠিকানা</h3>
+                    <p class="info-text bangla">গুলশান ১, রোড ১২, বাড়ি ৩৪৫</p>
+                    <p class="info-text bangla">ঢাকা - ১২১২, বাংলাদেশ</p>
+                    <p class="info-text bangla">(প্রধান কার্যালয়)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="section" style="background: var(--light);">
+        <div class="contact-container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title bangla">আপনার বার্তা পাঠান</h2>
+                    
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label-custom bangla">আপনার নাম *</label>
+                                        <input type="text" class="form-control-custom" placeholder="আপনার নাম লিখুন" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label-custom bangla">ইমেইল ঠিকানা *</label>
+                                        <input type="email" class="form-control-custom" placeholder="example@gmail.com" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label-custom bangla">মোবাইল নম্বর</label>
+                                        <input type="text" class="form-control-custom" placeholder="০১৭১২-৩৪৫৬৭৮">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label-custom bangla">বিষয়</label>
+                                        <select class="form-control-custom">
+                                            <option>সাধারণ জিজ্ঞাসা</option>
+                                            <option>সেলস কোয়েরি</option>
+                                            <option>টেকনিক্যাল সাপোর্ট</option>
+                                            <option>অর্ডার সংক্রান্ত</option>
+                                            <option>পেমেন্ট সমস্যা</option>
+                                            <option>অন্যান্য</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="form-label-custom bangla">আপনার বার্তা *</label>
+                                        <textarea class="form-control-custom" rows="5" placeholder="আপনার বার্তা লিখুন..." required></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <button type="submit" class="btn-submit bangla">
+                                        <i class="fas fa-paper-plane me-2"></i> বার্তা পাঠান
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Map -->
+    <section class="section">
+        <div class="contact-container">
+            <h2 class="section-title bangla">আমাদের অবস্থান</h2>
+            
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3 class="bangla">গুলশান ১, ঢাকা</h3>
+                    <p class="bangla">Road 12, House 345, Gulshan 1, Dhaka 1212</p>
+                    <p class="bangla text-muted">(Google Map এখানে যোগ করা হবে)</p>
+                    <a href="#" class="btn btn-outline-primary mt-3 bangla">
+                        <i class="fas fa-directions me-2"></i> দিকনির্দেশনা দেখুন
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" style="background: var(--light);">
+        <div class="contact-container">
+            <h2 class="section-title bangla">সচরাচর জিজ্ঞাসা</h2>
+            
+            <div class="faq-container">
+                <!-- FAQ 1 -->
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span class="bangla">ডেলিভারি সময় কত দিন লাগে?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bangla">
+                        ঢাকা সিটির ভিতরে ২৪-৪৮ ঘন্টা এবং ঢাকার বাইরে ৩-৫ কর্মদিবস সময় লাগে। 
+                        ১০০০ টাকার বেশি অর্ডারে নিখরচায় ডেলিভারি।
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span class="bangla">পণ্য ফেরত নীতিটি কী?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bangla">
+                        আমরা ৭ দিনের রিটার্ন পলিসি অফার করি। ডেলিভারির ৭ দিনের মধ্যে যে কোনো পণ্য 
+                        ফেরত দিতে পারবেন যদি পণ্যটি ডিফেক্টিভ বা ড্যামেজ হয়।
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span class="bangla">পেমেন্ট অপশন কী কী আছে?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bangla">
+                        আমরা bKash, Nagad, Rocket, কার্ড পেমেন্ট এবং ক্যাশ অন ডেলিভারি সুবিধা দিয়ে থাকি। 
+                        সব পেমেন্ট ১০০% সুরক্ষিত।
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span class="bangla">কাস্টমার সাপোর্টের সময় কী?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bangla">
+                        আমাদের কাস্টমার সাপোর্ট টিম ২৪/৭ সার্ভিস দিয়ে থাকে। ফোন, ইমেইল অথবা 
+                        ওয়েবসাইটের চ্যাট অপশনের মাধ্যমে যোগাযোগ করতে পারবেন।
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1;">
+                    বাংলাদেশের সেরা অনলাইন শপিং অভিজ্ঞতা
+                </p>
+                <div style="margin-top: 20px;">
+                    <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">কুইক লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="bangla">হোম</a></li>
+                    <li><a href="products.html" class="bangla">পণ্য</a></li>
+                    <li><a href="about.html" class="bangla">আমাদের সম্পর্কে</a></li>
+                    <li><a href="contact.html" class="bangla">যোগাযোগ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">সাপোর্ট</h3>
+                <ul class="footer-links">
+                    <li><a href="#" class="bangla">FAQ</a></li>
+                    <li><a href="#" class="bangla">রিটার্ন পলিসি</a></li>
+                    <li><a href="#" class="bangla">প্রাইভেসি পলিসি</a></li>
+                    <li><a href="#" class="bangla">শর্তাবলী</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li class="bangla">
+                        <i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১
+                    </li>
+                    <li class="bangla">
+                        <i class="fas fa-envelope"></i> info@premiumshop.com
+                    </li>
+                    <li class="bangla">
+                        <i class="fas fa-map-marker-alt"></i> গুলশান ১, ঢাকা
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla">
+            <p>&copy; ২০২৩ PremiumShop. সকল স্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+        
+        // Toggle FAQ
+        function toggleFAQ(element) {
+            element.classList.toggle('active');
+        }
+        
+        // Contact Form Submit
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const form = this;
+            form.innerHTML = `
+                <div class="text-center py-5">
+                    <div style="width: 80px; height: 80px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fas fa-check" style="font-size: 40px; color: white;"></i>
+                    </div>
+                    <h3 class="bangla" style="color: #10b981; margin-bottom: 20px;">ধন্যবাদ!</h3>
+                    <p class="bangla">আপনার বার্তা সফলভাবে পাঠানো হয়েছে।</p>
+                    <p class="bangla">আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
+                    <button class="btn btn-primary mt-4" onclick="location.reload()">আরেকটি বার্তা পাঠান</button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

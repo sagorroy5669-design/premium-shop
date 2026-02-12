@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ক্যাটাগরি ম্যানেজমেন্ট - Premium eCommerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+        .category-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: #0d6efd;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .category-badge {
+            font-size: 0.8rem;
+        }
+        .subcategory-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+        .subcategory-list li {
+            padding: 3px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .subcategory-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-shop me-2"></i>
+                Premium Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="adminNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-speedometer2"></i> ড্যাশবোর্ড
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">
+                            <i class="bi bi-box-seam"></i> পণ্য
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">
+                            <i class="bi bi-receipt"></i> অর্ডার
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers.html">
+                            <i class="bi bi-people"></i> কাস্টমার
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="categories.html">
+                            <i class="bi bi-tags"></i> ক্যাটাগরি
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reports.html">
+                            <i class="bi bi-graph-up"></i> রিপোর্ট
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">
+                            <i class="bi bi-gear"></i> সেটিংস
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="../index.html">
+                            <i class="bi bi-box-arrow-right"></i> লগআউট
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-plus-circle me-2"></i>নতুন ক্যাটাগরি
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="categoryForm">
+                            <div class="mb-3">
+                                <label class="form-label">ক্যাটাগরি নাম *</label>
+                                <input type="text" class="form-control" id="categoryName" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">আইকন নির্বাচন</label>
+                                <div class="d-flex flex-wrap gap-2 mb-2" id="iconSelector">
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-phone">
+                                        <i class="bi bi-phone"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-laptop">
+                                        <i class="bi bi-laptop"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-tshirt">
+                                        <i class="bi bi-tshirt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-house-door">
+                                        <i class="bi bi-house-door"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-book">
+                                        <i class="bi bi-book"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-cup-straw">
+                                        <i class="bi bi-cup-straw"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-heart">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary icon-btn" data-icon="bi-bag">
+                                        <i class="bi bi-bag"></i>
+                                    </button>
+                                </div>
+                                <input type="hidden" id="selectedIcon" value="bi-tag">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">প্যারেন্ট ক্যাটাগরি</label>
+                                <select class="form-select" id="parentCategory">
+                                    <option value="">মেইন ক্যাটাগরি</option>
+                                    <option value="1">ইলেকট্রনিক্স</option>
+                                    <option value="2">ফ্যাশন</option>
+                                    <option value="3">ঘরের জিনিস</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">বর্ণনা</label>
+                                <textarea class="form-control" id="categoryDescription" rows="3"></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">স্ট্যাটাস</label>
+                                <select class="form-select" id="categoryStatus">
+                                    <option value="active">একটিভ</option>
+                                    <option value="inactive">ইনএকটিভ</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-save me-1"></i>ক্যাটাগরি সেভ করুন
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-info-circle me-2"></i>ক্যাটাগরি স্ট্যাটস
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>মোট ক্যাটাগরি:</span>
+                            <span class="fw-bold">24</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>একটিভ:</span>
+                            <span class="fw-bold text-success">20</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>সাবক্যাটাগরি:</span>
+                            <span class="fw-bold text-primary">45</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>পণ্য সংযুক্ত:</span>
+                            <span class="fw-bold text-warning">1,248</span>
+                        </div>
+                        <hr>
+                        <small class="text-muted">
+                            <i class="bi bi-lightbulb me-1"></i>
+                            টিপ: ক্যাটাগরি সঠিকভাবে অর্গানাইজ করলে পণ্য খুঁজে পেতে সহজ হয়
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="col-lg-9 col-md-8">
+                <!-- Page Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1 class="h3 mb-2">
+                            <i class="bi bi-tags text-primary me-2"></i>
+                            ক্যাটাগরি ম্যানেজমেন্ট
+                        </h1>
+                        <p class="text-muted mb-0">আপনার সব পণ্যের ক্যাটাগরি দেখুন এবং ম্যানেজ করুন</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary" onclick="exportCategories()">
+                            <i class="bi bi-download me-1"></i>এক্সপোর্ট
+                        </button>
+                        <button class="btn btn-success ms-2" onclick="showBulkUpload()">
+                            <i class="bi bi-upload me-1"></i>বাল্ক আপলোড
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" class="form-control" id="searchCategory" 
+                                   placeholder="ক্যাটাগরি নাম দিয়ে সার্চ করুন...">
+                            <button class="btn btn-outline-primary" onclick="searchCategories()">
+                                সার্চ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categories Tabs -->
+                <ul class="nav nav-tabs mb-4" id="categoryTabs">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#allCategories">
+                            সব ক্যাটাগরি
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#mainCategories">
+                            মেইন ক্যাটাগরি
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#subCategories">
+                            সাবক্যাটাগরি
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#featuredCategories">
+                            ফিচার্ড
+                        </button>
+                    </li>
+                </ul>
+                
+                <!-- Categories Content -->
+                <div class="tab-content">
+                    <!-- All Categories Tab -->
+                    <div class="tab-pane fade show active" id="allCategories">
+                        <div class="row" id="categoriesGrid">
+                            <!-- Categories will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Other tabs content would go here -->
+                </div>
+                
+                <!-- Category Tree View -->
+                <div class="card mt-4">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">
+                            <i class="bi bi-diagram-3 me-2"></i>ক্যাটাগরি ট্রি ভিউ
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="categoryTree">
+                            <!-- Tree structure will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Category Modal -->
+    <div class="modal fade" id="editCategoryModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">ক্যাটাগরি এডিট করুন</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit form will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Upload Modal -->
+    <div class="modal fade" id="bulkUploadModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title">
+                        <i class="bi bi-upload me-2"></i>বাল্ক ক্যাটাগরি আপলোড
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>CSV ফাইল আপলোড করুন। ফর্ম্যাট: name,parent_id,description,status</p>
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="categoryFile" accept=".csv">
+                    </div>
+                    <div class="alert alert-info">
+                        <small>
+                            <i class="bi bi-download me-1"></i>
+                            <a href="#" onclick="downloadTemplate()">স্যাম্পল CSV টেমপ্লেট ডাউনলোড করুন</a>
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">বাতিল</button>
+                    <button type="button" class="btn btn-warning" onclick="uploadCategories()">আপলোড করুন</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Sample categories data
+        const categories = [
+            {
+                id: 1,
+                name: "ইলেকট্রনিক্স",
+                icon: "bi-phone",
+                iconColor: "bg-primary text-white",
+                description: "সব ধরনের ইলেকট্রনিক ডিভাইস",
+                parentId: null,
+                productCount: 245,
+                subCategories: 5,
+                status: "active",
+                featured: true
+            },
+            {
+                id: 2,
+                name: "ফ্যাশন",
+                icon: "bi-tshirt",
+                iconColor: "bg-danger text-white",
+                description: "পুরুষ ও মহিলা ফ্যাশন",
+                parentId: null,
+                productCount: 189,
+                subCategories: 8,
+                status: "active",
+                featured: true
+            },
+            {
+                id: 3,
+                name: "ঘরের জিনিস",
+                icon: "bi-house-door",
+                iconColor: "bg-success text-white",
+                description: "ঘর সাজানোর সব সামগ্রী",
+                parentId: null,
+                productCount: 156,
+                subCategories: 6,
+                status: "active",
+                featured: false
+            },
+            {
+                id: 4,
+                name: "বই ও স্টেশনারী",
+                icon: "bi-book",
+                iconColor: "bg-info text-white",
+                description: "শিক্ষামূলক বই এবং অফিস সাপ্লাই",
+                parentId: null,
+                productCount: 89,
+                subCategories: 3,
+                status: "active",
+                featured: false
+            },
+            {
+                id: 5,
+                name: "স্মার্টফোন",
+                icon: "bi-phone",
+                iconColor: "bg-secondary text-white",
+                description: "সব ব্র্যান্ডের স্মার্টফোন",
+                parentId: 1,
+                productCount: 120,
+                subCategories: 0,
+                status: "active",
+                featured: true
+            },
+            {
+                id: 6,
+                name: "ল্যাপটপ",
+                icon: "bi-laptop",
+                iconColor: "bg-warning text-dark",
+                description: "গেমিং ও অফিস ল্যাপটপ",
+                parentId: 1,
+                productCount: 75,
+                subCategories: 0,
+                status: "active",
+                featured: true
+            },
+            {
+                id: 7,
+                name: "পুরুষ ফ্যাশন",
+                icon: "bi-person",
+                iconColor: "bg-primary text-white",
+                description: "শার্ট, প্যান্ট, জুতা",
+                parentId: 2,
+                productCount: 95,
+                subCategories: 0,
+                status: "active",
+                featured: false
+            },
+            {
+                id: 8,
+                name: "মহিলা ফ্যাশন",
+                icon: "bi-person-heart",
+                iconColor: "bg-danger text-white",
+                description: "শাড়ি, সালোয়ার, জুতা",
+                parentId: 2,
+                productCount: 94,
+                subCategories: 0,
+                status: "active",
+                featured: false
+            }
+        ];
+
+        // Load categories on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            loadCategoryTree();
+            setupIconSelector();
+            setupCategoryForm();
+        });
+
+        function loadCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = '';
+            
+            categories.forEach(category => {
+                const isMainCategory = category.parentId === null;
+                
+                const card = `
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card category-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <div class="category-icon ${category.iconColor}">
+                                        <i class="bi ${category.icon}"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-1">${category.name}</h5>
+                                        <p class="text-muted small mb-2">${category.description}</p>
+                                        <div class="d-flex gap-2">
+                                            ${isMainCategory ? 
+                                                `<span class="badge bg-primary category-badge">মেইন</span>` : 
+                                                `<span class="badge bg-secondary category-badge">সাবক্যাটাগরি</span>`
+                                            }
+                                            ${category.featured ? 
+                                                `<span class="badge bg-warning category-badge">ফিচার্ড</span>` : ''
+                                            }
+                                            <span class="badge bg-${category.status === 'active' ? 'success' : 'danger'} category-badge">
+                                                ${category.status === 'active' ? 'একটিভ' : 'ইনএকটিভ'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-6 text-center">
+                                        <div class="h4 mb-1">${category.productCount}</div>
+                                        <small class="text-muted">পণ্য</small>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <div class="h4 mb-1">${category.subCategories}</div>
+                                        <small class="text-muted">সাবক্যাটাগরি</small>
+                                    </div>
+                                </div>
+                                
+                                ${isMainCategory && category.subCategories > 0 ? `
+                                    <div class="mb-3">
+                                        <small class="text-muted d-block mb-1">সাবক্যাটাগরি:</small>
+                                        <ul class="subcategory-list">
+                                            ${getSubcategories(category.id).map(sub => 
+                                                `<li>${sub.name}</li>`
+                                            ).join('')}
+                                        </ul>
+                                    </div>
+                                ` : ''}
+                                
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="editCategory(${category.id})">
+                                        <i class="bi bi-pencil"></i> এডিট
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" onclick="viewProducts(${category.id})">
+                                        <i class="bi bi-eye"></i> পণ্য দেখুন
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(${category.id})">
+                                        <i class="bi bi-trash"></i> ডিলিট
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        function getSubcategories(parentId) {
+            return categories.filter(cat => cat.parentId === parentId);
+        }
+
+        function loadCategoryTree() {
+            const treeContainer = document.getElementById('categoryTree');
+            let treeHtml = '<ul class="list-unstyled">';
+            
+            const mainCategories = categories.filter(cat => cat.parentId === null);
+            
+            mainCategories.forEach(mainCat => {
+                treeHtml += `
+                    <li class="mb-2">
+                        <div class="d-flex align-items-center bg-light p-2 rounded">
+                            <i class="bi ${mainCat.icon} me-2"></i>
+                            <strong>${mainCat.name}</strong>
+                            <span class="badge bg-secondary ms-2">${mainCat.productCount}</span>
+                        </div>
+                `;
+                
+                const subCats = getSubcategories(mainCat.id);
+                if (subCats.length > 0) {
+                    treeHtml += '<ul class="list-unstyled ms-4 mt-2">';
+                    subCats.forEach(subCat => {
+                        treeHtml += `
+                            <li class="mb-1">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-arrow-return-right me-2"></i>
+                                    ${subCat.name}
+                                    <span class="badge bg-light text-dark ms-2">${subCat.productCount}</span>
+                                </div>
+                            </li>
+                        `;
+                    });
+                    treeHtml += '</ul>';
+                }
+                
+                treeHtml += '</li>';
+            });
+            
+            treeHtml += '</ul>';
+            treeContainer.innerHTML = treeHtml;
+        }
+
+        function setupIconSelector() {
+            const iconButtons = document.querySelectorAll('.icon-btn');
+            iconButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    iconButtons.forEach(b => b.classList.remove('active', 'btn-primary'));
+                    // Add active class to clicked button
+                    this.classList.add('active', 'btn-primary');
+                    this.classList.remove('btn-outline-secondary');
+                    
+                    // Set the selected icon value
+                    const icon = this.getAttribute('data-icon');
+                    document.getElementById('selectedIcon').value = icon;
+                });
+            });
+        }
+
+        function setupCategoryForm() {
+            const form = document.getElementById('categoryForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                addNewCategory();
+            });
+        }
+
+        function addNewCategory() {
+            const name = document.getElementById('categoryName').value;
+            const icon = document.getElementById('selectedIcon').value;
+            const parentId = document.getElementById('parentCategory').value;
+            const description = document.getElementById('categoryDescription').value;
+            const status = document.getElementById('categoryStatus').value;
+            
+            if (!name) {
+                alert('ক্যাটাগরি নাম প্রয়োজন!');
+                return;
+            }
+            
+            const newCategory = {
+                id: categories.length + 1,
+                name: name,
+                icon: icon,
+                iconColor: 'bg-info text-white',
+                description: description,
+                parentId: parentId || null,
+                productCount: 0,
+                subCategories: 0,
+                status: status,
+                featured: false
+            };
+            
+            // In real app, send to server
+            alert(`"${name}" ক্যাটাগরি যোগ করা হয়েছে!`);
+            
+            // Reset form
+            document.getElementById('categoryForm').reset();
+            document.getElementById('selectedIcon').value = 'bi-tag';
+            
+            // Reload categories
+            loadCategories();
+            loadCategoryTree();
+        }
+
+        function editCategory(id) {
+            const category = categories.find(c => c.id === id);
+            if (!category) return;
+            
+            const modal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
+            const modalBody = document.querySelector('#editCategoryModal .modal-body');
+            
+            modalBody.innerHTML = `
+                <form id="editForm">
+                    <div class="mb-3">
+                        <label class="form-label">ক্যাটাগরি নাম</label>
+                        <input type="text" class="form-control" value="${category.name}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">বর্ণনা</label>
+                        <textarea class="form-control" rows="3">${category.description}</textarea>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">স্ট্যাটাস</label>
+                            <select class="form-select">
+                                <option value="active" ${category.status === 'active' ? 'selected' : ''}>একটিভ</option>
+                                <option value="inactive" ${category.status === 'inactive' ? 'selected' : ''}>ইনএকটিভ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">ফিচার্ড</label>
+                            <select class="form-select">
+                                <option value="true" ${category.featured ? 'selected' : ''}>হ্যাঁ</option>
+                                <option value="false" ${!category.featured ? 'selected' : ''}>না</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-primary" onclick="saveCategoryChanges(${id})">সেভ করুন</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteCategory(${id})">ডিলিট করুন</button>
+                    </div>
+                </form>
+            `;
+            
+            modal.show();
+        }
+
+        function saveCategoryChanges(id) {
+            alert(`ক্যাটাগরি ID ${id} এর পরিবর্তন সেভ করা হয়েছে!`);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editCategoryModal'));
+            modal.hide();
+            // In real app, update and reload
+        }
+
+        function viewProducts(categoryId) {
+            // Redirect to products page with category filter
+            window.location.href = `products.html?category=${categoryId}`;
+        }
+
+        function deleteCategory(id) {
+            if (confirm('আপনি কি এই ক্যাটাগরি ডিলিট করতে চান? সব সাবক্যাটাগরিও ডিলিট হয়ে যাবে!')) {
+                alert(`ক্যাটাগরি ID ${id} ডিলিট করা হয়েছে!`);
+                // In real app, delete and reload
+            }
+        }
+
+        function searchCategories() {
+            const searchText = document.getElementById('searchCategory').value.toLowerCase();
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = '';
+            
+            const filtered = categories.filter(cat => 
+                cat.name.toLowerCase().includes(searchText) ||
+                cat.description.toLowerCase().includes(searchText)
+            );
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-search display-1 text-muted"></i>
+                        <h4 class="mt-3">কোন ক্যাটাগরি পাওয়া যায়নি</h4>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Re-render filtered categories (simplified for example)
+            loadCategories();
+        }
+
+        function showBulkUpload() {
+            const modal = new bootstrap.Modal(document.getElementById('bulkUploadModal'));
+            modal.show();
+        }
+
+        function uploadCategories() {
+            const fileInput = document.getElementById('categoryFile');
+            if (!fileInput.files[0]) {
+                alert('দয়া করে একটি CSV ফাইল নির্বাচন করুন!');
+                return;
+            }
+            
+            alert('ফাইল আপলোড হচ্ছে...');
+            // In real app, process CSV file
+            const modal = bootstrap.Modal.getInstance(document.getElementById('bulkUploadModal'));
+            modal.hide();
+        }
+
+        function downloadTemplate() {
+            alert('টেমপ্লেট ডাউনলোড হচ্ছে...');
+            // In real app, trigger file download
+        }
+
+        function exportCategories() {
+            alert('ক্যাটাগরি লিস্ট CSV ফর্ম্যাটে এক্সপোর্ট হচ্ছে...');
+            // In real app, generate and download CSV
+        }
+    </script>
+</body>
+</html>

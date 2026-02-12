@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নিবন্ধন করুন - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== COMMON STYLES ===== */
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #ffffff;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* ===== HEADER ===== */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        /* ===== REGISTER SECTION ===== */
+        .register-section {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .register-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .register-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .register-left {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .register-left h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .register-left p {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .benefits-list {
+            margin-top: 30px;
+            list-style: none;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .benefits-list i {
+            color: var(--accent);
+        }
+        
+        .register-right {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .register-form {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .form-header h1 {
+            font-size: 32px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: var(--gray);
+        }
+        
+        /* ===== FORM STYLES ===== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .form-control-custom {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+        
+        .form-control-custom:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background: white;
+            outline: none;
+        }
+        
+        .password-wrapper {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+        }
+        
+        /* ===== CHECKBOX ===== */
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .form-check-input {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            margin-top: 4px;
+        }
+        
+        .form-check-label {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+        
+        .terms-link {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .terms-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn-register {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+        
+        .btn-register:active {
+            transform: translateY(0);
+        }
+        
+        /* ===== DIVIDER ===== */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        
+        .divider-text {
+            padding: 0 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* ===== SOCIAL REGISTER ===== */
+        .social-register {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            color: var(--dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* ===== LINKS ===== */
+        .auth-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .auth-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== PROGRESS BAR ===== */
+        .progress-container {
+            margin-bottom: 30px;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 33%;
+            transition: width 0.3s;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .step {
+            text-align: center;
+        }
+        
+        .step.active {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .register-card {
+                flex-direction: column;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .register-left {
+                padding: 40px;
+            }
+            
+            .register-right {
+                padding: 40px;
+            }
+            
+            .register-left h2 {
+                font-size: 28px;
+            }
+            
+            .form-header h1 {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .register-section {
+                padding: 30px 15px;
+            }
+            
+            .register-left,
+            .register-right {
+                padding: 30px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .social-register {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .register-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="bangla">
+                <i class="fas fa-shipping-fast"></i> ১০০০+ টাকার অর্ডারে নিখরচায় ডেলিভারি
+            </div>
+            <div class="bangla">
+                <i class="fas fa-phone-alt"></i> হেল্পলাইন: ০৯৬৩৮-১১১-১১১
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <!-- Back to Home -->
+            <a href="index.html" class="btn btn-outline-primary">
+                <i class="fas fa-home me-2"></i> হোমে ফিরুন
+            </a>
+
+            <a href="dashboard.html" class="btn btn-outline-primary">
+                <i class="fas fa-user"></i> ড্যাশবোর্ড
+            </a>
+        </div>
+    </header>
+
+    <!-- Register Section -->
+    <section class="register-section">
+        <div class="register-container">
+            <div class="register-card">
+                <!-- Left Side - Benefits -->
+                <div class="register-left">
+                    <h2 class="bangla">PremiumShop সদস্য হোন</h2>
+                    <p class="bangla">
+                        একটি অ্যাকাউন্ট তৈরি করুন এবং বাংলাদেশের সেরা অনলাইন শপিং অভিজ্ঞতা উপভোগ করুন। এক্সক্লুসিভ অফার, প্রিয় পণ্য সেভ করা এবং আরও অনেক সুবিধা পান।
+                    </p>
+                    
+                    <ul class="benefits-list bangla">
+                        <li><i class="fas fa-check-circle"></i> এক্সক্লুসিভ সদস্য অফার</li>
+                        <li><i class="fas fa-check-circle"></i> অর্ডার ইতিহাস ট্র্যাক করুন</li>
+                        <li><i class="fas fa-check-circle"></i> উইশলিস্ট তৈরি করুন</li>
+                        <li><i class="fas fa-check-circle"></i> দ্রুত চেকআউট</li>
+                        <li><i class="fas fa-check-circle"></i> প্রিয় পণ্য সেভ করুন</li>
+                        <li><i class="fas fa-check-circle"></i> বিশেষ ডিসকাউন্ট পান</li>
+                    </ul>
+                </div>
+                
+                <!-- Right Side - Register Form -->
+                <div class="register-right">
+                    <div class="register-form">
+                        <div class="form-header">
+                            <h1 class="bangla">নতুন অ্যাকাউন্ট তৈরি করুন</h1>
+                            <p class="bangla">কয়েকটি সহজ ধাপে অ্যাকাউন্ট তৈরি করুন</p>
+                        </div>
+                        
+                        <!-- Progress Bar -->
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-steps">
+                                <div class="step active">ব্যক্তিগত তথ্য</div>
+                                <div class="step">অ্যাকাউন্ট তথ্য</div>
+                                <div class="step">নিশ্চিতকরণ</div>
+                            </div>
+                        </div>
+                        
+                        <form id="registerForm">
+                            <!-- Personal Information -->
+                            <div id="step1" class="form-step">
+                                <h4 class="bangla mb-4" style="color: var(--primary);">ব্যক্তিগত তথ্য</h4>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label bangla">প্রথম নাম</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control-custom" 
+                                            placeholder="আপনার প্রথম নাম"
+                                            id="firstName"
+                                            required
+                                        >
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label bangla">শেষ নাম</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control-custom" 
+                                            placeholder="আপনার শেষ নাম"
+                                            id="lastName"
+                                        >
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label bangla">মোবাইল নম্বর</label>
+                                    <input 
+                                        type="tel" 
+                                        class="form-control-custom" 
+                                        placeholder="01XXXXXXXXX"
+                                        id="phone"
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label bangla">জন্ম তারিখ</label>
+                                    <input 
+                                        type="date" 
+                                        class="form-control-custom" 
+                                        id="dob"
+                                    >
+                                </div>
+                                
+                                <div class="text-end mt-4">
+                                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                                        পরবর্তী <i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Account Information (Hidden initially) -->
+                            <div id="step2" class="form-step" style="display: none;">
+                                <h4 class="bangla mb-4" style="color: var(--primary);">অ্যাকাউন্ট তথ্য</h4>
+                                
+                                <div class="form-group">
+                                    <label class="form-label bangla">ইমেইল অ্যাড্রেস</label>
+                                    <input 
+                                        type="email" 
+                                        class="form-control-custom" 
+                                        placeholder="আপনার ইমেইল"
+                                        id="email"
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label bangla">পাসওয়ার্ড</label>
+                                    <div class="password-wrapper">
+                                        <input 
+                                            type="password" 
+                                            id="password"
+                                            class="form-control-custom" 
+                                            placeholder="পাসওয়ার্ড তৈরি করুন"
+                                            required
+                                        >
+                                        <button 
+                                            type="button" 
+                                            class="password-toggle"
+                                            onclick="togglePassword('password')"
+                                        >
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <small class="text-muted bangla">অন্তত ৮টি অক্ষর, একটি বড় হাতের অক্ষর এবং একটি সংখ্যা থাকতে হবে</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label bangla">পাসওয়ার্ড নিশ্চিত করুন</label>
+                                    <div class="password-wrapper">
+                                        <input 
+                                            type="password" 
+                                            id="confirmPassword"
+                                            class="form-control-custom" 
+                                            placeholder="পাসওয়ার্ড আবার দিন"
+                                            required
+                                        >
+                                        <button 
+                                            type="button" 
+                                            class="password-toggle"
+                                            onclick="togglePassword('confirmPassword')"
+                                        >
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="prevStep()">
+                                        <i class="fas fa-arrow-left me-2"></i> পূর্ববর্তী
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                                        পরবর্তী <i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Confirmation (Hidden initially) -->
+                            <div id="step3" class="form-step" style="display: none;">
+                                <h4 class="bangla mb-4" style="color: var(--primary);">নিশ্চিতকরণ</h4>
+                                
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="terms" required>
+                                        <label class="form-check-label bangla" for="terms">
+                                            আমি <a href="terms.html" class="terms-link">সেবার শর্তাবলী</a> এবং <a href="privacy.html" class="terms-link">গোপনীয়তা নীতি</a> পড়েছি এবং স্বীকার করছি
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="newsletter">
+                                        <label class="form-check-label bangla" for="newsletter">
+                                            বিশেষ অফার এবং প্রচারের জন্য ইমেইল পান
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 p-3 bg-light rounded">
+                                    <h6 class="bangla mb-3">আপনার তথ্য</h6>
+                                    <div class="row">
+                                        <div class="col-6 bangla">নাম:</div>
+                                        <div class="col-6 bangla" id="reviewName"></div>
+                                        
+                                        <div class="col-6 bangla">মোবাইল:</div>
+                                        <div class="col-6 bangla" id="reviewPhone"></div>
+                                        
+                                        <div class="col-6 bangla">ইমেইল:</div>
+                                        <div class="col-6 bangla" id="reviewEmail"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="prevStep()">
+                                        <i class="fas fa-arrow-left me-2"></i> পূর্ববর্তী
+                                    </button>
+                                    <button type="submit" class="btn-register bangla">
+                                        <i class="fas fa-user-plus me-2"></i> অ্যাকাউন্ট তৈরি করুন
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <!-- Divider -->
+                        <div class="divider">
+                            <span class="divider-text bangla">অথবা</span>
+                        </div>
+                        
+                        <!-- Social Register -->
+                        <div class="social-register">
+                            <a href="#" class="social-btn">
+                                <i class="fab fa-google"></i>
+                                <span class="bangla">Google</span>
+                            </a>
+                            <a href="#" class="social-btn">
+                                <i class="fab fa-facebook"></i>
+                                <span class="bangla">Facebook</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Login Link -->
+                        <div class="auth-links">
+                            <span class="bangla">ইতিমধ্যে অ্যাকাউন্ট আছে?</span>
+                            <a href="login.html" class="auth-link bangla ms-2">
+                                লগইন করুন
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <!-- Company Info -->
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1; margin-top: 15px;">
+                    বাংলাদেশের সেরা অনলাইন শপিং প্ল্যাটফর্ম। ১০০% অথেনটিক পণ্য, নিরাপদ শপিং এবং সেরা কাস্টমার সার্ভিস।
+                </p>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="footer-column">
+                <h3 class="bangla">কুইক লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="bangla">হোম</a></li>
+                    <li><a href="products.html" class="bangla">পণ্য</a></li>
+                    <li><a href="categories.html" class="bangla">ক্যাটাগরি</a></li>
+                    <li><a href="cart.html" class="bangla">কার্ট</a></li>
+                </ul>
+            </div>
+            
+            <!-- Help -->
+            <div class="footer-column">
+                <h3 class="bangla">সাহায্য</h3>
+                                <ul class="footer-links">
+                    <li><a href="#" class="bangla">সাপোর্ট</a></li>
+                    <li><a href="#" class="bangla">FAQ</a></li>
+                    <li><a href="#" class="bangla">রিটার্ন পলিসি</a></li>
+                    <li><a href="#" class="bangla">প্রাইভেসি পলিসি</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact -->
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links" style="list-style: none; padding: 0;">
+                    <li class="bangla mb-3">
+                        <i class="fas fa-map-marker-alt me-2"></i> গুলশান ১, ঢাকা
+                    </li>
+                    <li class="bangla mb-3">
+                        <i class="fas fa-phone me-2"></i> ০৯৬৩৮-১১১-১১১
+                    </li>
+                    <li class="bangla">
+                        <i class="fas fa-envelope me-2"></i> support@premiumshop.com
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p class="bangla">&copy; ২০২৩ PremiumShop. সকল স্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        let currentStep = 1;
+        
+        // Initialize progress bar
+        document.getElementById('progressFill').style.width = '33%';
+        
+        // Toggle Password Visibility
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleButton = passwordInput.parentNode.querySelector('.password-toggle i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.classList.remove('fa-eye');
+                toggleButton.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.classList.remove('fa-eye-slash');
+                toggleButton.classList.add('fa-eye');
+            }
+        }
+        
+        // Step Navigation
+        function nextStep() {
+            // Validate current step
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            
+            // Hide current step
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            
+            // Show next step
+            currentStep++;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            
+            // Update progress bar
+            const progressWidth = (currentStep / 3) * 100;
+            document.getElementById('progressFill').style.width = `${progressWidth}%`;
+            
+            // Update steps
+            document.querySelectorAll('.step').forEach((step, index) => {
+                if (index < currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update review data if on last step
+            if (currentStep === 3) {
+                updateReviewData();
+            }
+        }
+        
+        function prevStep() {
+            // Hide current step
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            
+            // Show previous step
+            currentStep--;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            
+            // Update progress bar
+            const progressWidth = (currentStep / 3) * 100;
+            document.getElementById('progressFill').style.width = `${progressWidth}%`;
+            
+            // Update steps
+            document.querySelectorAll('.step').forEach((step, index) => {
+                if (index < currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        // Validate Step
+        function validateStep(step) {
+            if (step === 1) {
+                const firstName = document.getElementById('firstName').value;
+                const phone = document.getElementById('phone').value;
+                
+                if (!firstName) {
+                    showMessage('দয়া করে আপনার প্রথম নাম দিন।', 'error');
+                    return false;
+                }
+                
+                if (!phone) {
+                    showMessage('দয়া করে আপনার মোবাইল নম্বর দিন।', 'error');
+                    return false;
+                }
+                
+                // Phone validation (Bangladeshi format)
+                const phoneRegex = /^01[3-9]\d{8}$/;
+                if (!phoneRegex.test(phone)) {
+                    showMessage('দয়া করে একটি সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)।', 'error');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            if (step === 2) {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showMessage('দয়া করে একটি সঠিক ইমেইল অ্যাড্রেস দিন।', 'error');
+                    return false;
+                }
+                
+                // Password validation
+                if (password.length < 8) {
+                    showMessage('পাসওয়ার্ড অন্তত ৮টি অক্ষর দীর্ঘ হতে হবে।', 'error');
+                    return false;
+                }
+                
+                // Check for uppercase, lowercase and number
+                const hasUpperCase = /[A-Z]/.test(password);
+                const hasLowerCase = /[a-z]/.test(password);
+                const hasNumber = /\d/.test(password);
+                
+                if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+                    showMessage('পাসওয়ার্ডে অন্তত একটি বড় হাতের অক্ষর, একটি ছোট হাতের অক্ষর এবং একটি সংখ্যা থাকতে হবে।', 'error');
+                    return false;
+                }
+                
+                // Confirm password
+                if (password !== confirmPassword) {
+                    showMessage('পাসওয়ার্ড মিলছে না।', 'error');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            return true;
+        }
+        
+        // Update Review Data
+        function updateReviewData() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            
+            document.getElementById('reviewName').textContent = `${firstName} ${lastName}`;
+            document.getElementById('reviewPhone').textContent = phone;
+            document.getElementById('reviewEmail').textContent = email;
+        }
+        
+        // Form Submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate final step
+            if (!validateStep(3)) {
+                return;
+            }
+            
+            // Check terms acceptance
+            if (!document.getElementById('terms').checked) {
+                showMessage('অনুগ্রহ করে সেবার শর্তাবলী স্বীকার করুন।', 'error');
+                return;
+            }
+            
+            // Simulate registration process
+            showMessage('অ্যাকাউন্ট তৈরি করা হচ্ছে...', 'loading');
+            
+            // Collect form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                phone: document.getElementById('phone').value,
+                dob: document.getElementById('dob').value,
+                email: document.getElementById('email').value,
+                newsletter: document.getElementById('newsletter').checked
+            };
+            
+            // Save to localStorage (for demo)
+            localStorage.setItem('userData', JSON.stringify(formData));
+            
+            setTimeout(() => {
+                // In real app, this would be an API call
+                showMessage('অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!', 'success');
+                
+                // Redirect to dashboard after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }, 2000);
+        });
+        
+        // Show Message Function
+        function showMessage(message, type) {
+            // Remove existing message
+            const existingMessage = document.querySelector('.message-alert');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message-alert';
+            
+            // Set styles based on type
+            let backgroundColor = '#10b981'; // success - green
+            let icon = 'fas fa-check-circle';
+            
+            if (type === 'error') {
+                backgroundColor = '#ef4444'; // error - red
+                icon = 'fas fa-exclamation-circle';
+            } else if (type === 'loading') {
+                backgroundColor = '#f59e0b'; // loading - orange
+                icon = 'fas fa-spinner fa-spin';
+            }
+            
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${backgroundColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: slideIn 0.3s ease;
+                font-family: 'Hind Siliguri', sans-serif;
+            `;
+            
+            messageDiv.innerHTML = `
+                <i class="${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(messageDiv);
+            
+            // Add CSS animations if not exists
+            if (!document.getElementById('message-styles')) {
+                const style = document.createElement('style');
+                style.id = 'message-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Remove message after 3 seconds (except for loading)
+            if (type !== 'loading') {
+                setTimeout(() => {
+                    messageDiv.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        messageDiv.remove();
+                    }, 300);
+                }, 3000);
+            }
+        }
+        
+        // Auto-fill for demo (remove in production)
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                // Check if fields are empty
+                const firstName = document.getElementById('firstName');
+                const lastName = document.getElementById('lastName');
+                const phone = document.getElementById('phone');
+                const email = document.getElementById('email');
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirmPassword');
+                
+                if (firstName && !firstName.value) {
+                    // Fill with demo data
+                    firstName.value = 'আহমেদ';
+                    lastName.value = 'হাসান';
+                    phone.value = '01712345678';
+                    document.getElementById('dob').value = '1990-01-01';
+                    email.value = 'demo@example.com';
+                    password.value = 'Password123';
+                    confirmPassword.value = 'Password123';
+                    
+                    // Show demo message
+                    showMessage('ডেমো জন্য অটো-ফিল করা হয়েছে। পরিবর্তন করুন।', 'success');
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

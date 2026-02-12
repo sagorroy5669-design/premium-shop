@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পণ্য বিস্তারিত - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    
+    <style>
+        .product-gallery img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
+        
+        .thumbnail.active {
+            border-color: #2563eb;
+        }
+        
+        .price-tag {
+            font-size: 2rem;
+            color: #2563eb;
+            font-weight: bold;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+        
+        .discount-badge {
+            background: #ef4444;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .specs-table {
+            width: 100%;
+        }
+        
+        .specs-table tr {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .specs-table td {
+            padding: 10px 0;
+        }
+        
+        .specs-table td:first-child {
+            font-weight: 500;
+            color: #64748b;
+            width: 40%;
+        }
+        
+        .tab-content {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background-color: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        
+        .review-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .related-product {
+            transition: transform 0.3s;
+        }
+        
+        .related-product:hover {
+            transform: translateY(-5px);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .qty-input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 40px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">
+                <i class="fas fa-crown"></i> PremiumShop
+            </a>
+            
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">হোম</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">পণ্য</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html">ক্যাটাগরি</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center">
+                    <a href="cart.html" class="btn btn-outline-primary position-relative me-3">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            0
+                        </span>
+                    </a>
+                    
+                    <a href="login.html" class="btn btn-primary">
+                        <i class="fas fa-user"></i> অ্যাকাউন্ট
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">হোম</a></li>
+                <li class="breadcrumb-item"><a href="products.html">পণ্য</a></li>
+                <li class="breadcrumb-item"><a href="#">ইলেকট্রনিক্স</a></li>
+                <li class="breadcrumb-item active" aria-current="page">স্যামসাং গ্যালাক্সি S23 আল্ট্রা</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Product Details -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Product Images -->
+            <div class="col-lg-6">
+                <div class="product-gallery mb-4">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Product Main Image" id="mainImage">
+                </div>
+                
+                <div class="thumbnail-container d-flex justify-content-center gap-2">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                         class="thumbnail active" onclick="changeImage(this)" data-img="https://images.unsplash.com/photo-1598327105666-5b89351-aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                    
+                    <img src="https://images.unsplash.com/photo-1598327105854-c8674faddf74?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                         class="thumbnail" onclick="changeImage(this)" data-img="https://images.unsplash.com/photo-1598327105854-c8674faddf74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                    
+                    <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                         class="thumbnail" onclick="changeImage(this)" data-img="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                </div>
+                
+                <!-- Share Options -->
+                <div class="mt-4">
+                    <p class="mb-2">শেয়ার করুন:</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary btn-sm">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                        <a href="#" class="btn btn-outline-info btn-sm">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="#" class="btn btn-outline-danger btn-sm">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Info -->
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <span class="badge bg-success">স্টকে আছে</span>
+                    <span class="badge bg-warning ms-2">বেস্টসেলার</span>
+                </div>
+                
+                <h1 class="mb-3">স্যামসাং গ্যালাক্সি S23 আল্ট্রা 5G</h1>
+                
+                <div class="mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rating">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                        </div>
+                        <span class="text-muted">(৪.৫/৫, ১২৩৪ রিভিউ)</span>
+                        <a href="#reviews" class="ms-3">রিভিউ দেখুন</a>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="price-tag">৳ ১,১৫,৯৯৯</span>
+                        <span class="old-price">৳ ১,৬৫,০০০</span>
+                        <span class="discount-badge">৩০% ছাড়</span>
+                    </div>
+                    <p class="text-success mt-2">
+                        <i class="fas fa-truck"></i> নিখরচায় ডেলিভারি
+                    </p>
+                </div>
+                
+                <!-- Product Description -->
+                <div class="mb-4">
+                    <h5>বিবরণ</h5>
+                    <p>
+                        স্যামসাং গ্যালাক্সি S23 আল্ট্রা 5G স্মার্টফোনটি ৬.৮ ইঞ্চি ডায়নামিক AMOLED 2X ডিসপ্লে, 
+                        ২০০MP ক্যামেরা, স্ন্যাপড্রাগন 8 জেন 2 প্রসেসর এবং ৫০০০mAh ব্যাটারি নিয়ে আসছে। 
+                        এটি বাংলাদেশের বাজারে পাওয়া সবচেয়ে পাওয়ারফুল স্মার্টফোনগুলোর মধ্যে একটি।
+                    </p>
+                </div>
+                
+                <!-- Variants -->
+                <div class="mb-4">
+                    <h6>স্টোরেজ সিলেক্ট করুন:</h6>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary variant-btn active" data-price="115999">
+                            ২৫৬GB - ৳১,১৫,৯৯৯
+                        </button>
+                        <button class="btn btn-outline-primary variant-btn" data-price="125999">
+                            ৫১২GB - ৳১,২৫,৯৯৯
+                        </button>
+                        <button class="btn btn-outline-primary variant-btn" data-price="135999">
+                            ১TB - ৳১,৩৫,৯৯৯
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Color Options -->
+                <div class="mb-4">
+                    <h6>রং সিলেক্ট করুন:</h6>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-dark color-btn active">
+                            <i class="fas fa-circle text-dark"></i> ব্ল্যাক
+                        </button>
+                        <button class="btn btn-outline-secondary color-btn">
+                            <i class="fas fa-circle text-light"></i> সিলভার
+                        </button>
+                        <button class="btn btn-outline-success color-btn">
+                            <i class="fas fa-circle text-success"></i> গ্রিন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Add to Cart Section -->
+                <div class="card p-4 mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="quantity-selector">
+                                <button class="qty-btn" onclick="updateQuantity(-1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="text" class="qty-input" value="1" id="productQuantity">
+                                <button class="qty-btn" onclick="updateQuantity(1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <span class="ms-2">পিস</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary btn-lg" onclick="addToCart()">
+                                    <i class="fas fa-cart-plus"></i> কার্টে যোগ করুন
+                                </button>
+                                <button class="btn btn-outline-danger btn-lg">
+                                    <i class="fas fa-heart"></i> উইশলিস্টে যোগ করুন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Info -->
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <i class="fas fa-sync-alt text-primary mb-2"></i>
+                            <p class="small mb-0">৭ দিন রিটার্ন</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <i class="fas fa-shield-alt text-primary mb-2"></i>
+                            <p class="small mb-0">১ বছর ওয়ারেন্টি</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <i class="fas fa-headset text-primary mb-2"></i>
+                            <p class="small mb-0">২৪/৭ সাপোর্ট</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabs Section -->
+        <div class="mt-5">
+            <ul class="nav nav-tabs" id="productTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button">
+                        স্পেসিফিকেশন
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">
+                        রিভিউ (১২৩৪)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="faq-tab" data-bs-toggle="tab" data-bs-target="#faq" type="button">
+                        প্রশ্নোত্তর
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="productTabContent">
+                <!-- Specifications -->
+                <div class="tab-pane fade show active" id="specs">
+                    <table class="specs-table">
+                        <tr>
+                            <td>ব্র্যান্ড</td>
+                            <td>স্যামসাং</td>
+                        </tr>
+                        <tr>
+                            <td>মডেল</td>
+                            <td>গ্যালাক্সি S23 আল্ট্রা</td>
+                        </tr>
+                        <tr>
+                            <td>ডিসপ্লে</td>
+                            <td>৬.৮" ডায়নামিক AMOLED 2X</td>
+                        </tr>
+                        <tr>
+                            <td>প্রসেসর</td>
+                            <td>স্ন্যাপড্রাগন 8 জেন 2</td>
+                        </tr>
+                        <tr>
+                            <td>ক্যামেরা</td>
+                            <td>২০০MP + ১২MP + ১০MP</td>
+                        </tr>
+                        <tr>
+                            <td>ব্যাটারি</td>
+                            <td>৫০০০mAh</td>
+                        </tr>
+                        <tr>
+                            <td>স্টোরেজ</td>
+                            <td>২৫৬GB/৫১২GB/১TB</td>
+                        </tr>
+                        <tr>
+                            <td>র্যাম</td>
+                            <td>১২GB</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <!-- Reviews -->
+                <div class="tab-pane fade" id="reviews">
+                    <div class="review-card">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <h6 class="mb-1">রহিম মিয়া</h6>
+                                <div class="rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
+                            </div>
+                            <small class="text-muted">৩ দিন আগে</small>
+                        </div>
+                        <p>খুব ভালো ফোন। ক্যামেরা এবং ব্যাটারি লাইফ অসাধারণ। ডেলিভারিও সময়মতো পেয়েছি।</p>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <h6 class="mb-1">সুমাইয়া আক্তার</h6>
+                                <div class="rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                </div>
+                            </div>
+                            <small class="text-muted">১ সপ্তাহ আগে</small>
+                        </div>
+                        <p>ভালো কিন্তু দাম একটু বেশি। ছাড় বেশি দিলে ভালো হতো।</p>
+                    </div>
+                    
+                    <!-- Add Review Form -->
+                    <div class="mt-4">
+                        <h5>আপনার রিভিউ দিন</h5>
+                        <form id="reviewForm">
+                            <div class="mb-3">
+                                <label>রেটিং</label>
+                                <div class="rating-input">
+                                    <i class="far fa-star star" data-value="1"></i>
+                                    <i class="far fa-star star" data-value="2"></i>
+                                    <i class="far fa-star star" data-value="3"></i>
+                                    <i class="far fa-star star" data-value="4"></i>
+                                    <i class="far fa-star star" data-value="5"></i>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="3" placeholder="আপনার রিভিউ লিখুন..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">রিভিউ সাবমিট করুন</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- FAQ -->
+                <div class="tab-pane fade" id="faq">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    ডেলিভারি কত দিনে পাব?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    ঢাকার ভিতরে ২৪-৪৮ ঘন্টার মধ্যে। ঢাকার বাইরে ৩-৫ কর্মদিবসের মধ্যে।
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    ওয়ারেন্টি কী কী কভার করে?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    ম্যানুফ্যাকচারিং ডিফেক্ট ১ বছরের জন্য কভার করা হয়।
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Products -->
+        <div class="mt-5">
+            <h3 class="mb-4">আরও দেখুন</h3>
+            <div class="row">
+                <!-- Related product cards will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>PremiumShop</h5>
+                    <p>বাংলাদেশের সেরা অনলাইন শপিং</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>কুইক লিংক</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="products.html" class="text-white-50">পণ্য</a></li>
+                        <li><a href="categories.html" class="text-white-50">ক্যাটাগরি</a></li>
+                        <li><a href="contact.html" class="text-white-50">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>যোগাযোগ</h5>
+                    <p><i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১</p>
+                    <p><i class="fas fa-envelope"></i> help@premiumshop.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    
+    <script>
+        // Product Data
+        let currentPrice = 115999;
+        let quantity = 1;
+        let selectedColor = 'ব্ল্যাক';
+        let selectedStorage = '256GB';
+        
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = totalItems;
+        }
+        
+        // Change main image
+        function changeImage(element) {
+            const mainImage = document.getElementById('mainImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            element.classList.add('active');
+            
+            mainImage.src = element.getAttribute('data-img');
+        }
+        
+        // Update quantity
+        function updateQuantity(change) {
+            quantity += change;
+            if (quantity < 1) quantity = 1;
+            if (quantity > 10) quantity = 10;
+            
+            document.getElementById('productQuantity').value = quantity;
+        }
+        
+        // Variant selection
+        document.querySelectorAll('.variant-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentPrice = parseInt(this.getAttribute('data-price'));
+                selectedStorage = this.textContent.split(' - ')[0];
+                updatePriceDisplay();
+            });
+        });
+        
+        // Color selection
+        document.querySelectorAll('.color-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedColor = this.textContent.trim();
+            });
+        });
+        
+        // Update price display
+        function updatePriceDisplay() {
+            document.querySelector('.price-tag').textContent = `৳ ${currentPrice.toLocaleString()}`;
+        }
+        
+        // Add to cart
+        function addToCart() {
+            const product = {
+                id: 1,
+                name: 'স্যামসাং গ্যালাক্সি S23 আল্ট্রা 5G',
+                price: currentPrice,
+                quantity: quantity,
+                color: selectedColor,
+                storage: selectedStorage,
+                image: document.getElementById('mainImage').src
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if product already in cart
+            const existingIndex = cart.findIndex(item => 
+                item.id === product.id && 
+                item.color === product.color && 
+                item.storage === product.storage
+            );
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push(product);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show success message
+            showNotification('পণ্যটি কার্টে যোগ করা হয়েছে!');
+        }
+        
+        // Star rating for reviews
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                const stars = document.querySelectorAll('.star');
+                
+                stars.forEach((s, index) => {
+                    if (index < value) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    }
+                });
+            });
+        });
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'position-fixed bottom-0 end-0 m-3 p-3 bg-success text-white rounded shadow';
+            notification.style.zIndex = '9999';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>
+                ${message}
+                <a href="cart.html" class="text-white ms-3">কার্ট দেখুন</a>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+        
+        // Load on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            updatePriceDisplay();
+            
+            // Initialize carousel
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

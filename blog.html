@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্লগ ও নিউজ - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #ffffff;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Blog Container */
+        .blog-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Featured Post */
+        .featured-post {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-post::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .featured-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 30px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .featured-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+        
+        .featured-excerpt {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+        
+        .featured-meta {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .featured-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-read {
+            display: inline-block;
+            padding: 14px 35px;
+            background: white;
+            color: var(--primary);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-read:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Blog Categories */
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        
+        .category-tab {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 30px;
+            color: var(--dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .category-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .blog-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        
+        .blog-category-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 6px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .blog-content {
+            padding: 30px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .blog-meta i {
+            margin-right: 5px;
+        }
+        
+        .blog-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .blog-title a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .blog-title a:hover {
+            color: var(--primary);
+        }
+        
+        .blog-excerpt {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover {
+            gap: 10px;
+            color: #1d4ed8;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 60px;
+            color: white;
+            text-align: center;
+        }
+        
+        .newsletter-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-text {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 16px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+        }
+        
+        .newsletter-btn {
+            padding: 16px 35px;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Popular Posts */
+        .popular-posts {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .popular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .popular-card {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .popular-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .popular-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        
+        .popular-content {
+            flex: 1;
+        }
+        
+        .popular-category {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .popular-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .popular-meta {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        
+        .page-item {
+            list-style: none;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .page-link:hover,
+        .page-link.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .featured-post {
+                padding: 30px;
+            }
+            
+            .featured-title {
+                font-size: 28px;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-section {
+                padding: 40px 20px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-btn {
+                width: 100%;
+            }
+            
+            .popular-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">হোম</a></li>
+                <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                <li><a href="categories.html" class="nav-link">ক্যাটাগরি</a></li>
+                <li><a href="blog.html" class="nav-link active">ব্লগ</a></li>
+                <li><a href="contact.html" class="nav-link">যোগাযোগ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="nav-container">
+            <h1 class="bangla">ব্লগ ও নিউজ</h1>
+            <p class="bangla">টেকনোলজি, শপিং টিপস ও সর্বশেষ আপডেট</p>
+        </div>
+    </section>
+
+    <!-- Blog Container -->
+    <div class="blog-container">
+        <!-- Featured Post -->
+        <div class="featured-post">
+            <span class="featured-badge bangla">✨ ফিচার্ড পোস্ট</span>
+            <h2 class="featured-title bangla">স্মার্টফোন কেনার আগে ১০টি বিষয় যা জানতেই হবে</h2>
+            <p class="featured-excerpt bangla">
+                নতুন স্মার্টফোন কেনার পরিকল্পনা করছেন? প্রসেসর, ক্যামেরা, ব্যাটারি থেকে শুরু করে বাজেট পর্যন্ত প্রতিটি বিষয়ে বিস্তারিত গাইড। জেনে নিন কোন ফোন আপনার জন্য সেরা হবে।
+            </p>
+            <div class="featured-meta">
+                <div class="featured-meta-item">
+                    <i class="far fa-user"></i>
+                    <span class="bangla">আরিফ হাসান</span>
+                </div>
+                <div class="featured-meta-item">
+                    <i class="far fa-calendar"></i>
+                    <span class="bangla">১৫ ফেব্রুয়ারি, ২০২৪</span>
+                </div>
+                <div class="featured-meta-item">
+                    <i class="far fa-clock"></i>
+                    <span class="bangla">৮ মিনিট পড়া</span>
+                </div>
+            </div>
+            <a href="#" class="btn-read bangla">
+                সম্পূর্ণ পড়ুন <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+
+        <!-- Blog Categories -->
+        <div class="blog-categories">
+            <span class="category-tab active bangla" onclick="filterCategory('all')">সব পোস্ট</span>
+            <span class="category-tab bangla" onclick="filterCategory('tech')">টেকনোলজি</span>
+            <span class="category-tab bangla" onclick="filterCategory('shopping')">শপিং টিপস</span>
+            <span class="category-tab bangla" onclick="filterCategory('review')">পণ্য রিভিউ</span>
+            <span class="category-tab bangla" onclick="filterCategory('news')">খবর ও আপডেট</span>
+            <span class="category-tab bangla" onclick="filterCategory('guide')">ক্রয় গাইড</span>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="গেমিং ল্যাপটপ">
+                    <span class="blog-category-badge bangla">গেমিং</span>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> ১২ ফেব্রু, ২০২৪</span>
+                        <span><i class="far fa-eye"></i> ১.২কে ভিউ</span>
+                    </div>
+                    <h3 class="blog-title">
+                        <a href="#" class="bangla">২০২৪ সালের সেরা গেমিং ল্যাপটপ: কোনটি আপনার জন্য সেরা?</a>
+                    </h3>
+                    <p class="blog-excerpt bangla">
+                        RTX ৪০ সিরিজের গ্রাফিক্স কার্ড থেকে শুরু করে Intel Core i9 প্রসেসর। বাজেট অনুযায়ী সেরা গেমিং ল্যাপটপের লিস্ট ও বিস্তারিত রিভিউ।
+                    </p>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <img src="https://ui-avatars.com/api/?name=Rahim+Mia&size=40&background=2563eb&color=fff" alt="Author" class="author-avatar">
+                            <div>
+                                <div class="author-name bangla">রহিম মিয়া</div>
+                                <span class="text-muted small bangla">টেক বিশেষজ্ঞ</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more bangla">
+                            পড়ুন <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="টিভি কেনার গাইড">
+                    <span class="blog-category-badge bangla">ক্রয় গাইড</span>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> ১০ ফেব্রু, ২০২৪</span>
+                        <span><i class="far fa-eye"></i> ৮৫০ ভিউ</span>
+                    </div>
+                    <h3 class="blog-title">
+                        <a href="#" class="bangla">স্মার্ট টিভি কেনার সময় ৮টি বিষয় যা জানতে হবে</a>
+                    </h3>
+                    <p class="blog-excerpt bangla">
+                        ৪K নাকি ৮K? OLED নাকি QLED? HDR, রিফ্রেশ রেট আরও কত কিছু! জেনে নিন সঠিক টিভি নির্বাচনের সহজ উপায়।
+                    </p>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <img src="https://ui-avatars.com/api/?name=Sumaiya+Akter&size=40&background=7c3aed&color=fff" alt="Author" class="author-avatar">
+                            <div>
+                                <div class="author-name bangla">সুমাইয়া আক্তার</div>
+                                <span class="text-muted small bangla">টেক রিভিউয়ার</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more bangla">
+                            পড়ুন <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ওয়্যারলেস ইয়ারবাড">
+                    <span class="blog-category-badge bangla">পণ্য রিভিউ</span>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> ৮ ফেব্রু, ২০২৪</span>
+                        <span><i class="far fa-eye"></i> ২.১কে ভিউ</span>
+                    </div>
+                    <h3 class="blog-title">
+                        <a href="#" class="bangla">Sony WF-1000XM5 রিভিউ: বাজেটে কি সেরা সাউন্ড?</a>
+                    </h3>
+                    <p class="blog-excerpt bangla">
+                        সোনির নতুন ফ্ল্যাগশিপ ইয়ারবাডের পূর্ণাঙ্গ রিভিউ। নয়েজ ক্যান্সেলেশন, ব্যাটারি লাইফ ও সাউন্ড কোয়ালিটি টেস্ট।
+                    </p>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <img src="https://ui-avatars.com/api/?name=Fahad+Karim&size=40&background=10b981&color=fff" alt="Author" class="author-avatar">
+                            <div>
+                                <div class="author-name bangla">ফাহাদ করিম</div>
+                                <span class="text-muted small bangla">অডিও বিশেষজ্ঞ</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more bangla">
+                            পড়ুন <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 4 -->
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="অনলাইন শপিং টিপস">
+                    <span class="blog-category-badge bangla">শপিং টিপস</span>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> ৫ ফেব্রু, ২০২৪</span>
+                        <span><i class="far fa-eye"></i> ৩.৫কে ভিউ</span>
+                    </div>
+                    <h3 class="blog-title">
+                        <a href="#" class="bangla">অনলাইনে শপিং করার সময় ১০টি সাধারণ ভুল</a>
+                    </h3>
+                    <p class="blog-excerpt bangla">
+                        ভুল পণ্য অর্ডার থেকে শুরু করে অতিরিক্ত খরচ। জেনে নিন অনলাইন শপিং এ কী কী ভুল এড়িয়ে চলবেন।
+                    </p>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <img src="https://ui-avatars.com/api/?name=Nadia+Islam&size=40&background=f59e0b&color=fff" alt="Author" class="author-avatar">
+                            <div>
+                                <div class="author-name bangla">নাদিয়া ইসলাম</div>
+                                <span class="text-muted small bangla">কনজিউমার এক্সপার্ট</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more bangla">
+                            পড়ুন <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 5 -->
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="এআই প্রযুক্তি">
+                    <span class="blog-category-badge bangla">টেকনোলজি</span>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> ৩ ফেব্রু, ২০২৪</span>
+                        <span><i class="far fa-eye"></i> ১.৮কে ভিউ</span>
+                    </div>
+                    <h3 class="blog-title">
+                        <a href="#" class="bangla">২০২৪ সালে স্মার্টফোনে এআই প্রযুক্তি: কী আসছে?</a>
+                    </h3>
+                    <p class="blog-excerpt bangla">
+                        এআই-চালিত ফটোগ্রাফি, রিয়েল-টাইম ট্রান্সলেশন, স্মার্ট ব্যাটারি ম্যানেজমেন্ট। আগামী দিনের স্মার্টফোনে কী কী ফিচার যোগ হচ্ছে?
+                    </p>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <img src="https://ui-avatars.com/api/?name=Tanim+Hasan&size=40&background=2563eb&color=fff" alt="Author" class="author-avatar">
+                            <div>
+                                <div class="author-name bangla">তানিম হাসান</div>
+                                <span class="text-muted small bangla">টেক জার্নালিস্ট</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more bangla">
+                            পড়ুন <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 6 -->
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1555529669-e69e7aa56ba9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="প্রসেসর গাইড">
+                    <span class="blog-category-badge bangla">ক্রয় গাইড</span>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> ১ ফেব্রু, ২০২৪</span>
+                        <span><i class="far fa-eye"></i> ২.৩কে ভিউ</span>
+                    </div>
+                    <h3 class="blog-title">
+                        <a href="#" class="bangla">Intel vs AMD: ২০২৪ সালে কোন প্রসেসর আপনার জন্য সেরা?</a>
+                    </h3>
+                    <p class="blog-excerpt bangla">
+                        গেমিং, ভিডিও এডিটিং নাকি সাধারণ ব্যবহার? Core i7 vs Ryzen 7 - বিস্তারিত তুলনা ও সুপারিশ।
+                    </p>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <img src="https://ui-avatars.com/api/?name=Zahid+Hossain&size=40&background=7c3aed&color=fff" alt="Author" class="author-avatar">
+                            <div>
+                                <div class="author-name bangla">জাহিদ হোসেন</div>
+                                <span class="text-muted small bangla">হার্ডওয়্যার এক্সপার্ট</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more bangla">
+                            পড়ুন <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="newsletter-section">
+            <h2 class="newsletter-title bangla">📧 সাপ্তাহিক নিউজলেটার</h2>
+            <p class="newsletter-text bangla">
+                সাপ্তাহিক টেক আপডেট, পণ্য রিভিউ ও এক্সক্লুসিভ অফার পেতে সাবস্ক্রাইব করুন
+            </p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="আপনার ইমেইল ঠিকানা" required>
+                <button type="submit" class="newsletter-btn bangla">
+                    <i class="fas fa-paper-plane me-2"></i> সাবস্ক্রাইব
+                </button>
+            </form>
+        </div>
+
+        <!-- Popular Posts -->
+        <div class="popular-posts">
+            <div class="section-title">
+                <h2 class="bangla">🔥 জনপ্রিয় পোস্ট</h2>
+                <a href="#" class="read-more bangla">
+                    সব দেখুন <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="popular-grid">
+                <div class="popular-card">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Popular Post" class="popular-image">
+                    <div class="popular-content">
+                        <div class="popular-category bangla">গেমিং</div>
+                        <h4 class="popular-title bangla">সেরা গেমিং ল্যাপটপ ২০২৪</h4>
+                        <div class="popular-meta">
+                            <span><i class="far fa-eye"></i> ২.৫কে ভিউ</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="popular-card">
+                    <img src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Popular Post" class="popular-image">
+                    <div class="popular-content">
+                        <div class="popular-category bangla">ক্রয় গাইড</div>
+                        <h4 class="popular-title bangla">স্মার্ট টিভি কেনার গাইড</h4>
+                        <div class="popular-meta">
+                            <span><i class="far fa-eye"></i> ১.৮কে ভিউ</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="popular-card">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Popular Post" class="popular-image">
+                    <div class="popular-content">
+                        <div class="popular-category bangla">পণ্য রিভিউ</div>
+                        <h4 class="popular-title bangla">Sony WF-1000XM5 রিভিউ</h4>
+                        <div class="popular-meta">
+                            <span><i class="far fa-eye"></i> ২.১কে ভিউ</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="popular-card">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Popular Post" class="popular-image">
+                    <div class="popular-content">
+                        <div class="popular-category bangla">শপিং টিপস</div>
+                        <h4 class="popular-title bangla">অনলাইন শপিংয়ের ১০ ভুল</h4>
+                        <div class="popular-meta">
+                            <span><i class="far fa-eye"></i> ৩.৫কে ভিউ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link active" href="#">১</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">২</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">৩</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">৪</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">৫</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1;">
+                    টেকনোলজি নিউজ, রিভিউ ও শপিং গাইড
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">ব্লগ ক্যাটাগরি</h3>
+                <ul class="footer-links">
+                    <li><a href="#" class="bangla">টেকনোলজি</a></li>
+                    <li><a href="#" class="bangla">পণ্য রিভিউ</a></li>
+                    <li><a href="#" class="bangla">ক্রয় গাইড</a></li>
+                    <li><a href="#" class="bangla">শপিং টিপস</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="bangla">হোম</a></li>
+                    <li><a href="products.html" class="bangla">পণ্য</a></li>
+                    <li><a href="categories.html" class="bangla">ক্যাটাগরি</a></li>
+                    <li><a href="contact.html" class="bangla">যোগাযোগ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li class="bangla"><i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১</li>
+                    <li class="bangla"><i class="fas fa-envelope"></i> blog@premiumshop.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla">
+            <p>&copy; ২০২৩ PremiumShop ব্লগ। সর্বস্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Filter blog posts by category
+        function filterCategory(category) {
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            showNotification(`'${category}' ক্যাটাগরির পোস্ট দেখানো হচ্ছে`, 'info');
+        }
+
+        // Subscribe to newsletter
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            if (email) {
+                showNotification('নিউজলেটার সাবস্ক্রিপশন সফল হয়েছে!', 'success');
+                event.target.reset();
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `position-fixed top-0 end-0 m-3 p-3 rounded shadow text-white`;
+            notification.style.zIndex = '9999';
+            notification.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#f59e0b';
+            notification.style.animation = 'slideIn 0.3s ease';
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                    <span class="bangla">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পছন্দের তালিকা - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #f1f5f9;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Wishlist Container */
+        .wishlist-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Wishlist Header */
+        .wishlist-header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .wishlist-stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        /* Wishlist Grid */
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .wishlist-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .wishlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .wishlist-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--danger);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .wishlist-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: var(--light);
+        }
+        
+        .wishlist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .wishlist-card:hover .wishlist-image img {
+            transform: scale(1.05);
+        }
+        
+        .wishlist-remove {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--danger);
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 2;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .wishlist-remove:hover {
+            background: var(--danger);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .wishlist-content {
+            padding: 20px;
+        }
+        
+        .wishlist-category {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .wishlist-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            height: 50px;
+            overflow: hidden;
+        }
+        
+        .wishlist-title a {
+            color: var(--dark);
+            text-decoration: none;
+        }
+        
+        .wishlist-title a:hover {
+            color: var(--primary);
+        }
+        
+        .wishlist-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .stars {
+            color: var(--warning);
+        }
+        
+        .review-count {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .wishlist-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .old-price {
+            font-size: 16px;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+        
+        .discount-badge {
+            background: #fee2e2;
+            color: var(--danger);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .stock-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .in-stock {
+            color: var(--success);
+        }
+        
+        .out-of-stock {
+            color: var(--danger);
+        }
+        
+        .wishlist-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn-add-cart {
+            flex: 1;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-add-cart:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-view-product {
+            width: 45px;
+            height: 45px;
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-view-product:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Empty Wishlist */
+        .empty-wishlist {
+            background: white;
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .empty-icon {
+            font-size: 80px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .empty-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .empty-text {
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-shop {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-shop:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        /* Recommended Products */
+        .recommended-section {
+            margin-top: 60px;
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .recommended-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .recommended-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .recommended-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .recommended-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .recommended-price {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .btn-add-wishlist {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-add-wishlist:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .wishlist-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .wishlist-stats {
+                justify-content: center;
+            }
+            
+            .wishlist-actions {
+                flex-direction: column;
+            }
+            
+            .btn-view-product {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">হোম</a></li>
+                <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                <li><a href="categories.html" class="nav-link">ক্যাটাগরি</a></li>
+                <li><a href="profile.html" class="nav-link">প্রোফাইল</a></li>
+                <li><a href="wishlist.html" class="nav-link active">পছন্দের তালিকা</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="nav-container">
+            <h1 class="bangla">পছন্দের তালিকা</h1>
+            <p class="bangla">আপনার প্রিয় পণ্যগুলি একসাথে রাখুন</p>
+        </div>
+    </section>
+
+    <!-- Wishlist Container -->
+    <div class="wishlist-container">
+        <!-- Wishlist Header -->
+        <div class="wishlist-header">
+            <div>
+                <h3 class="bangla mb-2">❤️ আমার পছন্দের তালিকা</h3>
+                <p class="bangla text-muted mb-0">সর্বশেষ আপডেট: ১৫ ফেব্রুয়ারি, ২০২৪</p>
+            </div>
+            
+            <div class="wishlist-stats">
+                <div class="stat-item">
+                    <div class="stat-number">০৮</div>
+                    <div class="stat-label bangla">মোট পণ্য</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">৳ ৪.৫২</div>
+                    <div class="stat-label bangla">লাখ মূল্য</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">০৩</div>
+                    <div class="stat-label bangla">স্টকে আছে</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wishlist Grid (With Items) -->
+        <div id="wishlistWithItems">
+            <div class="wishlist-grid">
+                <!-- Wishlist Item 1 -->
+                <div class="wishlist-card">
+                    <span class="wishlist-badge bangla">বেস্টসেলার</span>
+                    <button class="wishlist-remove" onclick="removeFromWishlist(this, 1)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="wishlist-image">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Samsung Galaxy S23">
+                    </div>
+                    
+                    <div class="wishlist-content">
+                        <div class="wishlist-category bangla">স্মার্টফোন</div>
+                        <h3 class="wishlist-title bangla">
+                            <a href="product-details.html?id=1">স্যামসাং গ্যালাক্সি S23 আল্ট্রা 5G</a>
+                        </h3>
+                        
+                        <div class="wishlist-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="review-count">(১২৩)</span>
+                        </div>
+                        
+                        <div class="wishlist-price">
+                            <span class="current-price bangla">৳ ১,১৫,৯৯৯</span>
+                            <span class="old-price bangla">৳ ১,৬৫,০০০</span>
+                            <span class="discount-badge bangla">-৩০%</span>
+                        </div>
+                        
+                        <div class="stock-status">
+                            <i class="fas fa-check-circle in-stock"></i>
+                            <span class="bangla in-stock">স্টকে আছে</span>
+                        </div>
+                        
+                        <div class="wishlist-actions">
+                            <button class="btn-add-cart bangla" onclick="addToCart(1)">
+                                <i class="fas fa-cart-plus"></i> কার্টে যোগ করুন
+                            </button>
+                            <a href="product-details.html?id=1" class="btn-view-product">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist Item 2 -->
+                <div class="wishlist-card">
+                    <button class="wishlist-remove" onclick="removeFromWishlist(this, 2)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="wishlist-image">
+                        <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Nike Air Jordan">
+                    </div>
+                    
+                    <div class="wishlist-content">
+                        <div class="wishlist-category bangla">ফ্যাশন</div>
+                        <h3 class="wishlist-title bangla">
+                            <a href="product-details.html?id=2">নাইক এয়ার জর্ডান 1 মিড</a>
+                        </h3>
+                        
+                        <div class="wishlist-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="review-count">(৮৯)</span>
+                        </div>
+                        
+                        <div class="wishlist-price">
+                            <span class="current-price bangla">৳ ১৫,৯৯৯</span>
+                            <span class="old-price bangla">৳ ১৮,৫০০</span>
+                            <span class="discount-badge bangla">-১৪%</span>
+                        </div>
+                        
+                        <div class="stock-status">
+                            <i class="fas fa-check-circle in-stock"></i>
+                            <span class="bangla in-stock">স্টকে আছে</span>
+                        </div>
+                        
+                        <div class="wishlist-actions">
+                            <button class="btn-add-cart bangla" onclick="addToCart(2)">
+                                <i class="fas fa-cart-plus"></i> কার্টে যোগ করুন
+                            </button>
+                            <a href="product-details.html?id=2" class="btn-view-product">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist Item 3 -->
+                <div class="wishlist-card">
+                    <span class="wishlist-badge bangla" style="background: var(--warning);">প্রি-অর্ডার</span>
+                    <button class="wishlist-remove" onclick="removeFromWishlist(this, 3)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="wishlist-image">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="MacBook Pro">
+                    </div>
+                    
+                    <div class="wishlist-content">
+                        <div class="wishlist-category bangla">ল্যাপটপ</div>
+                        <h3 class="wishlist-title bangla">
+                            <a href="product-details.html?id=3">এপেল ম্যাকবুক প্রো ১৪" M2</a>
+                        </h3>
+                        
+                        <div class="wishlist-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="review-count">(২৩৪)</span>
+                        </div>
+                        
+                        <div class="wishlist-price">
+                            <span class="current-price bangla">৳ ২,৪৫,০০০</span>
+                        </div>
+                        
+                        <div class="stock-status">
+                            <i class="fas fa-clock text-warning"></i>
+                            <span class="bangla text-warning">প্রি-অর্ডার চলছে</span>
+                        </div>
+                        
+                        <div class="wishlist-actions">
+                            <button class="btn-add-cart bangla" onclick="addToCart(3)">
+                                <i class="fas fa-cart-plus"></i> প্রি-অর্ডার করুন
+                            </button>
+                            <a href="product-details.html?id=3" class="btn-view-product">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist Item 4 -->
+                <div class="wishlist-card">
+                    <span class="wishlist-badge bangla" style="background: var(--success);">নতুন</span>
+                    <button class="wishlist-remove" onclick="removeFromWishlist(this, 4)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="wishlist-image">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Smart Watch">
+                    </div>
+                    
+                    <div class="wishlist-content">
+                        <div class="wishlist-category bangla">ওয়্যারেবলস</div>
+                        <h3 class="wishlist-title bangla">
+                            <a href="product-details.html?id=4">এপেল ওয়াচ সিরিজ ৮</a>
+                        </h3>
+                        
+                        <div class="wishlist-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="review-count">(১৫৬)</span>
+                        </div>
+                        
+                        <div class="wishlist-price">
+                            <span class="current-price bangla">৳ ৫৫,৯৯৯</span>
+                        </div>
+                        
+                        <div class="stock-status">
+                            <i class="fas fa-check-circle in-stock"></i>
+                            <span class="bangla in-stock">স্টকে আছে</span>
+                        </div>
+                        
+                        <div class="wishlist-actions">
+                            <button class="btn-add-cart bangla" onclick="addToCart(4)">
+                                <i class="fas fa-cart-plus"></i> কার্টে যোগ করুন
+                            </button>
+                            <a href="product-details.html?id=4" class="btn-view-product">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist Item 5 (Out of Stock) -->
+                <div class="wishlist-card">
+                    <button class="wishlist-remove" onclick="removeFromWishlist(this, 5)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="wishlist-image" style="opacity: 0.6;">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Nike Shoes">
+                    </div>
+                    
+                    <div class="wishlist-content">
+                        <div class="wishlist-category bangla">ফ্যাশন</div>
+                        <h3 class="wishlist-title bangla">
+                            <a href="product-details.html?id=5">নাইকি এয়ার ম্যাক্স ৯০</a>
+                        </h3>
+                        
+                        <div class="wishlist-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="review-count">(৩৪৫)</span>
+                        </div>
+                        
+                        <div class="wishlist-price">
+                            <span class="current-price bangla">৳ ১৮,৯৯৯</span>
+                        </div>
+                        
+                        <div class="stock-status">
+                            <i class="fas fa-times-circle out-of-stock"></i>
+                            <span class="bangla out-of-stock">স্টক শেষ</span>
+                        </div>
+                        
+                        <div class="wishlist-actions">
+                            <button class="btn-add-cart bangla" style="background: #94a3b8;" disabled>
+                                <i class="fas fa-cart-plus"></i> স্টক শেষ
+                            </button>
+                            <a href="product-details.html?id=5" class="btn-view-product">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist Item 6 -->
+                <div class="wishlist-card">
+                    <button class="wishlist-remove" onclick="removeFromWishlist(this, 6)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="wishlist-image">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Headphones">
+                    </div>
+                    
+                    <div class="wishlist-content">
+                        <div class="wishlist-category bangla">অডিও</div>
+                        <h3 class="wishlist-title bangla">
+                            <a href="product-details.html?id=6">সনি WH-1000XM4</a>
+                        </h3>
+                        
+                        <div class="wishlist-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="review-count">(৫৬৭)</span>
+                        </div>
+                        
+                        <div class="wishlist-price">
+                            <span class="current-price bangla">৳ ২৯,৯৯৯</span>
+                            <span class="old-price bangla">৳ ৩৫,০০০</span>
+                            <span class="discount-badge bangla">-১৪%</span>
+                        </div>
+                        
+                        <div class="stock-status">
+                            <i class="fas fa-check-circle in-stock"></i>
+                            <span class="bangla in-stock">স্টকে আছে</span>
+                        </div>
+                        
+                        <div class="wishlist-actions">
+                            <button class="btn-add-cart bangla" onclick="addToCart(6)">
+                                <i class="fas fa-cart-plus"></i> কার্টে যোগ করুন
+                            </button>
+                            <a href="product-details.html?id=6" class="btn-view-product">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Actions -->
+            <div class="d-flex justify-content-between align-items-center mt-5">
+                <div>
+                    <button class="btn btn-outline-danger bangla" onclick="clearWishlist()">
+                        <i class="fas fa-trash me-2"></i> তালিকা খালি করুন
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-primary bangla" onclick="addAllToCart()">
+                        <i class="fas fa-cart-plus me-2"></i> সকল পণ্য কার্টে যোগ করুন
+                    </button>
+                </div>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="bangla mb-3">মূল্য সারাংশ</h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="bangla">সর্বমোট মূল্য (৮টি পণ্য)</span>
+                                <span class="fw-bold bangla">৳ ৪,৫২,৯৯৫</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="bangla">সঞ্চয় (ডিসকাউন্ট)</span>
+                                <span class="text-success bangla">-৳ ৮২,৫০০</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <span class="bangla fw-bold">আনুমানিক মোট</span>
+                                <span class="fw-bold text-primary bangla">৳ ৩,৭০,৪৯৫</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-light p-4 rounded">
+                                <h6 class="bangla mb-3">সেভ অফার</h6>
+                                <p class="bangla mb-2">
+                                    <i class="fas fa-tag text-primary me-2"></i>
+                                    ৩টি পণ্য কার্টে যোগ করলে ৫% অতিরিক্ত ছাড়
+                                </p>
+                                <p class="bangla mb-0">
+                                    <i class="fas fa-truck text-primary me-2"></i>
+                                    ১০০০+ টাকার অর্ডারে নিখরচায় ডেলিভারি
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty Wishlist (Hidden by default) -->
+        <div id="emptyWishlist" style="display: none;">
+            <div class="empty-wishlist">
+                <div class="empty-icon">
+                    <i class="far fa-heart"></i>
+                </div>
+                <h2 class="empty-title bangla">আপনার পছন্দের তালিকা খালি</h2>
+                <p class="empty-text bangla">
+                    আপনি এখনো কোনো পণ্য পছন্দের তালিকায় যোগ করেননি। 
+                    আপনার পছন্দের পণ্যগুলি ❤️ আইকনে ক্লিক করে এখানে যোগ করুন।
+                </p>
+                <a href="products.html" class="btn-shop bangla">
+                    <i class="fas fa-shopping-bag me-2"></i> শপিং শুরু করুন
+                </a>
+                <div class="mt-4">
+                    <span class="bangla text-muted">অথবা</span>
+                </div>
+                <a href="profile.html" class="btn btn-link bangla mt-2">
+                    আপনার প্রোফাইলে যান
+                </a>
+            </div>
+        </div>
+
+        <!-- Recommended Products -->
+        <div class="recommended-section">
+            <div class="section-title">
+                <h2 class="bangla">আপনার জন্য আরও পণ্য</h2>
+                <a href="products.html" class="view-all bangla">
+                    সব দেখুন <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+            
+            <div class="recommended-grid">
+                <div class="recommended-card">
+                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Product" class="recommended-image">
+                    <h5 class="recommended-title bangla">গুগল পিক্সেল ৭ প্রো</h5>
+                    <div class="recommended-price bangla">৳ ৮৯,৯৯৯</div>
+                    <button class="btn-add-wishlist bangla" onclick="addToWishlist(7)">
+                        <i class="far fa-heart me-1"></i> পছন্দে যোগ করুন
+                    </button>
+                </div>
+                
+                <div class="recommended-card">
+                    <img src="https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Product" class="recommended-image">
+                    <h5 class="recommended-title bangla">ওয়ালটন প্রিমো আর৪</h5>
+                    <div class="recommended-price bangla">৳ ১৪,৯৯৯</div>
+                    <button class="btn-add-wishlist bangla" onclick="addToWishlist(8)">
+                        <i class="far fa-heart me-1"></i> পছন্দে যোগ করুন
+                    </button>
+                </div>
+                
+                <div class="recommended-card">
+                    <img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Product" class="recommended-image">
+                    <h5 class="recommended-title bangla">ওয়াও! স্মার্টওয়াচ ৩</h5>
+                    <div class="recommended-price bangla">৳ ৩,৯৯৯</div>
+                    <button class="btn-add-wishlist bangla" onclick="addToWishlist(9)">
+                        <i class="far fa-heart me-1"></i> পছন্দে যোগ করুন
+                    </button>
+                </div>
+                
+                <div class="recommended-card">
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Product" class="recommended-image">
+                    <h5 class="recommended-title bangla">লুইস ফিলিপ শার্ট</h5>
+                    <div class="recommended-price bangla">৳ ২,৪৯৯</div>
+                    <button class="btn-add-wishlist bangla" onclick="addToWishlist(10)">
+                        <i class="far fa-heart me-1"></i> পছন্দে যোগ করুন
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1;">
+                    আপনার পছন্দ, আমাদের অগ্রাধিকার
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">কুইক লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="bangla">হোম</a></li>
+                    <li><a href="products.html" class="bangla">পণ্য</a></li>
+                    <li><a href="wishlist.html" class="bangla">পছন্দের তালিকা</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">সাপোর্ট</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html" class="bangla">FAQ</a></li>
+                    <li><a href="contact.html" class="bangla">যোগাযোগ</a></li>
+                    <li><a href="terms.html" class="bangla">শর্তাবলী</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li class="bangla"><i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১</li>
+                    <li class="bangla"><i class="fas fa-envelope"></i> wishlist@premiumshop.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla">
+            <p>&copy; ২০২৩ PremiumShop. আপনার পছন্দের তালিকা সুরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize wishlist from localStorage
+        let wishlist = [
+            { id: 1, name: "স্যামসাং গ্যালাক্সি S23 আল্ট্রা", price: 115999, inStock: true },
+            { id: 2, name: "নাইক এয়ার জর্ডান 1", price: 15999, inStock: true },
+            { id: 3, name: "এপেল ম্যাকবুক প্রো M2", price: 245000, inStock: false },
+            { id: 4, name: "এপেল ওয়াচ সিরিজ 8", price: 55999, inStock: true },
+            { id: 5, name: "নাইকি এয়ার ম্যাক্স ৯০", price: 18999, inStock: false },
+            { id: 6, name: "সনি WH-1000XM4", price: 29999, inStock: true }
+        ];
+
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Load wishlist from localStorage
+            loadWishlist();
+        });
+
+        // Load wishlist data
+        function loadWishlist() {
+            const savedWishlist = localStorage.getItem('wishlist');
+            if (savedWishlist) {
+                wishlist = JSON.parse(savedWishlist);
+            }
+            
+            // Update wishlist display
+            updateWishlistDisplay();
+        }
+
+        // Update wishlist display
+        function updateWishlistDisplay() {
+            const wishlistContainer = document.getElementById('wishlistWithItems');
+            const emptyContainer = document.getElementById('emptyWishlist');
+            
+            if (wishlist.length === 0) {
+                wishlistContainer.style.display = 'none';
+                emptyContainer.style.display = 'block';
+            } else {
+                wishlistContainer.style.display = 'block';
+                emptyContainer.style.display = 'none';
+                
+                // Update stats
+                const totalItems = wishlist.length;
+                const totalValue = wishlist.reduce((sum, item) => sum + item.price, 0);
+                const inStock = wishlist.filter(item => item.inStock).length;
+                
+                document.querySelector('.stat-number').textContent = totalItems < 10 ? '0' + totalItems : totalItems;
+                document.querySelectorAll('.stat-number')[1].textContent = `৳ ${(totalValue/100000).toFixed(2)}`;
+                document.querySelectorAll('.stat-number')[2].textContent = inStock < 10 ? '0' + inStock : inStock;
+            }
+        }
+
+        // Add to cart function
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const product = wishlist.find(item => item.id === productId);
+            
+            if (product) {
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: product.name,
+                        price: product.price,
+                        quantity: 1
+                    });
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Show notification
+                showNotification(`${product.name} কার্টে যোগ করা হয়েছে!`);
+            }
+        }
+
+        // Remove from wishlist
+        function removeFromWishlist(button, productId) {
+            if (confirm('এই পণ্যটি পছন্দের তালিকা থেকে সরাতে চান?')) {
+                // Remove from array
+                wishlist = wishlist.filter(item => item.id !== productId);
+                
+                // Save to localStorage
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                
+                // Remove card with animation
+                const card = button.closest('.wishlist-card');
+                card.style.transition = 'all 0.3s';
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(100px)';
+                
+                setTimeout(() => {
+                    card.remove();
+                    updateWishlistDisplay();
+                    showNotification('পণ্যটি পছন্দের তালিকা থেকে সরানো হয়েছে!', 'info');
+                }, 300);
+            }
+        }
+
+        // Clear entire wishlist
+        function clearWishlist() {
+            if (confirm('আপনার সম্পূর্ণ পছন্দের তালিকা খালি করতে চান?')) {
+                wishlist = [];
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                
+                // Show empty state
+                document.querySelector('.wishlist-grid').innerHTML = '';
+                updateWishlistDisplay();
+                showNotification('পছন্দের তালিকা খালি করা হয়েছে!', 'info');
+            }
+        }
+
+        // Add all to cart
+        function addAllToCart() {
+            const inStockItems = wishlist.filter(item => item.inStock);
+            
+            if (inStockItems.length === 0) {
+                showNotification('স্টকে থাকা কোনো পণ্য নেই!', 'error');
+                return;
+            }
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            inStockItems.forEach(product => {
+                const existingItem = cart.find(item => item.id === product.id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        quantity: 1
+                    });
+                }
+            });
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showNotification(`${inStockItems.length}টি পণ্য কার্টে যোগ করা হয়েছে!`);
+        }
+
+        // Add to wishlist (for recommended items)
+        function addToWishlist(productId) {
+            // Simulate adding product to wishlist
+            const product = {
+                id: productId,
+                name: "নতুন পণ্য",
+                price: 9999,
+                inStock: true
+            };
+            
+            if (!wishlist.find(item => item.id === productId)) {
+                wishlist.push(product);
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                showNotification('পণ্যটি পছন্দের তালিকায় যোগ করা হয়েছে!');
+                updateWishlistDisplay();
+            } else {
+                showNotification('পণ্যটি ইতিমধ্যে পছন্দের তালিকায় আছে!', 'info');
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `position-fixed top-0 end-0 m-3 p-3 rounded shadow text-white`;
+            notification.style.zIndex = '9999';
+            notification.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#f59e0b';
+            notification.style.animation = 'slideIn 0.3s ease';
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                    <span class="bangla">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

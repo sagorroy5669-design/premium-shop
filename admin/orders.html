@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার ব্যবস্থাপনা - PremiumShop Admin</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            background: #f1f5f9;
+            overflow-x: hidden;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Admin Layout */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .sidebar-logo span {
+            color: var(--primary);
+        }
+        
+        .admin-badge {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+            list-style: none;
+        }
+        
+        .sidebar-item {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 25px;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: rgba(37, 99, 235, 0.2);
+            color: white;
+            border-left-color: var(--primary);
+        }
+        
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-dropdown {
+            padding-left: 55px;
+            display: none;
+        }
+        
+        .sidebar-item.active .sidebar-dropdown {
+            display: block;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: var(--dark);
+        }
+        
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .notification-btn {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .notification-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: var(--light);
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        
+        .admin-avatar {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .stat-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .stat-info p {
+            color: var(--gray);
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .filter-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .filter-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+        
+        .filter-select,
+        .filter-input {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .filter-select:focus,
+        .filter-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+        
+        .filter-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+        
+        .btn-primary {
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            padding: 12px 25px;
+            background: transparent;
+            border: 2px solid var(--gray);
+            color: var(--gray);
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gray);
+            color: white;
+        }
+        
+        /* Orders Table */
+        .orders-table-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .table-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .export-btn {
+            padding: 10px 20px;
+            background: var(--light);
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            color: var(--dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .export-btn:hover {
+            background: var(--dark);
+            color: white;
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .orders-table th {
+            text-align: left;
+            padding: 15px;
+            background: var(--light);
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .orders-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .customer-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .customer-details h6 {
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+        
+        .customer-details span {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .order-products {
+            max-width: 250px;
+        }
+        
+        .product-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--light);
+            border-radius: 6px;
+            font-size: 12px;
+            margin: 2px;
+            color: var(--dark);
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            width: fit-content;
+        }
+        
+        .status-pending {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .status-processing {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+        
+        .status-shipped {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-delivered {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-cancelled {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        
+        .order-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn.view {
+            background: var(--light);
+            color: var(--primary);
+        }
+        
+        .action-btn.edit {
+            background: var(--light);
+            color: var(--warning);
+        }
+        
+        .action-btn.track {
+            background: var(--light);
+            color: var(--success);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.view:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .action-btn.edit:hover {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .action-btn.track:hover {
+            background: var(--success);
+            color: white;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .page-item {
+            list-style: none;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .page-link:hover,
+        .page-link.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Order Details Modal */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            border-bottom: 2px solid var(--light);
+            padding: 25px;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .order-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .order-info-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .info-content h6 {
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .info-content p {
+            font-weight: 600;
+            margin: 0;
+            color: var(--dark);
+        }
+        
+        .timeline-modal {
+            margin-top: 30px;
+        }
+        
+        .timeline-steps {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            z-index: 2;
+        }
+        
+        .step-icon.completed {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+        
+        .step-icon.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .step-content h6 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .step-content p {
+            color: var(--gray);
+            font-size: 13px;
+            margin: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .sidebar .sidebar-logo span,
+            .sidebar .sidebar-link span:not(.badge),
+            .sidebar .admin-badge {
+                display: none;
+            }
+            
+            .sidebar-link {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .sidebar-link i {
+                margin: 0;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .sidebar {
+                left: -280px;
+            }
+            
+            .sidebar.active {
+                left: 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+            }
+            
+            .orders-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    Premium<span>Shop</span>
+                </a>
+                <div class="admin-badge bangla">
+                    <i class="fas fa-shield-alt me-1"></i> এডমিন প্যানেল
+                </div>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="index.html" class="sidebar-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>ড্যাশবোর্ড</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item">
+                    <a href="products.html" class="sidebar-link">
+                        <i class="fas fa-box"></i>
+                        <span>পণ্য ব্যবস্থাপনা</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item active">
+                    <a href="orders.html" class="sidebar-link active">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>অর্ডার ব্যবস্থাপনা</span>
+                        <span class="badge bg-danger ms-auto">১২</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item">
+                    <a href="customers.html" class="sidebar-link">
+                        <i class="fas fa-users"></i>
+                        <span>গ্রাহক ব্যবস্থাপনা</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item">
+                    <a href="categories.html" class="sidebar-link">
+                        <i class="fas fa-list"></i>
+                        <span>ক্যাটাগরি</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item">
+                    <a href="reports.html" class="sidebar-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>রিপোর্টস</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item">
+                    <a href="settings.html" class="sidebar-link">
+                        <i class="fas fa-cog"></i>
+                        <span>সেটিংস</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item" style="margin-top: 30px;">
+                    <a href="../index.html" class="sidebar-link">
+                        <i class="fas fa-store"></i>
+                        <span>ওয়েবসাইট দেখুন</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item">
+                    <a href="../login.html" class="sidebar-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>লগআউট</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="page-title">
+                    <i class="fas fa-shopping-cart fs-3 text-primary"></i>
+                    <h1 class="bangla">অর্ডার ব্যবস্থাপনা</h1>
+                </div>
+                
+                <div class="admin-profile">
+                    <a href="#" class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">৫</span>
+                    </a>
+                    
+                    <div class="admin-user">
+                        <div class="admin-avatar">
+                            <span>AD</span>
+                        </div>
+                        <div>
+                            <h6 style="margin-bottom: 0; font-size: 14px;">Admin User</h6>
+                            <span style="font-size: 12px; color: var(--gray);">Super Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb, #1e40af);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>২৪৭</h3>
+                        <p class="bangla">মোট অর্ডার</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>১৮২</h3>
+                        <p class="bangla">ডেলিভারি সম্পন্ন</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>৪২</h3>
+                        <p class="bangla">প্রক্রিয়াধীন</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>২৩</h3>
+                        <p class="bangla">অপেক্ষমান</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-title">
+                    <i class="fas fa-filter text-primary"></i>
+                    <span class="bangla">অর্ডার ফিল্টার</span>
+                </div>
+                
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label class="filter-label bangla">অর্ডার স্ট্যাটাস</label>
+                        <select class="filter-select bangla">
+                            <option value="all">সব অর্ডার</option>
+                            <option value="pending">অপেক্ষমান</option>
+                            <option value="processing">প্রক্রিয়াধীন</option>
+                            <option value="shipped">শিপড</option>
+                            <option value="delivered">ডেলিভারি সম্পন্ন</option>
+                            <option value="cancelled">বাতিলকৃত</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label bangla">তারিখ রেঞ্জ</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="date" class="filter-input" style="flex: 1;">
+                            <span style="display: flex; align-items: center;">—</span>
+                            <input type="date" class="filter-input" style="flex: 1;">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label bangla">পেমেন্ট স্ট্যাটাস</label>
+                        <select class="filter-select bangla">
+                            <option value="all">সব</option>
+                            <option value="paid">পরিশোধিত</option>
+                            <option value="pending">অপেক্ষমান</option>
+                            <option value="failed">ব্যর্থ</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label bangla">অর্ডার আইডি/গ্রাহক</label>
+                        <input type="text" class="filter-input" placeholder="খুঁজুন...">
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button class="btn-outline bangla">
+                        <i class="fas fa-undo me-2"></i> রিসেট
+                    </button>
+                    <button class="btn-primary bangla">
+                        <i class="fas fa-search me-2"></i> ফিল্টার প্রয়োগ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-table-container">
+                <div class="table-header">
+                    <div class="table-title">
+                        <i class="fas fa-list text-primary"></i>
+                        <span class="bangla">সকল অর্ডার</span>
+                    </div>
+                    
+                    <div>
+                        <button class="export-btn bangla" onclick="exportOrders()">
+                            <i class="fas fa-download me-2"></i> এক্সপোর্ট
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th class="bangla">অর্ডার আইডি</th>
+                                <th class="bangla">গ্রাহকের তথ্য</th>
+                                <th class="bangla">তারিখ</th>
+                                <th class="bangla">পণ্য</th>
+                                <th class="bangla">মোট</th>
+                                <th class="bangla">স্ট্যাটাস</th>
+                                <th class="bangla">পেমেন্ট</th>
+                                <th class="bangla">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Order 1 -->
+                            <tr>
+                                <td>
+                                    <strong>#ORD-2024-001</strong>
+                                </td>
+                                <td>
+                                    <div class="customer-info">
+                                        <div class="customer-avatar">
+                                            <span>RM</span>
+                                        </div>
+                                        <div class="customer-details">
+                                            <h6 class="bangla">রহিম মিয়া</h6>
+                                            <span>rahim@email.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="bangla">১৫ ফেব্রু, ২০২৪</span>
+                                    <div style="font-size: 12px; color: var(--gray);">১০:৩০ AM</div>
+                                </td>
+                                <td>
+                                    <div class="order-products">
+                                        <span class="product-tag bangla">Samsung S23 Ultra</span>
+                                        <span class="product-tag bangla">Nike Air Jordan</span>
+                                        <span class="product-tag bangla">+১</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>৳ ১,৩১,৯৯৮</strong>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-delivered bangla">
+                                        <i class="fas fa-check-circle"></i> ডেলিভারি সম্পন্ন
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge" style="background: #d1fae5; color: #065f46;">
+                                        <i class="fas fa-check"></i> পরিশোধিত
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="order-actions">
+                                        <button class="action-btn view" onclick="viewOrder('ORD-2024-001')" title="বিস্তারিত">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn track" onclick="trackOrder('ORD-2024-001')" title="ট্র্যাক করুন">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Order 2 -->
+                            <tr>
+                                <td>
+                                    <strong>#ORD-2024-002</strong>
+                                </td>
+                                <td>
+                                    <div class="customer-info">
+                                        <div class="customer-avatar">
+                                            <span>SA</span>
+                                        </div>
+                                        <div class="customer-details">
+                                            <h6 class="bangla">সুমাইয়া আক্তার</h6>
+                                            <span>sumaiya@email.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="bangla">১৪ ফেব্রু, ২০২৪</span>
+                                    <div style="font-size: 12px; color: var(--gray);">০২:১৫ PM</div>
+                                </td>
+                                <td>
+                                    <div class="order-products">
+                                        <span class="product-tag bangla">iPhone 15 Pro Max</span>
+                                        <span class="product-tag bangla">Apple Watch</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>৳ ২,২০,৯৯৯</strong>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-shipped bangla">
+                                        <i class="fas fa-truck"></i> শিপড
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge" style="background: #d1fae5; color: #065f46;">
+                                        <i class="fas fa-check"></i> পরিশোধিত
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="order-actions">
+                                        <button class="action-btn view" onclick="viewOrder('ORD-2024-002')" title="বিস্তারিত">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn edit" onclick="updateOrderStatus('ORD-2024-002')" title="স্ট্যাটাস আপডেট">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn track" onclick="trackOrder('ORD-2024-002')" title="ট্র্যাক করুন">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Order 3 -->
+                            <tr>
+                                <td>
+                                    <strong>#ORD-2024-003</strong>
+                                </td>
+                                <td>
+                                    <div class="customer-info">
+                                        <div class="customer-avatar">
+                                            <span>FK</span>
+                                        </div>
+                                        <div class="customer-details">
+                                            <h6 class="bangla">ফাহাদ করিম</h6>
+                                            <span>fahad@email.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="bangla">১৩ ফেব্রু, ২০২৪</span>
+                                    <div style="font-size: 12px; color: var(--gray);">১১:৪৫ AM</div>
+                                </td>
+                                <td>
+                                    <div class="order-products">
+                                        <span class="product-tag bangla">Sony WH-1000XM4</span>
+                                        <span class="product-tag bangla">Power Bank</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>৳ ৩১,৯৯৮</strong>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-processing bangla">
+                                        <i class="fas fa-clock"></i> প্রক্রিয়াধীন
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge" style="background: #fef9c3; color: #854d0e;">
+                                        <i class="fas fa-clock"></i> অপেক্ষমান
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="order-actions">
+                                        <button class="action-btn view" onclick="viewOrder('ORD-2024-003')" title="বিস্তারিত">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn edit" onclick="updateOrderStatus('ORD-2024-003')" title="স্ট্যাটাস আপডেট">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn track" onclick="trackOrder('ORD-2024-003')" title="ট্র্যাক করুন">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Order 4 -->
+                            <tr>
+                                <td>
+                                    <strong>#ORD-2024-004</strong>
+                                </td>
+                                <td>
+                                    <div class="customer-info">
+                                        <div class="customer-avatar">
+                                            <span>NI</span>
+                                        </div>
+                                        <div class="customer-details">
+                                            <h6 class="bangla">নাদিয়া ইসলাম</h6>
+                                            <span>nadia@email.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="bangla">১২ ফেব্রু, ২০২৪</span>
+                                    <div style="font-size: 12px; color: var(--gray);">০৩:২০ PM</div>
+                                </td>
+                                <td>
+                                    <div class="order-products">
+                                        <span class="product-tag bangla">Walton Fridge 325L</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>৳ ৪৫,০০০</strong>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-pending bangla">
+                                        <i class="fas fa-hourglass"></i> অপেক্ষমান
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge" style="background: #fee2e2; color: #dc2626;">
+                                        <i class="fas fa-clock"></i> অপেক্ষমান
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="order-actions">
+                                        <button class="action-btn view" onclick="viewOrder('ORD-2024-004')" title="বিস্তারিত">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn edit" onclick="updateOrderStatus('ORD-2024-004')" title="স্ট্যাটাস আপডেট">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Order 5 -->
+                            <tr>
+                                <td>
+                                    <strong>#ORD-2024-005</strong>
+                                </td>
+                                <td>
+                                    <div class="customer-info">
+                                        <div class="customer-avatar">
+                                            <span>TH</span>
+                                        </div>
+                                        <div class="customer-details">
+                                            <h6 class="bangla">তানিম হাসান</h6>
+                                            <span>tanim@email.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="bangla">১১ ফেব্রু, ২০২৪</span>
+                                    <div style="font-size: 12px; color: var(--gray);">০৯:৫০ AM</div>
+                                </td>
+                                <td>
+                                    <div class="order-products">
+                                        <span class="product-tag bangla">MacBook Pro M2</span>
+                                        <span class="product-tag bangla">iPad Air</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>৳ ৩,৪৫,০০০</strong>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-cancelled bangla">
+                                        <i class="fas fa-times-circle"></i> বাতিলকৃত
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge" style="background: #fee2e2; color: #dc2626;">
+                                        <i class="fas fa-times"></i> ব্যর্থ
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="order-actions">
+                                        <button class="action-btn view" onclick="viewOrder('ORD-2024-005')" title="বিস্তারিত">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link active" href="#">১</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">২</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">৩</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">৪</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">৫</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bangla">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        অর্ডার বিস্তারিত
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h6 class="bangla" style="font-size: 20px; font-weight: 700;">#ORD-2024-002</h6>
+                        <span class="status-badge status-shipped bangla">
+                            <i class="fas fa-truck"></i> শিপড
+                        </span>
+                    </div>
+                    
+                    <div class="order-info-grid">
+                        <div class="order-info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="bangla">গ্রাহকের তথ্য</h6>
+                                <p class="bangla">সুমাইয়া আক্তার</p>
+                                <span style="font-size: 13px; color: var(--gray);">sumaiya@email.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="bangla">ডেলিভারি ঠিকানা</h6>
+                                <p class="bangla">গুলশান ১, ঢাকা</p>
+                                <span style="font-size: 13px; color: var(--gray);">০১৭১২-৩৪৫৬৭৮</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="bangla">পেমেন্ট</h6>
+                                <p class="bangla">bKash - ০১৭১২-৩৪৫৬৭৮</p>
+                                <span style="font-size: 13px; color: var(--gray);">TRX: BKASH123456</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6 class="bangla mb-3">অর্ডারকৃত পণ্যসমূহ</h6>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="bangla">পণ্য</th>
+                                <th class="bangla">মূল্য</th>
+                                <th class="bangla">পরিমাণ</th>
+                                <th class="bangla">সর্বমোট</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1598327105854-c8674faddf74?w=50&h=50&fit=crop" alt="" style="width: 40px; height: 40px; border-radius: 8px;">
+                                        <span class="bangla">iPhone 15 Pro Max</span>
+                                    </div>
+                                </td>
+                                <td>৳ ১,৬৫,০০০</td>
+                                <td>১</td>
+                                <td>৳ ১,৬৫,০০০</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=50&h=50&fit=crop" alt="" style="width: 40px; height: 40px; border-radius: 8px;">
+                                        <span class="bangla">Apple Watch Series 8</span>
+                                    </div>
+                                </td>
+                                <td>৳ ৫৫,৯৯৯</td>
+                                <td>১</td>
+                                <td>৳ ৫৫,৯৯৯</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-end bangla"><strong>মোট:</strong></td>
+                                <td><strong>৳ ২,২০,৯৯৯</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    
+                    <div class="timeline-modal">
+                        <h6 class="bangla mb-3">অর্ডার টাইমলাইন</h6>
+                        <div class="timeline-steps">
+                            <div class="timeline-step">
+                                <div class="step-icon completed">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h6 class="bangla">অর্ডার কনফার্ম হয়েছে</h6>
+                                    <p>১৪ ফেব্রুয়ারি, ২০২৪ - ০২:১৫ PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-step">
+                                <div class="step-icon completed">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h6 class="bangla">পণ্য প্রস্তুতকরণ</h6>
+                                    <p>১৪ ফেব্রুয়ারি, ২০২৪ - ০৪:৩০ PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-step">
+                                <div class="step-icon completed">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h6 class="bangla">প্যাকেজিং সম্পন্ন</h6>
+                                    <p>১৪ ফেব্রুয়ারি, ২০২৪ - ০৬:৪৫ PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-step">
+                                <div class="step-icon active">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h6 class="bangla">ডেলিভারির পথে</h6>
+                                    <p>১৫ ফেব্রুয়ারি, ২০২৪ - ০৯:০০ AM</p>
+                                    <span class="badge bg-primary bangla">বর্তমান অবস্থা</span>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-step">
+                                <div class="step-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h6 class="bangla">ডেলিভারি সম্পন্ন</h6>
+                                    <p>আনুমানিক: ১৬ ফেব্রুয়ারি, ২০২৪</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-end gap-2">
+                        <button class="btn-outline bangla" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-2"></i> বন্ধ করুন
+                        </button>
+                        <button class="btn-primary bangla" onclick="updateOrderStatus('ORD-2024-002')">
+                            <i class="fas fa-edit me-2"></i> স্ট্যাটাস আপডেট
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Toggle sidebar
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // View order details
+        function viewOrder(orderId) {
+            // In real app, fetch order details from Firebase
+            console.log('Viewing order:', orderId);
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+            modal.show();
+            
+            showNotification(`অর্ডার #${orderId} এর বিস্তারিত দেখছেন`, 'info');
+        }
+
+        // Update order status
+        function updateOrderStatus(orderId) {
+            // In real app, update status in Firebase
+            console.log('Updating order status:', orderId);
+            
+            // Show status update modal/prompt
+            const status = prompt('অর্ডার স্ট্যাটাস আপডেট করুন:\n1. অপেক্ষমান\n2. প্রক্রিয়াধীন\n3. শিপড\n4. ডেলিভারি সম্পন্ন\n5. বাতিলকৃত', 'প্রক্রিয়াধীন');
+            
+            if (status) {
+                showNotification(`অর্ডার #${orderId} এর স্ট্যাটাস আপডেট করা হয়েছে`, 'success');
+            }
+        }
+
+        // Track order
+        function trackOrder(orderId) {
+            console.log('Tracking order:', orderId);
+            window.location.href = `../track-order.html?order=${orderId}`;
+        }
+
+        // Export orders
+        function exportOrders() {
+            showNotification('অর্ডার লিস্ট এক্সপোর্ট শুরু হয়েছে...', 'info');
+            
+            // Simulate export
+            setTimeout(() => {
+                showNotification('অর্ডার লিস্ট PDF ডাউনলোড সম্পন্ন!', 'success');
+            }, 2000);
+        }
+
+        // Bulk actions
+        function bulkAction(action) {
+            showNotification(`বাল্ক অ্যাকশন: ${action}`, 'info');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `position-fixed top-0 end-0 m-3 p-3 rounded shadow text-white`;
+            notification.style.zIndex = '9999';
+            notification.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#f59e0b';
+            notification.style.animation = 'slideIn 0.3s ease';
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                    <span class="bangla">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set active nav link
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Check admin authentication
+            const isAdmin = localStorage.getItem('adminLoggedIn');
+            if (!isAdmin) {
+                // Redirect to login if not admin
+                // window.location.href = '../login.html';
+            }
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

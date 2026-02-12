@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার ইতিহাস - PremiumShop</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #f1f5f9;
+        }
+        
+        .bangla {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Order History Container */
+        .order-history-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .stat-info {
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            color: var(--dark);
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 180px;
+        }
+        
+        .filter-select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .date-range {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .date-input {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        
+        .search-btn {
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        /* Order Timeline */
+        .order-timeline {
+            margin-bottom: 30px;
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .view-all:hover {
+            color: #1d4ed8;
+        }
+        
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .timeline-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 15px;
+            position: relative;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .timeline-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-card.delivered {
+            border-left-color: var(--success);
+        }
+        
+        .timeline-card.shipped {
+            border-left-color: var(--warning);
+        }
+        
+        .timeline-card.processing {
+            border-left-color: var(--primary);
+        }
+        
+        .timeline-card.cancelled {
+            border-left-color: var(--danger);
+        }
+        
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-order-id {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-date {
+            color: var(--gray);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .status-delivered {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-shipped {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-processing {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+        
+        .status-pending {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .status-cancelled {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        
+        /* Orders Table */
+        .orders-table-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .table-title {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .export-btn {
+            padding: 10px 20px;
+            background: var(--light);
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            color: var(--dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .export-btn:hover {
+            background: var(--dark);
+            color: white;
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .orders-table th {
+            text-align: left;
+            padding: 15px;
+            background: var(--light);
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .orders-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        
+        .order-products {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .order-product {
+            font-size: 14px;
+        }
+        
+        .order-product span {
+            color: var(--gray);
+            font-size: 12px;
+        }
+        
+        .order-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn.view {
+            background: var(--primary);
+        }
+        
+        .action-btn.track {
+            background: var(--success);
+        }
+        
+        .action-btn.reorder {
+            background: var(--warning);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .page-item {
+            list-style: none;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .page-link:hover,
+        .page-link.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            background: white;
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .empty-icon {
+            font-size: 80px;
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+        
+        .empty-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .empty-text {
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-shop {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-shop:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .filter-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            .filter-select {
+                width: 100%;
+            }
+            
+            .date-range {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .orders-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-crown"></i> Premium<span>Shop</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">হোম</a></li>
+                <li><a href="products.html" class="nav-link">পণ্য</a></li>
+                <li><a href="categories.html" class="nav-link">ক্যাটাগরি</a></li>
+                <li><a href="profile.html" class="nav-link">প্রোফাইল</a></li>
+                <li><a href="order-history.html" class="nav-link active">অর্ডার ইতিহাস</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="nav-container">
+            <h1 class="bangla">আমার অর্ডার ইতিহাস</h1>
+            <p class="bangla">আপনার সকল অর্ডারের বিস্তারিত তথ্য</p>
+        </div>
+    </section>
+
+    <!-- Order History Container -->
+    <div class="order-history-container">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value bangla">২৪</div>
+                    <div class="stat-label bangla">মোট অর্ডার</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value bangla">১৮</div>
+                    <div class="stat-label bangla">ডেলিভারি সম্পন্ন</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value bangla">৩</div>
+                    <div class="stat-label bangla">প্রক্রিয়াধীন</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value bangla">৩</div>
+                    <div class="stat-label bangla">অপেক্ষমান</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-title">
+                <i class="fas fa-filter text-primary"></i>
+                <span class="bangla">অর্ডার ফিল্টার</span>
+            </div>
+            
+            <div class="filter-group">
+                <select class="filter-select bangla" id="statusFilter" onchange="filterOrders()">
+                    <option value="all">সব অর্ডার</option>
+                    <option value="delivered">ডেলিভারি সম্পন্ন</option>
+                    <option value="shipped">শিপড</option>
+                    <option value="processing">প্রক্রিয়াধীন</option>
+                    <option value="pending">অপেক্ষমান</option>
+                    <option value="cancelled">বাতিলকৃত</option>
+                </select>
+                
+                <select class="filter-select bangla" id="dateFilter" onchange="filterOrders()">
+                    <option value="all">সব সময়</option>
+                    <option value="today">আজ</option>
+                    <option value="week">এই সপ্তাহ</option>
+                    <option value="month">এই মাস</option>
+                    <option value="year">এই বছর</option>
+                </select>
+                
+                <div class="date-range">
+                    <input type="date" class="date-input" id="startDate">
+                    <span>—</span>
+                    <input type="date" class="date-input" id="endDate">
+                </div>
+                
+                <button class="search-btn bangla" onclick="filterOrders()">
+                    <i class="fas fa-search me-2"></i> খুঁজুন
+                </button>
+            </div>
+        </div>
+
+        <!-- Order Timeline -->
+        <div class="order-timeline">
+            <div class="timeline-header">
+                <h3 class="timeline-title">
+                    <i class="fas fa-clock text-primary"></i>
+                    <span class="bangla">সাম্প্রতিক অর্ডার</span>
+                </h3>
+                <a href="#orders-table" class="view-all bangla">
+                    সব দেখুন <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+            
+            <div class="timeline-grid">
+                <div class="timeline-card delivered">
+                    <div class="timeline-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-order-id bangla">#PS2024025</div>
+                        <div class="timeline-date bangla">১৫ ফেব্রুয়ারি, ২০২৪</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="timeline-status status-delivered bangla">
+                                <i class="fas fa-check-circle me-1"></i> ডেলিভারি সম্পন্ন
+                            </span>
+                            <span class="fw-bold text-primary bangla">৳ ১,১৫,৯৯৯</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-card shipped">
+                    <div class="timeline-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-order-id bangla">#PS2024032</div>
+                        <div class="timeline-date bangla">১৪ ফেব্রুয়ারি, ২০২৪</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="timeline-status status-shipped bangla">
+                                <i class="fas fa-truck me-1"></i> শিপড
+                            </span>
+                            <span class="fw-bold text-primary bangla">৳ ১৫,৯৯৯</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-card processing">
+                    <div class="timeline-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-order-id bangla">#PS2024018</div>
+                        <div class="timeline-date bangla">১২ ফেব্রুয়ারি, ২০২৪</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="timeline-status status-processing bangla">
+                                <i class="fas fa-clock me-1"></i> প্রক্রিয়াধীন
+                            </span>
+                            <span class="fw-bold text-primary bangla">৳ ৪৫,০০০</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="orders-table-container" id="orders-table">
+            <div class="table-header">
+                <h3 class="table-title">
+                    <i class="fas fa-list text-primary"></i>
+                    <span class="bangla">সকল অর্ডার</span>
+                </h3>
+                
+                <button class="export-btn bangla" onclick="exportOrders()">
+                    <i class="fas fa-download"></i>
+                    এক্সপোর্ট
+                </button>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th class="bangla">অর্ডার আইডি</th>
+                            <th class="bangla">তারিখ</th>
+                            <th class="bangla">পণ্য</th>
+                            <th class="bangla">মোট মূল্য</th>
+                            <th class="bangla">স্ট্যাটাস</th>
+                            <th class="bangla">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>#PS2024025</strong>
+                                <div class="text-muted small bangla">পেমেন্ট: bKash</div>
+                            </td>
+                            <td>
+                                <span class="bangla">১৫ ফেব্রু, ২০২৪</span>
+                                <div class="text-muted small bangla">১০:৩০ AM</div>
+                            </td>
+                            <td>
+                                <div class="order-products">
+                                    <span class="order-product bangla">
+                                        স্যামসাং গ্যালাক্সি S23 আল্ট্রা <span>×1</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold bangla">৳ ১,১৫,৯৯৯</span>
+                            </td>
+                            <td>
+                                <span class="status-badge status-delivered bangla">
+                                    <i class="fas fa-check-circle"></i> ডেলিভারি সম্পন্ন
+                                </span>
+                            </td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="action-btn view" onclick="viewOrder('PS2024025')" title="বিস্তারিত">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn reorder" onclick="reorder('PS2024025')" title="আবার অর্ডার করুন">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <strong>#PS2024032</strong>
+                                <div class="text-muted small bangla">পেমেন্ট: Nagad</div>
+                            </td>
+                            <td>
+                                <span class="bangla">১৪ ফেব্রু, ২০২৪</span>
+                                <div class="text-muted small bangla">০২:১৫ PM</div>
+                            </td>
+                            <td>
+                                <div class="order-products">
+                                    <span class="order-product bangla">
+                                        নাইক এয়ার জর্ডান 1 <span>×1</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold bangla">৳ ১৫,৯৯৯</span>
+                            </td>
+                            <td>
+                                <span class="status-badge status-shipped bangla">
+                                    <i class="fas fa-truck"></i> শিপড
+                                </span>
+                            </td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="action-btn view" onclick="viewOrder('PS2024032')" title="বিস্তারিত">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn track" onclick="trackOrder('PS2024032')" title="ট্র্যাক করুন">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                    <button class="action-btn reorder" onclick="reorder('PS2024032')" title="আবার অর্ডার করুন">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <strong>#PS2024018</strong>
+                                <div class="text-muted small bangla">পেমেন্ট: COD</div>
+                            </td>
+                            <td>
+                                <span class="bangla">১২ ফেব্রু, ২০২৪</span>
+                                <div class="text-muted small bangla">১১:৪৫ AM</div>
+                            </td>
+                            <td>
+                                <div class="order-products">
+                                    <span class="order-product bangla">
+                                        ওয়ালটন ফ্রিজ ৩২৫L <span>×1</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold bangla">৳ ৪৫,০০০</span>
+                            </td>
+                            <td>
+                                <span class="status-badge status-processing bangla">
+                                    <i class="fas fa-clock"></i> প্রক্রিয়াধীন
+                                </span>
+                            </td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="action-btn view" onclick="viewOrder('PS2024018')" title="বিস্তারিত">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn track" onclick="trackOrder('PS2024018')" title="ট্র্যাক করুন">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <strong>#PS2024005</strong>
+                                <div class="text-muted small bangla">পেমেন্ট: Rocket</div>
+                            </td>
+                            <td>
+                                <span class="bangla">১০ ফেব্রু, ২০২৪</span>
+                                <div class="text-muted small bangla">০৩:৩০ PM</div>
+                            </td>
+                            <td>
+                                <div class="order-products">
+                                    <span class="order-product bangla">
+                                        সনি WH-1000XM4 <span>×1</span>
+                                    </span>
+                                    <span class="order-product bangla text-muted">
+                                        + আরও ২টি পণ্য
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold bangla">৳ ৬২,৯৯৭</span>
+                            </td>
+                            <td>
+                                <span class="status-badge status-delivered bangla">
+                                    <i class="fas fa-check-circle"></i> ডেলিভারি সম্পন্ন
+                                </span>
+                            </td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="action-btn view" onclick="viewOrder('PS2024005')" title="বিস্তারিত">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn reorder" onclick="reorder('PS2024005')" title="আবার অর্ডার করুন">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <strong>#PS2023982</strong>
+                                <div class="text-muted small bangla">পেমেন্ট: bKash</div>
+                            </td>
+                            <td>
+                                <span class="bangla">২৮ জানু, ২০২৪</span>
+                                <div class="text-muted small bangla">০৯:১৫ AM</div>
+                            </td>
+                            <td>
+                                <div class="order-products">
+                                    <span class="order-product bangla">
+                                        এপেল ম্যাকবুক প্রো M2 <span>×1</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold bangla">৳ ২,৪৫,০০০</span>
+                            </td>
+                            <td>
+                                <span class="status-badge status-delivered bangla">
+                                    <i class="fas fa-check-circle"></i> ডেলিভারি সম্পন্ন
+                                </span>
+                            </td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="action-btn view" onclick="viewOrder('PS2023982')" title="বিস্তারিত">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn reorder" onclick="reorder('PS2023982')" title="আবার অর্ডার করুন">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <strong>#PS2023950</strong>
+                                <div class="text-muted small bangla">পেমেন্ট: COD</div>
+                            </td>
+                            <td>
+                                <span class="bangla">১৫ জানু, ২০২৪</span>
+                                <div class="text-muted small bangla">০৪:৪৫ PM</div>
+                            </td>
+                            <td>
+                                <div class="order-products">
+                                    <span class="order-product bangla">
+                                        নাইকি এয়ার ম্যাক্স ৯০ <span>×1</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold bangla">৳ ১৮,৯৯৯</span>
+                            </td>
+                            <td>
+                                <span class="status-badge status-cancelled bangla">
+                                    <i class="fas fa-times-circle"></i> বাতিলকৃত
+                                </span>
+                            </td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="action-btn view" onclick="viewOrder('PS2023950')" title="বিস্তারিত">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link active" href="#">১</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">২</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">৩</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">৪</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="bangla">PremiumShop</h3>
+                <p class="bangla" style="color: #cbd5e1;">
+                    আপনার অর্ডার ইতিহাস, আপনার ডিজিটাল রেকর্ড
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">অর্ডার</h3>
+                <ul class="footer-links">
+                    <li><a href="order-history.html" class="bangla">অর্ডার ইতিহাস</a></li>
+                    <li><a href="track-order.html" class="bangla">অর্ডার ট্র্যাক</a></li>
+                    <li><a href="profile.html" class="bangla">আমার অ্যাকাউন্ট</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">সাপোর্ট</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html" class="bangla">FAQ</a></li>
+                    <li><a href="contact.html" class="bangla">যোগাযোগ</a></li>
+                    <li><a href="terms.html" class="bangla">শর্তাবলী</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="bangla">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li class="bangla"><i class="fas fa-phone"></i> ০৯৬৩৮-১১১-১১১</li>
+                    <li class="bangla"><i class="fas fa-envelope"></i> orders@premiumshop.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla">
+            <p>&copy; ২০২৩ PremiumShop. আপনার অর্ডার ইতিহাস সুরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Set default dates
+            const today = new Date().toISOString().split('T')[0];
+            const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            
+            document.getElementById('startDate').value = thirtyDaysAgo;
+            document.getElementById('endDate').value = today;
+        });
+
+        // Filter orders function
+        function filterOrders() {
+            const status = document.getElementById('statusFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            
+            console.log('Filtering orders:', { status, dateFilter, startDate, endDate });
+            
+            // Show notification
+            showNotification('অর্ডার ফিল্টার প্রয়োগ করা হয়েছে!', 'success');
+        }
+
+        // View order details
+        function viewOrder(orderId) {
+            // In real app, navigate to order details page
+            window.location.href = `product-details.html?order=${orderId}`;
+            showNotification(`অর্ডার #${orderId} বিস্তারিত দেখছেন`, 'info');
+        }
+
+        // Track order
+        function trackOrder(orderId) {
+            window.location.href = `track-order.html?order=${orderId}`;
+            showNotification(`অর্ডার #${orderId} ট্র্যাক করা হচ্ছে`, 'info');
+        }
+
+        // Reorder
+        function reorder(orderId) {
+            // In real app, add all items from order to cart
+            showNotification(`অর্ডার #${orderId} আবার কার্টে যোগ করা হয়েছে!`, 'success');
+        }
+
+        // Export orders
+        function exportOrders() {
+            showNotification('অর্ডার লিস্ট এক্সপোর্ট শুরু হয়েছে...', 'info');
+            
+            // Simulate export
+            setTimeout(() => {
+                showNotification('অর্ডার লিস্ট PDF ডাউনলোড সম্পন্ন!', 'success');
+            }, 2000);
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `position-fixed top-0 end-0 m-3 p-3 rounded shadow text-white`;
+            notification.style.zIndex = '9999';
+            notification.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#f59e0b';
+            notification.style.animation = 'slideIn 0.3s ease';
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                    <span class="bangla">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

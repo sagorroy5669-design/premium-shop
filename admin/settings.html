@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সেটিংস - Premium eCommerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .settings-nav .nav-link {
+            border-left: 3px solid transparent;
+            padding: 10px 15px;
+            color: #495057;
+        }
+        .settings-nav .nav-link.active {
+            border-left-color: #0d6efd;
+            background-color: rgba(13, 110, 253, 0.05);
+            color: #0d6efd;
+            font-weight: 500;
+        }
+        .settings-nav .nav-link:hover {
+            background-color: rgba(0,0,0,0.03);
+        }
+        .settings-card {
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        .settings-section {
+            margin-bottom: 2rem;
+        }
+        .settings-section h5 {
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider {
+            background-color: #0d6efd;
+        }
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-right: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .backup-status {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .backup-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .backup-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .api-key {
+            background-color: #f8f9fa;
+            border: 1px dashed #dee2e6;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-shop me-2"></i>
+                Premium Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="adminNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-speedometer2"></i> ড্যাশবোর্ড
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">
+                            <i class="bi bi-box-seam"></i> পণ্য
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">
+                            <i class="bi bi-receipt"></i> অর্ডার
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers.html">
+                            <i class="bi bi-people"></i> কাস্টমার
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html">
+                            <i class="bi bi-tags"></i> ক্যাটাগরি
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reports.html">
+                            <i class="bi bi-graph-up"></i> রিপোর্ট
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="settings.html">
+                            <i class="bi bi-gear"></i> সেটিংস
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="../index.html">
+                            <i class="bi bi-box-arrow-right"></i> লগআউট
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Settings Sidebar -->
+            <div class="col-lg-3 col-md-4">
+                <div class="card settings-card mb-4">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">
+                            <i class="bi bi-sliders me-2"></i>সেটিংস মেনু
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <nav class="nav flex-column settings-nav">
+                            <a class="nav-link active" data-bs-target="#general" data-bs-toggle="tab">
+                                <i class="bi bi-gear me-2"></i>সাধারণ সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#store" data-bs-toggle="tab">
+                                <i class="bi bi-shop me-2"></i>স্টোর সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#payment" data-bs-toggle="tab">
+                                <i class="bi bi-credit-card me-2"></i>পেমেন্ট সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#shipping" data-bs-toggle="tab">
+                                <i class="bi bi-truck me-2"></i>শিপিং সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#email" data-bs-toggle="tab">
+                                <i class="bi bi-envelope me-2"></i>ইমেইল সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#tax" data-bs-toggle="tab">
+                                <i class="bi bi-calculator me-2"></i>ট্যাক্স সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#seo" data-bs-toggle="tab">
+                                <i class="bi bi-search me-2"></i>SEO সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#api" data-bs-toggle="tab">
+                                <i class="bi bi-key me-2"></i>API সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#backup" data-bs-toggle="tab">
+                                <i class="bi bi-database me-2"></i>ব্যাকআপ সেটিংস
+                            </a>
+                            <a class="nav-link" data-bs-target="#users" data-bs-toggle="tab">
+                                <i class="bi bi-people me-2"></i>ইউজার ম্যানেজমেন্ট
+                            </a>
+                            <a class="nav-link" data-bs-target="#security" data-bs-toggle="tab">
+                                <i class="bi bi-shield-check me-2"></i>সিকিউরিটি
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="card settings-card">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="bi bi-lightbulb me-2"></i>সেটিংস টিপস
+                        </h6>
+                        <ul class="small text-muted" style="padding-left: 20px;">
+                            <li class="mb-2">সব সেটিংস সেভ করার পর সিস্টেম রিস্টার্ট করুন</li>
+                            <li class="mb-2">API কিগুলো নিরাপদে রাখুন</li>
+                            <li class="mb-2">নিয়মিত ব্যাকআপ নিন</li>
+                            <li>টেস্ট পরিবেশে পরিবর্তন চেক করুন</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Content -->
+            <div class="col-lg-9 col-md-8">
+                <div class="tab-content" id="settingsContent">
+                    <!-- General Settings -->
+                    <div class="tab-pane fade show active" id="general">
+                        <div class="card settings-card">
+                            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-gear me-2"></i>সাধারণ সেটিংস
+                                </h5>
+                                <button class="btn btn-primary btn-sm" onclick="saveSettings('general')">
+                                    <i class="bi bi-save me-1"></i>সেভ করুন
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="settings-section">
+                                    <h5>সাইট তথ্য</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">সাইট নাম *</label>
+                                            <input type="text" class="form-control" value="Premium eCommerce" id="siteName">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">সাইট ট্যাগলাইন</label>
+                                            <input type="text" class="form-control" value="বাংলাদেশের সেরা অনলাইন শপিং" id="siteTagline">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">সাইট ইমেইল *</label>
+                                            <input type="email" class="form-control" value="info@premium-ecommerce.com" id="siteEmail">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">সাপোর্ট ফোন</label>
+                                            <input type="text" class="form-control" value="০৯৬৩৮-৭৮৭৮৭৮" id="sitePhone">
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">ঠিকানা</label>
+                                            <textarea class="form-control" rows="3" id="siteAddress">ধানমন্ডি, ঢাকা-১২০৯, বাংলাদেশ</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h5>কারেন্সি ও সময়</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">ডিফল্ট কারেন্সি *</label>
+                                            <select class="form-select" id="defaultCurrency">
+                                                <option value="BDT" selected>বাংলাদেশী টাকা (৳)</option>
+                                                <option value="USD">US Dollar ($)</option>
+                                                <option value="EUR">Euro (€)</option>
+                                                <option value="GBP">British Pound (£)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">টাইম জোন *</label>
+                                            <select class="form-select" id="timeZone">
+                                                <option value="Asia/Dhaka" selected>ঢাকা (GMT+6)</option>
+                                                <option value="UTC">UTC</option>
+                                                <option value="America/New_York">New York (GMT-5)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">তারিখ ফরম্যাট</label>
+                                            <select class="form-select" id="dateFormat">
+                                                <option value="DD-MM-YYYY" selected>১৫-১১-২০২৩</option>
+                                                <option value="MM-DD-YYYY">১১-১৫-২০২৩</option>
+                                                <option value="YYYY-MM-DD">২০২৩-১১-১৫</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">সাইট ভাষা</label>
+                                            <select class="form-select" id="siteLanguage">
+                                                <option value="bn" selected>বাংলা</option>
+                                                <option value="en">English</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h5>সাইট স্ট্যাটাস</h5>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="siteMaintenance" style="width: 3em; height: 1.5em;">
+                                                <label class="form-check-label" for="siteMaintenance">
+                                                    মেইনটেন্যান্স মোড
+                                                </label>
+                                                <small class="text-muted d-block">
+                                                    চালু করলে শুধু এডমিন লগইন করতে পারবেন
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-end">
+                                            <span class="badge bg-success">সাইট চালু আছে</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Store Settings -->
+                    <div class="tab-pane fade" id="store">
+                        <div class="card settings-card">
+                            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-shop me-2"></i>স্টোর সেটিংস
+                                </h5>
+                                <button class="btn btn-primary btn-sm" onclick="saveSettings('store')">
+                                    <i class="bi bi-save me-1"></i>সেভ করুন
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="settings-section">
+                                    <h5>স্টোর তথ্য</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">স্টোর নাম</label>
+                                            <input type="text" class="form-control" value="Premium Shop">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">স্টোর লোগো</label>
+                                            <input type="file" class="form-control" accept="image/*">
+                                            <small class="text-muted">সuggested size: 200x60 pixels</small>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">ফেভিকন</label>
+                                            <input type="file" class="form-control" accept=".ico">
+                                            <small class="text-muted">.ico format, 32x32 pixels</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h5>স্টোর ফিচার</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="guestCheckout" checked>
+                                                <label class="form-check-label" for="guestCheckout">
+                                                    গেস্ট চেকআউট
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="wishlist" checked>
+                                                <label class="form-check-label" for="wishlist">
+                                                    উইশলিস্ট ফিচার
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="reviews" checked>
+                                                <label class="form-check-label" for="reviews">
+                                                    প্রোডাক্ট রিভিউ
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="compare" checked>
+                                                <label class="form-check-label" for="compare">
+                                                    প্রোডাক্ট কম্পেয়ার
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h5>ইনভেন্টরি সেটিংস</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">স্টক আউট থ্রেশহোল্ড</label>
+                                            <input type="number" class="form-control" value="5" min="0">
+                                            <small class="text-muted">কতটি থাকলে স্টক আউট দেখাবে</small>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">ব্যাকঅর্ডার অনুমতি</label>
+                                            <select class="form-select">
+                                                <option value="yes">হ্যাঁ</option>
+                                                <option value="no" selected>না</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Settings -->
+                    <div class="tab-pane fade" id="payment">
+                        <div class="card settings-card">
+                            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-credit-card me-2"></i>পেমেন্ট সেটিংস
+                                </h5>
+                                <button class="btn btn-primary btn-sm" onclick="saveSettings('payment')">
+                                    <i class="bi bi-save me-1"></i>সেভ করুন
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="settings-section">
+                                    <h5>পেমেন্ট গেটওয়ে</h5>
+                                    <div class="row mb-4">
+                                        <div class="col-12 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="sslcommerz" checked>
+                                                <label class="form-check-label" for="sslcommerz">
+                                                    SSLCOMMERZ
+                                                </label>
+                                            </div>
+                                            <div class="ms-4 mt-2">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label">স্টোর ID</label>
+                                                        <input type="text" class="form-control" value="premium5f0b5b7c1a1b2">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label">স্টোর পাসওয়ার্ড</label>
+                                                        <input type="password" class="form-control" value="********">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="bkash" checked>
+                                                <label class="form-check-label" for="bkash">
+                                                    বিকাশ
+                                                </label>
+                                            </div>
+                                            <div class="ms-4 mt-2">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label">বিকাশ মার্চেন্ট</label>
+                                                        <input type="text" class="form-control" value="017XXXXXXXX">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label">API Key</label>
+                                                        <input type="password" class="form-control" value="********">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="nagad">
+                                                <label class="form-check-label" for="nagad">
+                                                    নগদ
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="cod" checked>
+                                                <label class="form-check-label" for="cod">
+                                                    ক্যাশ অন ডেলিভারি
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h5>পেমেন্ট সেটিংস</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">ডিফল্ট পেমেন্ট মেথড</label>
+                                            <select class="form-select">
+                                                <option value="sslcommerz">SSLCOMMERZ</option>
+                                                <option value="bkash">বিকাশ</option>
+                                                <option value="cod" selected>ক্যাশ অন ডেলিভারি</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">কারেন্সি পজিশন</label>
+                                            <select class="form-select">
+                                                <option value="left" selected>বামে (৳১০০)</option>
+                                                <option value="right">ডানে (১০০৳)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">স্যান্ডবক্স মোড</label>
+                                            <select class="form-select">
+                                                <option value="yes" selected>হ্যাঁ (টেস্টিং)</option>
+                                                <option value="no">না (লাইভ)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Backup Settings (Sample) -->
+                    <div class="tab-pane fade" id="backup">
+                        <div class="card settings-card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-database me-2"></i>ব্যাকআপ সেটিংস
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    সর্বশেষ ব্যাকআপ: ২০২৩-১১-১৫ ১০:৩০ AM
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="card-title">ডাটাবেস ব্যাকআপ</h6>
+                                                <p class="text-muted small mb-3">আপনার পুরো ডাটাবেস ব্যাকআপ নিন</p>
+                                                <button class="btn btn-outline-primary w-100" onclick="backupDatabase()">
+                                                    <i class="bi bi-database me-1"></i>ব্যাকআপ নিন
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="card-title">ফাইলস ব্যাকআপ</h6>
+                                                <p class="text-muted small mb-3">সব ফাইলস এবং ইমেজ ব্যাকআপ</p>
+                                                <button class="btn btn-outline-success w-100" onclick="backupFiles()">
+                                                    <i class="bi bi-folder me-1"></i>ফাইলস ব্যাকআপ
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h5>অটো ব্যাকআপ</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="autoBackup" checked>
+                                                <label class="form-check-label" for="autoBackup">
+                                                    অটো ব্যাকআপ সক্রিয়
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">ব্যাকআপ ফ্রিকোয়েন্সি</label>
+                                            <select class="form-select">
+                                                <option value="daily">দৈনিক</option>
+                                                <option value="weekly" selected>সাপ্তাহিক</option>
+                                                <option value="monthly">মাসিক</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">রিটেনশন পিরিয়ড</label>
+                                            <select class="form-select">
+                                                <option value="7">৭ দিন</option>
+                                                <option value="30" selected>৩০ দিন</option>
+                                                <option value="90">৯০ দিন</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Confirmation Modal -->
+    <div class="modal fade" id="saveConfirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle me-2"></i>সফলভাবে সেভ হয়েছে
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    সেটিংস সফলভাবে সেভ করা হয়েছে!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">ঠিক আছে</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Initialize tab functionality
+        const tabTriggers = document.querySelectorAll('.settings-nav .nav-link');
+        tabTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function(e) {
+                tabTriggers.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        function saveSettings(section) {
+            // Show save confirmation
+            const modal = new bootstrap.Modal(document.getElementById('saveConfirmModal'));
+            modal.show();
+            
+            // In real app, send settings to server
+            console.log(`${section} settings saved`);
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Update status or show message
+            }, 1000);
+        }
+        
+        function backupDatabase() {
+            if (confirm('আপনি কি ডাটাবেস ব্যাকআপ নিতে চান?')) {
+                alert('ডাটাবেস ব্যাকআপ শুরু হয়েছে...');
+                // In real app, trigger backup process
+                // Show progress indicator
+            }
+        }
+        
+        function backupFiles() {
+            if (confirm('আপনি কি ফাইলস ব্যাকআপ নিতে চান?')) {
+                alert('ফাইলস ব্যাকআপ শুরু হয়েছে...');
+                // In real app, trigger file backup
+            }
+        }
+        
+        // Form validation and auto-save
+        const settingsInputs = document.querySelectorAll('#settingsContent input, #settingsContent select, #settingsContent textarea');
+        settingsInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                // Show unsaved changes indicator
+                const saveBtn = this.closest('.tab-pane').querySelector('.card-header .btn');
+                if (saveBtn) {
+                    saveBtn.classList.add('btn-warning');
+                    saveBtn.classList.remove('btn-primary');
+                }
+            });
+        });
+        
+        // Initialize toggle switches
+        const switches = document.querySelectorAll('.form-switch input[type="checkbox"]');
+        switches.forEach(sw => {
+            sw.addEventListener('change', function() {
+                console.log(`${this.id}: ${this.checked}`);
+                // In real app, save immediately or mark as changed
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রিপোর্ট ও এনালিটিক্স - Premium eCommerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .stat-card {
+            border-radius: 10px;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 1.5rem;
+        }
+        .report-card {
+            min-height: 400px;
+        }
+        .date-range-picker {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .metric-change {
+            font-size: 0.9rem;
+        }
+        .positive-change {
+            color: #198754;
+        }
+        .negative-change {
+            color: #dc3545;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        .top-products-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-shop me-2"></i>
+                Premium Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="adminNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-speedometer2"></i> ড্যাশবোর্ড
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">
+                            <i class="bi bi-box-seam"></i> পণ্য
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">
+                            <i class="bi bi-receipt"></i> অর্ডার
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers.html">
+                            <i class="bi bi-people"></i> কাস্টমার
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html">
+                            <i class="bi bi-tags"></i> ক্যাটাগরি
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="reports.html">
+                            <i class="bi bi-graph-up"></i> রিপোর্ট
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">
+                            <i class="bi bi-gear"></i> সেটিংস
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="../index.html">
+                            <i class="bi bi-box-arrow-right"></i> লগআউট
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-2">
+                    <i class="bi bi-graph-up text-primary me-2"></i>
+                    রিপোর্ট ও এনালিটিক্স
+                </h1>
+                <p class="text-muted mb-0">আপনার বিজনেস পারফরম্যান্স বিশ্লেষণ করুন</p>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="date-range-picker">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">
+                            <i class="bi bi-calendar"></i>
+                        </span>
+                        <input type="date" class="form-control" id="dateFrom" value="2023-11-01">
+                        <span class="input-group-text">থেকে</span>
+                        <input type="date" class="form-control" id="dateTo" value="2023-11-30">
+                        <button class="btn btn-primary btn-sm" onclick="loadReports()">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="bi bi-download me-1"></i>এক্সপোর্ট
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="exportPDF()"><i class="bi bi-file-pdf me-2"></i>PDF</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="exportExcel()"><i class="bi bi-file-excel me-2"></i>Excel</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="exportCSV()"><i class="bi bi-file-text me-2"></i>CSV</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card border-start border-primary border-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">মোট বিক্রয়</h6>
+                                <h3 class="mb-0">৳২,৪৫,৬৭৮</h3>
+                                <div class="metric-change positive-change">
+                                    <i class="bi bi-arrow-up"></i> ১৫.৫% গত মাস থেকে
+                                </div>
+                            </div>
+                            <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                                <i class="bi bi-currency-dollar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card border-start border-success border-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">মোট অর্ডার</h6>
+                                <h3 class="mb-0">১,২৩৪</h3>
+                                <div class="metric-change positive-change">
+                                    <i class="bi bi-arrow-up"></i> ৮.২% গত মাস থেকে
+                                </div>
+                            </div>
+                            <div class="stat-icon bg-success bg-opacity-10 text-success">
+                                <i class="bi bi-receipt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card border-start border-info border-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">গড় অর্ডার ভ্যালু</h6>
+                                <h3 class="mb-0">৳১,৯৯৮</h3>
+                                <div class="metric-change positive-change">
+                                    <i class="bi bi-arrow-up"></i> ৫.৩% গত মাস থেকে
+                                </div>
+                            </div>
+                            <div class="stat-icon bg-info bg-opacity-10 text-info">
+                                <i class="bi bi-cart-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card border-start border-warning border-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">নতুন কাস্টমার</h6>
+                                <h3 class="mb-0">১৫৬</h3>
+                                <div class="metric-change negative-change">
+                                    <i class="bi bi-arrow-down"></i> ২.১% গত মাস থেকে
+                                </div>
+                            </div>
+                            <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                                <i class="bi bi-person-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Charts Row -->
+        <div class="row mb-4">
+            <!-- Sales Chart -->
+            <div class="col-xl-8 col-lg-7 mb-4">
+                <div class="card report-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="bi bi-bar-chart me-2"></i>বিক্রয় ট্রেন্ড
+                        </h5>
+                        <select class="form-select form-select-sm w-auto" id="salesPeriod" onchange="updateSalesChart()">
+                            <option value="daily">দৈনিক</option>
+                            <option value="weekly" selected>সাপ্তাহিক</option>
+                            <option value="monthly">মাসিক</option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Top Products -->
+            <div class="col-xl-4 col-lg-5 mb-4">
+                <div class="card report-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-trophy me-2"></i>টপ সেলিং পণ্য
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="top-products-list">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="badge bg-primary rounded-circle p-2 me-3">১</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">আইফোন ১৪ প্রো</h6>
+                                        <small class="text-muted">ইলেকট্রনিক্স</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">৳১,৪৫,৬০০</div>
+                                        <small class="text-muted">৮৯ বিক্রয়</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="badge bg-secondary rounded-circle p-2 me-3">২</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">স্যামসাং গ্যালাক্সি এস২৩</h6>
+                                        <small class="text-muted">ইলেকট্রনিক্স</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">৳৯২,০০০</div>
+                                        <small class="text-muted">৬৭ বিক্রয়</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="badge bg-warning text-dark rounded-circle p-2 me-3">৩</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">ডেল এক্সপিএস ল্যাপটপ</h6>
+                                        <small class="text-muted">ইলেকট্রনিক্স</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">৳১,২০,৫০০</div>
+                                        <small class="text-muted">৪৫ বিক্রয়</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="badge bg-light text-dark rounded-circle p-2 me-3">৪</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">নাইক এয়ার জর্ডান</h6>
+                                        <small class="text-muted">ফ্যাশন</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">৳১৫,৯৯০</div>
+                                        <small class="text-muted">১২৩ বিক্রয়</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <span class="badge bg-light text-dark rounded-circle p-2 me-3">৫</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">ব্লুটুথ হেডফোন</h6>
+                                        <small class="text-muted">ইলেকট্রনিক্স</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">৳৩,৫৯৯</div>
+                                        <small class="text-muted">১৮৯ বিক্রয়</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Reports Row -->
+        <div class="row">
+            <!-- Category Performance -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-pie-chart me-2"></i>ক্যাটাগরি পারফরম্যান্স
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Traffic Sources -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-funnel me-2"></i>ট্রাফিক সোর্স
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="trafficChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Revenue by Payment Method -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-credit-card me-2"></i>পেমেন্ট মেথড
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="paymentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Reports Table -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-table me-2"></i>ডিটেইল্ড সেলস রিপোর্ট
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>তারিখ</th>
+                                <th>অর্ডার ID</th>
+                                <th>কাস্টমার</th>
+                                <th>পণ্য</th>
+                                <th>পরিমাণ</th>
+                                <th>মোট</th>
+                                <th>স্ট্যাটাস</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesReportTable">
+                            <!-- Sales data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                <nav aria-label="Report pagination">
+                    <ul class="pagination justify-content-center mt-3">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">পূর্ববর্তী</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">১</a></li>
+                        <li class="page-item"><a class="page-link" href="#">২</a></li>
+                        <li class="page-item"><a class="page-link" href="#">৩</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">পরবর্তী</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Filters Modal -->
+    <div class="modal fade" id="reportFiltersModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">রিপোর্ট ফিল্টার</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">রিপোর্ট টাইপ</label>
+                            <select class="form-select" id="reportType">
+                                <option value="sales">বিক্রয় রিপোর্ট</option>
+                                <option value="product">পণ্য রিপোর্ট</option>
+                                <option value="customer">কাস্টমার রিপোর্ট</option>
+                                <option value="inventory">ইনভেন্টরি রিপোর্ট</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">সময়কাল</label>
+                            <select class="form-select" id="timePeriod">
+                                <option value="today">আজ</option>
+                                <option value="yesterday">গতকাল</option>
+                                <option value="week" selected>এই সপ্তাহ</option>
+                                <option value="month">এই মাস</option>
+                                <option value="quarter">এই কোয়ার্টার</option>
+                                <option value="year">এই বছর</option>
+                                <option value="custom">কাস্টম</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">ক্যাটাগরি</label>
+                            <select class="form-select" id="reportCategory">
+                                <option value="all">সব ক্যাটাগরি</option>
+                                <option value="electronics">ইলেকট্রনিক্স</option>
+                                <option value="fashion">ফ্যাশন</option>
+                                <option value="home">ঘরের জিনিস</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">স্ট্যাটাস</label>
+                            <select class="form-select" id="reportStatus">
+                                <option value="all">সব স্ট্যাটাস</option>
+                                <option value="completed">সম্পূর্ণ</option>
+                                <option value="pending">পেন্ডিং</option>
+                                <option value="cancelled">ক্যান্সেলড</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">বাতিল</button>
+                    <button type="button" class="btn btn-primary" onclick="applyReportFilters()">ফিল্টার অ্যাপ্লাই করুন</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Charts
+        let salesChart, categoryChart, trafficChart, paymentChart;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initSalesChart();
+            initCategoryChart();
+            initTrafficChart();
+            initPaymentChart();
+            loadSalesReport();
+        });
+        
+        function initSalesChart() {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            salesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['সপ্তাহ ১', 'সপ্তাহ ২', 'সপ্তাহ ৩', 'সপ্তাহ ৪'],
+                    datasets: [{
+                        label: 'বিক্রয় (৳)',
+                        data: [45000, 52000, 48000, 61000],
+                        borderColor: '#0d6efd',
+                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'অর্ডার সংখ্যা',
+                        data: [120, 145, 130, 165],
+                        borderColor: '#20c997',
+                        backgroundColor: 'rgba(32, 201, 151, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '৳' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function initCategoryChart() {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ইলেকট্রনিক্স', 'ফ্যাশন', 'ঘরের জিনিস', 'বই', 'অন্যান্য'],
+                    datasets: [{
+                        data: [45, 25, 15, 8, 7],
+                        backgroundColor: [
+                            '#0d6efd',
+                            '#dc3545',
+                            '#198754',
+                            '#ffc107',
+                            '#6c757d'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+        }
+        
+        function initTrafficChart() {
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            trafficChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['সোশ্যাল মিডিয়া', 'সার্চ ইঞ্জিন', 'ডাইরেক্ট', 'রেফারেল', 'ইমেইল'],
+                    datasets: [{
+                        label: 'ভিজিটর',
+                        data: [3500, 2800, 1200, 800, 600],
+                        backgroundColor: [
+                            '#20c997',
+                            '#0d6efd',
+                            '#6f42c1',
+                            '#fd7e14',
+                            '#e83e8c'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + ' জন';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function initPaymentChart() {
+            const ctx = document.getElementById('paymentChart').getContext('2d');
+            paymentChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: ['কার্ড', 'মোবাইল ব্যাংকিং', 'ক্যাশ অন ডেলিভারি', 'বিকাশ', 'নগদ'],
+                    datasets: [{
+                        data: [35, 25, 20, 15, 5],
+                        backgroundColor: [
+                            '#0d6efd',
+                            '#20c997',
+                            '#ffc107',
+                            '#6f42c1',
+                            '#dc3545'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateSalesChart() {
+            const period = document.getElementById('salesPeriod').value;
+            
+            // Update chart based on period
+            let labels, salesData, ordersData;
+            
+            if (period === 'daily') {
+                labels = ['১ তারিখ', '২ তারিখ', '৩ তারিখ', '৪ তারিখ', '৫ তারিখ', '৬ তারিখ', '৭ তারিখ'];
+                salesData = [12000, 15000, 18000, 14000, 21000, 19000, 23000];
+                ordersData = [45, 52, 60, 48, 68, 62, 75];
+            } else if (period === 'weekly') {
+                labels = ['সপ্তাহ ১', 'সপ্তাহ ২', 'সপ্তাহ ৩', 'সপ্তাহ ৪'];
+                salesData = [45000, 52000, 48000, 61000];
+                ordersData = [120, 145, 130, 165];
+            } else {
+                labels = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন'];
+                salesData = [185000, 210000, 195000, 230000, 245000, 268000];
+                ordersData = [520, 580, 550, 620, 650, 690];
+            }
+            
+            salesChart.data.labels = labels;
+            salesChart.data.datasets[0].data = salesData;
+            salesChart.data.datasets[1].data = ordersData;
+            salesChart.update();
+        }
+        
+        function loadReports() {
+            const fromDate = document.getElementById('dateFrom').value;
+            const toDate = document.getElementById('dateTo').value;
+            
+            alert(`${fromDate} থেকে ${toDate} পর্যন্ত রিপোর্ট লোড হচ্ছে...`);
+            // In real app, fetch data for the date range
+            updateSalesChart();
+        }
+        
+        function loadSalesReport() {
+            const table = document.getElementById('salesReportTable');
+            const sampleData = [
+                {
+                    date: '২০২৩-১১-১৫',
+                    orderId: 'ORD001234',
+                    customer: 'রহিম ইসলাম',
+                    product: 'আইফোন ১৪ প্রো',
+                    quantity: 1,
+                    total: '৳১,৪৫,৬০০',
+                    status: 'সম্পূর্ণ'
+                },
+                {
+                    date: '২০২৩-১১-১৪',
+                    orderId: 'ORD001233',
+                    customer: 'সুমাইয়া আক্তার',
+                    product: 'স্যামসাং গ্যালাক্সি এস২৩',
+                    quantity: 1,
+                    total: '৳৯২,০০০',
+                    status: 'সম্পূর্ণ'
+                },
+                {
+                    date: '২০২৩-১১-১৩',
+                    orderId: 'ORD001232',
+                    customer: 'আরিফ হোসেন',
+                    product: 'ডেল ল্যাপটপ + হেডফোন',
+                    quantity: 2,
+                    total: '৳১,২৪,০৯৯',
+                    status: 'প্রসেসিং'
+                },
+                {
+                    date: '২০২৩-১১-১২',
+                    orderId: 'ORD001231',
+                    customer: 'নাসরিন সুলতানা',
+                    product: 'নাইক জুতা + ব্যাগ',
+                    quantity: 3,
+                    total: '৳২৫,৯৯০',
+                    status: 'সম্পূর্ণ'
+                },
+                {
+                    date: '২০২৩-১১-১১',
+                    orderId: 'ORD001230',
+                    customer: 'কামরুল হাসান',
+                    product: 'স্মার্টওয়াচ + চার্জার',
+                    quantity: 2,
+                    total: '৳১৫,৫০০',
+                    status: 'ডেলিভারি চলছে'
+                }
+            ];
+            
+            table.innerHTML = '';
+            sampleData.forEach(item => {
+                const statusClass = item.status === 'সম্পূর্ণ' ? 'badge bg-success' :
+                                  item.status === 'প্রসেসিং' ? 'badge bg-warning' :
+                                  item.status === 'ডেলিভারি চলছে' ? 'badge bg-info' : 'badge bg-secondary';
+                
+                const row = `
+                    <tr>
+                        <td>${item.date}</td>
+                        <td><a href="#" class="text-primary">${item.orderId}</a></td>
+                        <td>${item.customer}</td>
+                        <td>${item.product}</td>
+                        <td>${item.quantity}</td>
+                        <td class="fw-bold">${item.total}</td>
+                        <td><span class="${statusClass}">${item.status}</span></td>
+                    </tr>
+                `;
+                table.innerHTML += row;
+            });
+        }
+        
+        function exportPDF() {
+            alert('PDF রিপোর্ট তৈরি হচ্ছে...');
+            // In real app, generate PDF report
+        }
+        
+        function exportExcel() {
+            alert('Excel রিপোর্ট ডাউনলোড হচ্ছে...');
+            // In real app, generate Excel file
+        }
+        
+        function exportCSV() {
+            alert('CSV রিপোর্ট ডাউনলোড হচ্ছে...');
+            // In real app, generate CSV file
+        }
+        
+        function applyReportFilters() {
+            alert('রিপোর্ট ফিল্টার অ্যাপ্লাই করা হয়েছে!');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('reportFiltersModal'));
+            modal.hide();
+            // In real app, reload data with filters
+        }
+    </script>
+</body>
+</html>
